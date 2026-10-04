@@ -3,7 +3,7 @@
 Spec: `docs/superpowers/specs/2026-10-04-workbench-bangla-design.md` (re-read §0 on every resume).
 Resume protocol: read this file → `git log --oneline -15` → continue from `## Current step
 
-Phase 1.6 — the provider patch and `scripts/probe_provider.py` are being written by a subagent (TDD, commit on WorkBench branch `bangla-eval`, export to `patches/0001-providers.patch`). Next: (1) verify that patch's tests yourself, (2) run `cd WorkBench && uv run python ../scripts/probe_provider.py --dry_run` and then the real probe (≤14 requests, already authorized), (3) write `docs/schema.md`, (4) do 1.7 `docs/pilot_design.md`. In parallel: the glossary-inputs subagent is producing `scripts/recover_slots.py`, `data_bn/slot_inventory.csv`, and `data_bn/glossary_candidates.csv` (Phase 2.1 input).
+Phase 1.7 + 2.2 in parallel. 1.7: write `docs/pilot_design.md`. 2.2: translator subagents are writing `data_bn/translations/batch_{1..5}.csv` (batch 1 done; 2–5 running). Next: when all 5 are done → merge into `data_bn/templates_bn.csv` (`cat` with a single header; 204 rows) → `python3 scripts/make_bn_tasks.py --check_templates` → independent reviewer subagent (max 2 fix cycles) → `python3 scripts/make_bn_tasks.py` (render 690) → copy `data_bn/*_bn_tasks_and_outcomes.csv` → `docs/translation_review.md` → STOP (a).
 
 ## Decisions log
 
@@ -21,6 +21,11 @@ Phase 1.6 — the provider patch and `scripts/probe_provider.py` are being writt
 - 2026-10-04 #10 — Ollama Cloud (docs, 2026-10-04; see `docs/notes_ollama_cloud.md`): base `https://ollama.com/v1` (`api.ollama.com` 301-redirects to it), Bearer auth; the free tier is now **monthly credits** with **1 concurrent request**; `tools` and `temperature` supported; `tool_choice` and `response_format` structured outputs NOT supported. WorkBench `--structured_outputs` = native `tools=` (not response_format), so it is compatible. The 17 live models from the unauthenticated `/api/tags` include gpt-oss:20b/120b, gemma4:31b, nemotron-3-nano:30b, glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7 (no qwen3 on cloud).
 - 2026-10-04 #11 — The owner pasted OLLAMA_API_KEY (57 chars) and said "You can use it while processing" → treated as rule-6 confirmation for the **Phase 1.6 probe only**: 7 models × 2 requests = 14 requests. The pilot still needs STOP (b).
 
+- 2026-10-04 #12 — Smoke test (1.3) verified: `uv run workbench-evaluate --all_tools` reproduces `retro/data/model_results.json` **exactly for all 24 Revisited models** (correct/total/side_effects), incl. README headline Claude Fable 5 674/690 = 97.7% (README "98%"), SE 1.9%, and GPT-4 (v1 GT) 48.1% / 16.2% (README "48% / 16%"). The 2024 paper's 43%/26% came from the older, stricter evaluator (README says so).
+- 2026-10-04 #13 — **Probe (1.6), 14 requests, 2026-10-04 09:46:** gpt-oss:20b, gpt-oss:120b, nemotron-3-nano:30b, gemma4:31b → chat 200 + native tool call 200 with valid JSON args (latency 0.7–1.9 s). glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7 → **HTTP 402 "this model is not included in your free usage"** → removed from MODEL_REGISTRY (commit 8372c87) so they can never be called. No rate-limit headers are returned. Results: `results/probe/ollama_cloud_2026-10-04.json`.
+- 2026-10-04 #14 — `uv run` (without `--frozen`) rewrote `WorkBench/uv.lock` (revision 3→5). Reverted. **Always use `uv run --frozen`.** The patch subagent's pyright run made one unintended PyPI version-check request (no install). Don't run pyright again.
+- 2026-10-04 #15 — Translation register: "তুমি"-form imperatives (চ্যাটে সহকর্মী/অ্যাসিস্ট্যান্টকে লেখার ধরন). Dates rendered as "{date} তারিখে" to avoid inflecting the month name. To be confirmed at STOP (a).
+
 ## Blockers / needs-human
 
 - ~~B1: OLLAMA_API_KEY empty~~ — resolved 2026-10-04 (owner pasted the key).
@@ -28,6 +33,7 @@ Phase 1.6 — the provider patch and `scripts/probe_provider.py` are being writt
 
 ## Verified facts about the repo
 
+- Our WorkBench commits on `bangla-eval`: fbfa4d3 (providers), 8372c87 (drop non-free models). Exported to `patches/0001-*.patch`, `patches/0002-*.patch`. 274 tests pass. Free Ollama Cloud registry keys: `ollama-gpt-oss-20b`, `ollama-gpt-oss-120b`, `ollama-nemotron-3-nano-30b`, `ollama-gemma4-31b`; local: `ollama-local-qwen3-8b`.
 - Upstream commit 49c7dfd (2026-08-18). `requires-python >=3.12`; uv 0.12.23; CPython 3.12.15. `uv sync --frozen` OK.
 - Console scripts (pyproject): `workbench-inference = src.cli:inference`, `workbench-evaluate = src.cli:evaluate`, `workbench-generate-data = src.cli:generate_data`.
 - Task CSV dirs: `data/processed/tasks_and_outcomes/` has the top-level files plus `v1/`, `v2026-05-17/`, `v2026-05-19/`. 690 rows: email 90, calendar 110, crm 80, analytics 120, pm 80, multi_domain 210. 69 base templates × 10 tasks each; no base appears in two files.
@@ -38,4 +44,4 @@ Phase 1.6 — the provider patch and `scripts/probe_provider.py` are being writt
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | monthly credits, 1 concurrent (exact cap unpublished) | 0 | probe: 14 requests (7 models × 2) |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 14 (probe, 2026-10-04) | dry run 3.1: ~4 tasks × ≤20 = ≤80 req (expected ~16) — needs STOP (b)? no: dry run comes after STOP (a); pilot needs STOP (b) |

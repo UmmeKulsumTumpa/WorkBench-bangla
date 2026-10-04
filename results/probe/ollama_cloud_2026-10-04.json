@@ -1,0 +1,273 @@
+{
+  "runs": [
+    {
+      "started_at": "2026-10-04T09:46:32",
+      "results": [
+        {
+          "model_name": "ollama-gpt-oss-20b",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "gpt-oss:20b",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 1.81,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "stop",
+              "usage": {
+                "prompt_tokens": 74,
+                "completion_tokens": 32
+              },
+              "content": "OK",
+              "ok": true
+            },
+            {
+              "kind": "tool",
+              "latency_s": 1.01,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "tool_calls",
+              "usage": {
+                "prompt_tokens": 138,
+                "completion_tokens": 39
+              },
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "get_weather",
+                  "arguments_raw": "{\"city\":\"Dhaka\"}",
+                  "arguments_valid_json": true
+                }
+              ],
+              "ok": true
+            }
+          ]
+        },
+        {
+          "model_name": "ollama-gpt-oss-120b",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "gpt-oss:120b",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 0.74,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "stop",
+              "usage": {
+                "prompt_tokens": 74,
+                "completion_tokens": 55
+              },
+              "content": "OK",
+              "ok": true
+            },
+            {
+              "kind": "tool",
+              "latency_s": 1.92,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "tool_calls",
+              "usage": {
+                "prompt_tokens": 138,
+                "completion_tokens": 57
+              },
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "get_weather",
+                  "arguments_raw": "{\"city\":\"Dhaka\"}",
+                  "arguments_valid_json": true
+                }
+              ],
+              "ok": true
+            }
+          ]
+        },
+        {
+          "model_name": "ollama-nemotron-3-nano-30b",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "nemotron-3-nano:30b",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 0.83,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "stop",
+              "usage": {
+                "prompt_tokens": 23,
+                "completion_tokens": 56
+              },
+              "content": "OK",
+              "ok": true
+            },
+            {
+              "kind": "tool",
+              "latency_s": 0.93,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "tool_calls",
+              "usage": {
+                "prompt_tokens": 289,
+                "completion_tokens": 130
+              },
+              "content": "\n",
+              "tool_calls": [
+                {
+                  "name": "get_weather",
+                  "arguments_raw": "{\"city\":\"Dhaka\"}",
+                  "arguments_valid_json": true
+                }
+              ],
+              "ok": true
+            }
+          ]
+        },
+        {
+          "model_name": "ollama-gemma4-31b",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "gemma4:31b",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 0.78,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "stop",
+              "usage": {
+                "prompt_tokens": 20,
+                "completion_tokens": 2
+              },
+              "content": "OK",
+              "ok": true
+            },
+            {
+              "kind": "tool",
+              "latency_s": 0.87,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "tool_calls",
+              "usage": {
+                "prompt_tokens": 82,
+                "completion_tokens": 16
+              },
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "get_weather",
+                  "arguments_raw": "{\"city\":\"Dhaka\"}",
+                  "arguments_valid_json": true
+                }
+              ],
+              "ok": true
+            }
+          ]
+        },
+        {
+          "model_name": "ollama-glm-5.3-flash",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "glm-5.3-flash",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 1.3,
+              "http_status": 402,
+              "headers": {},
+              "error": "APIStatusError: Error code: 402 - {'error': {'message': 'this model is not included in your free usage, add usage credits to pay as you go: https://ollama.com/settings or upgrade for included usage: https://ollama.com/upgrade (ref: af949516-1291-464a-91d8-bfb912152a98)', 'type': 'api_error', 'param': None, 'code': ",
+              "ok": false
+            },
+            {
+              "kind": "tool",
+              "latency_s": 0.46,
+              "http_status": 402,
+              "headers": {},
+              "error": "APIStatusError: Error code: 402 - {'error': {'message': 'this model is not included in your free usage, add usage credits to pay as you go: https://ollama.com/settings or upgrade for included usage: https://ollama.com/upgrade (ref: 45ac4aef-9878-4db6-9ba2-7db58f2e7ecf)', 'type': 'api_error', 'param': None, 'code': ",
+              "ok": false
+            }
+          ]
+        },
+        {
+          "model_name": "ollama-deepseek-v4.1-flash",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "deepseek-v4.1-flash",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 0.43,
+              "http_status": 402,
+              "headers": {},
+              "error": "APIStatusError: Error code: 402 - {'error': {'message': 'this model is not included in your free usage, add usage credits to pay as you go: https://ollama.com/settings or upgrade for included usage: https://ollama.com/upgrade (ref: 3f58fae1-441a-47ac-a0ba-6eec97df4ee6)', 'type': 'api_error', 'param': None, 'code': ",
+              "ok": false
+            },
+            {
+              "kind": "tool",
+              "latency_s": 0.46,
+              "http_status": 402,
+              "headers": {},
+              "error": "APIStatusError: Error code: 402 - {'error': {'message': 'this model is not included in your free usage, add usage credits to pay as you go: https://ollama.com/settings or upgrade for included usage: https://ollama.com/upgrade (ref: ad3427df-8650-41f3-a34e-9f851839048a)', 'type': 'api_error', 'param': None, 'code': ",
+              "ok": false
+            }
+          ]
+        },
+        {
+          "model_name": "ollama-minimax-m2.7",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "minimax-m2.7",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 0.44,
+              "http_status": 402,
+              "headers": {},
+              "error": "APIStatusError: Error code: 402 - {'error': {'message': 'this model is not included in your free usage, add usage credits to pay as you go: https://ollama.com/settings or upgrade for included usage: https://ollama.com/upgrade (ref: d3445384-91ad-4e77-a34a-2297e1406dbd)', 'type': 'api_error', 'param': None, 'code': ",
+              "ok": false
+            },
+            {
+              "kind": "tool",
+              "latency_s": 0.42,
+              "http_status": 402,
+              "headers": {},
+              "error": "APIStatusError: Error code: 402 - {'error': {'message': 'this model is not included in your free usage, add usage credits to pay as you go: https://ollama.com/settings or upgrade for included usage: https://ollama.com/upgrade (ref: 7cae3d4b-8108-4434-a106-4f0fcb1c3305)', 'type': 'api_error', 'param': None, 'code': ",
+              "ok": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
