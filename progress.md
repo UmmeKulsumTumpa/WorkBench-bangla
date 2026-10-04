@@ -15,36 +15,10 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 ## Current step
 
-**STOP (a): owner review of the Bangla translation.** Nothing runs until the owner replies.
-
-What the owner should check (≈45–60 min):
-1. **Policy:** `docs/translation_policy.md`. Decide each item in §7 plus these new questions:
-   - (a) "তুমি" register everywhere.
-   - (b) Dates written as `{date} তারিখে` (e.g. "6 ডিসেম্বর তারিখের").
-   - (c) DB labels stay Latin and unquoted: list names `in progress`, `backlog`; CRM status `lead`, `won`; boards `front-end`; plot types `line`.
-   - (d) Case marker after vowel-final Latin names: `Akira-এর` (current) or `Akira-র`?
-   - (e) "delete … in the CRM" rendered `CRM থেকে … ডিলিট` (natural) rather than `CRM-এ`.
-   - (f) Loanwords ইমেইল, মিটিং, টাস্ক, সাবজেক্ট, চার্ট, প্লিজ; "next Friday" → "আগামী শুক্রবার".
-2. **Translations:** `docs/translation_review.md`. All 204 EN/BN variants are grouped under the 69 templates, each with one real rendered task. Check meaning first (quantifiers, conditions, step order), then naturalness, then consistency.
-3. **Glossary:** `data_bn/glossary.csv`, column `value_bn` (months, weekdays, the 3 analytics metrics, comparators, durations).
-4. Optional context: `data_bn/review/review_cycle1_summary.md` (what the reviewers changed and why).
-
-How the owner gives corrections, either way:
-- **Edit `data_bn/templates_bn.csv` directly**, column `template_bn`. Rules: keep each `{slot}` name exactly; inside quotes that are copied into a tool call, use `{slot!en}`; ASCII digits only. VS Code or Excel are both fine; BOM/CRLF is handled. For glossary values, edit `data_bn/glossary.csv` → `value_bn`.
-- **Or** write corrections in chat as `T23.v2: <new Bangla>`, plus policy answers as 1(a)…(f).
-
-After the owner's edits, I run:
-1. `git diff data_bn/templates_bn.csv` → the reviewer subagent checks only the changed rows.
-2. `python3 scripts/make_bn_tasks.py`, then `python3 scripts/make_pilot.py`, then `python3 scripts/build_translation_review.py`.
-3. Commit.
-
-Then Phase 3.1 (dry run, ~16 requests) → STOP (b).
-
-Preview of the STOP (b) decisions (`docs/pilot_design.md`):
-- Primary model `ollama-gemma4-31b` (gemma4:31b), second `ollama-gpt-oss-20b`.
-- `--tool_selection all` instead of `domains` (upstream crm bug).
-- `--act_without_confirmation`.
-- About 720 requests per model for the pilot.
+Phase 3.2 — the pilot is running (background): EN then BN, gemma4:31b, results in `WorkBench/data/results/pilot_{en,bn}/`, log in `results/pilot/run_log.txt`. If it was interrupted, re-run the same command (it has `--resume`):
+`source env.sh && cd WorkBench && uv run --frozen workbench-inference --model_name ollama-gemma4-31b --tasks_path data/processed/tasks_and_outcomes/pilot_{en|bn}_tasks_and_outcomes.csv --structured_outputs --act_without_confirmation --tool_selection all --workers 1 --log_traces --resume`
+Next: run `scripts/compare_en_bn.py` (comparison_id `workbench_pilot_ollama-gemma4-31b_c1`), then the failure analysis (subagent), then `results/pilot_report.md`, then the HTML report (owner request), then commit.
+STOP (a) is still open in parallel: owner translation review (see `docs/translation_review.md`, policy questions in `docs/translation_policy.md` §7).
 
 ## Decisions log
 
@@ -76,6 +50,7 @@ Preview of the STOP (b) decisions (`docs/pilot_design.md`):
   - (2) I passed `--out_dir ../results/...`, which wrote **outside the project** (`BARTA/results/`, created 11:34 by me). Moved back and deleted. `compare_en_bn.py` now refuses any out_dir outside the project.
   - (3) `tests/conftest.py` keeps pytest temp dirs in `.tools/pytest-tmp`. Earlier test runs used the macOS system temp dir (`/private/var/folders/.../pytest-of-cefalo`, auto-cleaned by the OS).
   - (4) Results CSVs contain fields >128 KB, so readers need `csv.field_size_limit(sys.maxsize)`.
+- 2026-10-04 #22 — **STOP (b) passed by owner instruction:** "run the 90-task pilot on gemma4:31b and gimme a html report". Model `ollama-gemma4-31b` (gemma4:31b, Ollama Cloud free tier), C1, settings as `docs/pilot_design.md` §4 (`--tool_selection all`, `--act_without_confirmation`, `--structured_outputs`, `--workers 1`, `--log_traces`, `--resume`). Budget ≈640 requests. **STOP (a) is NOT completed:** the owner has not yet reviewed the BN translations (machine-translated + 2 independent model-review cycles). Recorded as a threat to validity; if the owner later edits translations, the BN side must be re-run.
 
 ## Blockers / needs-human
 
