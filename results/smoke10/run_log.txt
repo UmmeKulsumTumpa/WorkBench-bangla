@@ -1,0 +1,82 @@
+=== en 2026-10-04T05:32:54Z
+--------------------------------------------
+--------------------------------------------
+Correct but not exact match:
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
+Task:
+    Can you make a bar chart of total visits since November 21?
+Prediction:
+    analytics.create_plot.func(plot_type="bar", time_min="2023-11-21", time_max="2023-11-30", value_to_plot="total_visits")
+Ground truth:
+    analytics.create_plot.func(time_min="2023-11-21", time_max="2023-11-29", value_to_plot="total_visits", plot_type="bar")
+Unwanted side effects: False
+Error: 
+Output:
+    {"tool_call": {"id": "call_ahhr1x0d", "name": "analytics_create_plot", "arguments": {"plot_type": "bar", "time_min": "2023-11-21", "time_max": "2023-11-30", "value_to_plot": "total_visits"}}, "content": ""}
+--------------------------------------------
+Task:
+    please plot the distribution of the average session duration metric on September 11
+Prediction:
+    analytics.create_plot.func(plot_type="histogram", time_max="2023-09-11", time_min="2023-09-11", value_to_plot="session_duration_seconds")
+Ground truth:
+    analytics.create_plot.func(time_min="2023-09-11", time_max="2023-09-11", value_to_plot="session_duration_seconds", plot_type="histogram")
+Unwanted side effects: False
+Error: 
+Output:
+    The distribution of the average session duration metric for September 11 has been plotted. You can find the plot at: `plots/2023-09-11_2023-09-11_session_duration_seconds_histogram.png`.
+--------------------------------------------
+Task:
+    Move all of yuki's tasks that are in progress to in review
+Prediction:
+    company_directory.find_email_address.func(name="yuki")
+    project_management.search_tasks.func(assigned_to_email="yuki.tanaka@atlas.com", list_name="In Progress")
+    project_management.update_task.func(field="list_name", new_value="In Review", task_id="00000091")
+Ground truth:
+    project_management.update_task.func(task_id="00000091", field="list_name", new_value="In Review")
+Unwanted side effects: False
+Error: 
+Output:
+    All of Yuki\'s tasks that were "In Progress" have been moved to "In Review". Specifically, task 00000091 ("Add authentication for third-party login") was updated.
+=== bn 2026-10-04T05:33:27Z
+--------------------------------------------
+--------------------------------------------
+Correct but not exact match:
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
+Task:
+    21 নভেম্বর থেকে মোট ভিজিট দেখিয়ে একটা bar চার্ট বানাতে পারবে?
+Prediction:
+    analytics.create_plot.func(plot_type="bar", time_min="2023-11-21", time_max="2023-11-30", value_to_plot="total_visits")
+Ground truth:
+    analytics.create_plot.func(time_min="2023-11-21", time_max="2023-11-29", value_to_plot="total_visits", plot_type="bar")
+Unwanted side effects: False
+Error: 
+Output:
+    হ্যাঁ, আমি ২১ নভেম্বর থেকে মোট ভিজিটের একটি বার চার্ট তৈরি করেছি। আপনি এটি এখানে দেখতে পারেন: plots/2023-11-21_2023-11-30_total_visits_bar.png
+--------------------------------------------
+Task:
+    প্লিজ 11 সেপ্টেম্বর তারিখের গড় সেশনের সময়কাল মেট্রিকটার ডিস্ট্রিবিউশন চার্টে দেখাও
+Prediction:
+    analytics.create_plot.func(plot_type="histogram", time_max="2023-09-11", time_min="2023-09-11", value_to_plot="session_duration_seconds")
+Ground truth:
+    analytics.create_plot.func(time_min="2023-09-11", time_max="2023-09-11", value_to_plot="session_duration_seconds", plot_type="histogram")
+Unwanted side effects: False
+Error: 
+Output:
+    ১১ সেপ্টেম্বর তারিখের গড় সেশনের সময়কাল মেট্রিকটার ডিস্ট্রিবিউশন চার্টটি তৈরি করা হয়েছে। আপনি এটি এখানে দেখতে পারেন: plots/2023-09-11_2023-09-11_session_duration_seconds_histogram.png
+--------------------------------------------
+Task:
+    yuki-এর যেসব টাস্ক in progress-এ আছে, সবগুলো in review-এ সরিয়ে দাও
+Prediction:
+    company_directory.find_email_address.func(name="yuki")
+    project_management.search_tasks.func(assigned_to_email="yuki.tanaka@atlas.com", list_name="In Progress")
+    project_management.update_task.func(field="list_name", new_value="In Review", task_id="00000091")
+Ground truth:
+    project_management.update_task.func(task_id="00000091", field="list_name", new_value="In Review")
+Unwanted side effects: False
+Error: 
+Output:
+    Yuki-এর "In Progress"-এ থাকা টাস্কটি (Task ID: 00000091, "Add authentication for third-party login") সফলভাবে "In Review"-এ সরিয়ে দেওয়া হয়েছে।

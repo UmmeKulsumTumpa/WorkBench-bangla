@@ -362,6 +362,9 @@ def main(argv=None) -> Path:
         setattr(args, k, absp(getattr(args, k)))
     out_dir = Path(args.out_dir or f"results/{args.comparison_id}")
     out_dir = out_dir if out_dir.is_absolute() else ROOT / out_dir
+    out_dir = out_dir.resolve()
+    if not out_dir.is_relative_to(ROOT.resolve()):
+        raise SystemExit(f"refusing to write outside the project folder: {out_dir}")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     os.chdir(WB)

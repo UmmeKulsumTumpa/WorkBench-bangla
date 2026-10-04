@@ -70,6 +70,12 @@ Preview of the STOP (b) decisions (`docs/pilot_design.md`):
 - 2026-10-04 #17 — Checker refinements: allow DB enum words (list_name, CRM status/product_interest, traffic_source, plot types) and `CRM-`; GT-literal survival check excludes `field=` argument names (schema, not task text).
 - 2026-10-04 #18 — Pilot subset built: 90 tasks (15/file), 63/69 templates, 90/204 variants, seed 20261004 (`data_bn/pilot/`).
 - 2026-10-04 #19 — **Owner instruction:** "first run 10 tasks for both bangla and english" → a 10-task EN+BN smoke run on `ollama-gemma4-31b`, before the STOP (a) review is finished (owner's choice; translations may still change, so this run is exploratory, not part of the pilot). Subset: `data_bn/smoke10/` = the first N pilot rows per file (email 2, calendar 2, crm 1, analytics 2, pm 1, multi 2). Settings: `--structured_outputs --act_without_confirmation --tool_selection all --workers 1 --log_traces`. Budget: 20 tasks × ~4 = ~80 requests (cap 400).
+- 2026-10-04 #20 — **Smoke10 result (gemma4:31b, C1, 2026-10-04 11:32–11:34 local):** EN 8/10, BN 8/10, identical per task. Both failures are multi_domain in BOTH languages with side effects, the same reasoning errors (wrong first-free-slot: EN 11:00 / BN 15:00 vs GT 13:00; wrong "fewest tasks" person: nia vs yuki), so not language-induced. Requests: EN 37 + BN 34 = **71 for 20 tasks (≈3.6/task)**; no 429/402/5xx. Projection: the pilot (180 tasks) needs ≈640 requests per model. Observation: the model's Bangla prose replies use Bengali numerals ("২১ নভেম্বর") while tool arguments stay ASCII (ungraded; note for the failure taxonomy). Output: `results/workbench_smoke10_ollama-gemma4-31b_c1/`, raw runs in `WorkBench/data/results/smoke10_{en,bn}/`.
+- 2026-10-04 #21 — Fixes made during smoke10:
+  - (1) WorkBench loads `.env` from its cwd (`src/cli.py:21`), so the first attempt failed with `OSError: Missing required environment variable 'OLLAMA_API_KEY'` (0 API calls). Fix: symlink `WorkBench/.env -> ../.env`; WorkBench's `.gitignore` covers `.env`.
+  - (2) I passed `--out_dir ../results/...`, which wrote **outside the project** (`BARTA/results/`, created 11:34 by me). Moved back and deleted. `compare_en_bn.py` now refuses any out_dir outside the project.
+  - (3) `tests/conftest.py` keeps pytest temp dirs in `.tools/pytest-tmp`. Earlier test runs used the macOS system temp dir (`/private/var/folders/.../pytest-of-cefalo`, auto-cleaned by the OS).
+  - (4) Results CSVs contain fields >128 KB, so readers need `csv.field_size_limit(sys.maxsize)`.
 
 ## Blockers / needs-human
 
@@ -89,4 +95,4 @@ Preview of the STOP (b) decisions (`docs/pilot_design.md`):
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 14 (probe, 2026-10-04) | smoke10 (owner-requested): 20 tasks, ~80 req (cap 400); pilot (after STOP b): ~720 req per model |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 85 total on 2026-10-04 (probe 14 + smoke10 71) | smoke10 done: 71 req (2026-10-04), no limit errors; pilot (after STOP b): ≈640 req per model (3.6 req/task measured) |
