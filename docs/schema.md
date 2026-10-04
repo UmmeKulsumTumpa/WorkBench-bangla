@@ -60,6 +60,7 @@ Columns: `benchmark, model_key, model_id, condition, scope, metric, value, n`.
   - `delta_completion_ci95_low`, `delta_completion_ci95_high` (paired bootstrap over tasks, 10,000 resamples, seed 20261004)
   - `n_en_only`, `n_bn_only` (discordant counts)
 - `n` is the number of paired tasks in that scope.
+- Extra metrics (WorkBench, `scripts/compare_en_bn.py`): scope `overall` also carries `delta_side_effect_ci95_low`/`_high` (same bootstrap, percentile CIs) and `completion_rate_en_weighted`/`completion_rate_bn_weighted` = Σ_d w_d·completion_rate_d with w_d = domain share of the full 690-task set (email 90, calendar 110, analytics 120, project_management 80, customer_relationship_manager 80, multi_domain 210), correcting the pilot's equal 15-per-domain mix; `domain:<d>` scopes are descriptive only (no `mcnemar_p`/CIs).
 
 ## 4. Failure labels — `results/<comparison_id>/failure_labels.csv`
 

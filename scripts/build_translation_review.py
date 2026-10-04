@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write docs/translation_review.md: side-by-side EN/BN for all 204 variants grouped by the 69 base
+"""Rebuild data_bn/review_sheet.csv, then write docs/translation_review.md: side-by-side EN/BN for all 204 variants grouped by the 69 base
 templates, each with one rendered example task, for the owner's native-speaker review. Stdlib only."""
 import csv
 import os
@@ -11,7 +11,33 @@ def cell(s):
     return s.replace("|", "\\|").replace("\r", "").replace("\n", "<br>")
 
 
+SOURCES = ["email", "calendar", "customer_relationship_manager", "analytics", "project_management", "multi_domain"]
+
+
+def make_sheet():
+    """Rebuild data_bn/review_sheet.csv: each variant with its first rendered EN/BN example."""
+    ex = {}
+    for s in SOURCES:
+        with open(os.path.join(ROOT, "WorkBench", "data", "processed", "tasks_and_outcomes",
+                               f"{s}_tasks_and_outcomes.csv"), encoding="utf-8", newline="") as f:
+            en = list(csv.DictReader(f))
+        with open(os.path.join(ROOT, "data_bn", f"{s}_bn_tasks_and_outcomes.csv"), encoding="utf-8", newline="") as f:
+            bn = list(csv.DictReader(f))
+        for a, b in zip(en, bn):
+            ex.setdefault(a["chosen_template"], (a["task"], b["task"], a["outcome"]))
+    with open(os.path.join(ROOT, "data_bn", "templates_bn.csv"), encoding="utf-8", newline="") as f:
+        templates = list(csv.DictReader(f))
+    with open(os.path.join(ROOT, "data_bn", "review_sheet.csv"), "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator="\n")
+        w.writerow(["variant_id", "template_en", "template_bn", "example_task_en", "example_task_bn",
+                    "example_outcome", "translator_notes"])
+        for r in templates:
+            e = ex[r["template_en"]]
+            w.writerow([r["variant_id"], r["template_en"], r["template_bn"], e[0], e[1], e[2], r["notes"]])
+
+
 def main():
+    make_sheet()
     with open(os.path.join(ROOT, "data_bn", "templates_en.csv"), encoding="utf-8") as f:
         bases = list(csv.DictReader(f))
     with open(os.path.join(ROOT, "data_bn", "review_sheet.csv"), encoding="utf-8", newline="") as f:

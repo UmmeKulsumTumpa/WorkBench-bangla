@@ -47,7 +47,9 @@ ENUM_PHRASES = ["Backlog", "In Progress", "In Review", "Completed",
                 "Lead", "Lost", "Proposal", "Qualified", "Won",
                 "Consulting", "Hardware", "Services", "Software", "Training",
                 "direct", "referral", "search engine", "social media",
-                "bar", "line", "scatter", "histogram"]
+                "bar", "line", "scatter", "histogram",
+                # project board names (DB enum; owner decision review cycle 2: Latin, EN surface form)
+                "Front end", "Back end", "Design", "front-end", "back-end"]
 ENUM_WORDS = {w.lower() for ph in ENUM_PHRASES for w in ph.split()}
 
 

@@ -297,7 +297,7 @@ def run_meta(args, run_id, language, condition, tasks_path, results_path, meta, 
     patches = sorted(os.path.relpath(p, ROOT) for p in glob.glob(str(ROOT / "patches" / "*.patch")))
     supports_t = meta.get("supports_temperature")
     total = int(per.n_llm_requests.astype(int).sum()) if traces else None
-    rel = lambda p: os.path.relpath(p, ROOT)  # noqa: E731
+    rel = lambda p: os.path.relpath(p, ROOT) if Path(p).resolve().is_relative_to(ROOT) else str(p)  # noqa: E731
     info = {
         "benchmark": BENCHMARK,
         "run_id": run_id,
