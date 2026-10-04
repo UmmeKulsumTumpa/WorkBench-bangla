@@ -26,13 +26,13 @@ I wanted to let you know that I've completed the tasks for the status briefing. 
 Cheers,
 
 Sam' আর সাবজেক্ট হবে 'Task Update on Improve UX of onboarding process'। তুমি কি এটা করে দিতে পারবে?","['email.send_email.func(recipient=""kofi.mensah@atlas.com"", subject=""Task Update on Improve UX of onboarding process"", body=""Hey kofi,\\n\\nI wanted to let you know that I\'ve completed the tasks for the status briefing. Looking forward to your feedback.\\n\\nCheers,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","{name}-কে একটা ইমেইল পাঠানো দরকার, যেখানে লেখা থাকবে '{body!en}' আর সাবজেক্ট হবে '{subject!en}'। তুমি কি এটা করে দিতে পারবে?","['email']"
-"দয়া করে jinsoo-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে 'Hi jinsoo,
+"প্লিজ jinsoo-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে 'Hi jinsoo,
 
 Starting on 'Create wireframe for homepage' today. Any preliminary thoughts or resources you recommend before I dive in?
 
 Best,
 
-Sam' আর সাবজেক্ট রাখবে 'Task Update on Design logo for website'","['email.send_email.func(recipient=""jinsoo.kim@atlas.com"", subject=""Task Update on Design logo for website"", body=""Hi jinsoo,\\n\\nStarting on \'Create wireframe for homepage\' today. Any preliminary thoughts or resources you recommend before I dive in?\\n\\nBest,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","দয়া করে {name}-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে '{body!en}' আর সাবজেক্ট রাখবে '{subject!en}'","['email']"
+Sam' আর সাবজেক্ট রাখবে 'Task Update on Design logo for website'","['email.send_email.func(recipient=""jinsoo.kim@atlas.com"", subject=""Task Update on Design logo for website"", body=""Hi jinsoo,\\n\\nStarting on \'Create wireframe for homepage\' today. Any preliminary thoughts or resources you recommend before I dive in?\\n\\nBest,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","প্লিজ {name}-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে '{body!en}' আর সাবজেক্ট রাখবে '{subject!en}'","['email']"
 "dmitri-কে একটা ইমেইল পাঠানো দরকার, যেখানে লেখা থাকবে 'Hey dmitri,
 
 Encountered a few challenges while working on the Innovation and Creativity Hackathon. Could use your advice.
@@ -54,13 +54,13 @@ I've been assigned 'Develop prototype for report generation'. Excited to work on
 Cheers,
 
 Sam', আর সাবজেক্ট দিও 'Task Update on Create wireframe for homepage'","['email.send_email.func(recipient=""lena.schmidt@atlas.com"", subject=""Task Update on Create wireframe for homepage"", body=""lena,\\n\\nI\'ve been assigned \'Develop prototype for report generation\'. Excited to work on this and confident it will greatly improve our backend efficiency.\\n\\nCheers,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","{name}-কে একটা ইমেইল পাঠাও, তাতে লেখা থাকবে '{body!en}', আর সাবজেক্ট দিও '{subject!en}'","['email']"
-"দয়া করে nadia-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে 'nadia,
+"প্লিজ nadia-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে 'nadia,
 
 I've been assigned 'Develop prototype for report generation'. Excited to work on this and confident it will greatly improve our backend efficiency.
 
 Cheers,
 
-Sam' আর সাবজেক্ট রাখবে 'Task Update on Create wireframe for homepage'","['email.send_email.func(recipient=""nadia.moreau@atlas.com"", subject=""Task Update on Create wireframe for homepage"", body=""nadia,\\n\\nI\'ve been assigned \'Develop prototype for report generation\'. Excited to work on this and confident it will greatly improve our backend efficiency.\\n\\nCheers,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","দয়া করে {name}-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে '{body!en}' আর সাবজেক্ট রাখবে '{subject!en}'","['email']"
+Sam' আর সাবজেক্ট রাখবে 'Task Update on Create wireframe for homepage'","['email.send_email.func(recipient=""nadia.moreau@atlas.com"", subject=""Task Update on Create wireframe for homepage"", body=""nadia,\\n\\nI\'ve been assigned \'Develop prototype for report generation\'. Excited to work on this and confident it will greatly improve our backend efficiency.\\n\\nCheers,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","প্লিজ {name}-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে '{body!en}' আর সাবজেক্ট রাখবে '{subject!en}'","['email']"
 "amir-কে একটা ইমেইল পাঠানো দরকার, যেখানে লেখা থাকবে 'amir,
 
 Regarding task 'Add authentication for email notification', I've made significant progress but have hit a snag with UI responsiveness. Could use a brainstorm session.
@@ -70,13 +70,13 @@ Additionally, I wanted to touch base on some other areas we've been focusing on 
 Regards,
 
 Sam' আর সাবজেক্ট হবে 'Update on status briefing'। তুমি কি এটা করে দিতে পারবে?","['email.send_email.func(recipient=""amir.ali@atlas.com"", subject=""Update on status briefing"", body=""amir,\\n\\nRegarding task \'Add authentication for email notification\', I\'ve made significant progress but have hit a snag with UI responsiveness. Could use a brainstorm session.\\n\\nAdditionally, I wanted to touch base on some other areas we\'ve been focusing on lately. Our team has been working tirelessly on improving our project management workflows and enhancing collaboration across departments. This effort includes adopting new tools, refining our communication strategies, and ensuring that all team members are fully aligned with our objectifs.\\n\\nRegards,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","{name}-কে একটা ইমেইল পাঠানো দরকার, যেখানে লেখা থাকবে '{body!en}' আর সাবজেক্ট হবে '{subject!en}'। তুমি কি এটা করে দিতে পারবে?","['email']"
-"দয়া করে aisha-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে 'Hi aisha,
+"প্লিজ aisha-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে 'Hi aisha,
 
 I have some ideas for the Machine Learning Chat that I'd like to run by you. When are you free?
 
 Best,
 
-Sam' আর সাবজেক্ট রাখবে 'Update on Innovation and Creativity Hackathon'","['email.send_email.func(recipient=""aisha.chen@atlas.com"", subject=""Update on Innovation and Creativity Hackathon"", body=""Hi aisha,\\n\\nI have some ideas for the Machine Learning Chat that I\'d like to run by you. When are you free?\\n\\nBest,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","দয়া করে {name}-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে '{body!en}' আর সাবজেক্ট রাখবে '{subject!en}'","['email']"
+Sam' আর সাবজেক্ট রাখবে 'Update on Innovation and Creativity Hackathon'","['email.send_email.func(recipient=""aisha.chen@atlas.com"", subject=""Update on Innovation and Creativity Hackathon"", body=""Hi aisha,\\n\\nI have some ideas for the Machine Learning Chat that I\'d like to run by you. When are you free?\\n\\nBest,\\n\\nSam"")']","Send an email to {name} saying '{body}' and title it '{subject}'","প্লিজ {name}-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে '{body!en}' আর সাবজেক্ট রাখবে '{subject!en}'","['email']"
 "dmitri-কে একটা ইমেইল পাঠানো দরকার, যেখানে লেখা থাকবে 'Hey dmitri,
 
 I have some ideas for the process review that I'd like to run by you. When are you free?

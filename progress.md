@@ -15,7 +15,7 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 ## Current step
 
-Phase 2.2 — merge `data_bn/translations/batch_{1..5}.csv` → `data_bn/templates_bn.csv` (204 rows, same order as `data_bn/variants_en.csv`), then `python3 scripts/make_bn_tasks.py --check_templates`, then the independent reviewer subagent (max 2 fix cycles), then `python3 scripts/make_bn_tasks.py` (render 690), then `python3 scripts/make_pilot.py`, then `docs/translation_review.md`, then STOP (a).
+Phase 2.2 review cycle 2 (final), run by the reviewer subagent → `data_bn/review/templates_bn_cycle2_candidate.csv`. Next: copy the candidate over `data_bn/templates_bn.csv` → `python3 scripts/make_bn_tasks.py` → `python3 scripts/make_pilot.py` → rebuild the review sheet (inline script used 2026-10-04; see the git history of `data_bn/review_sheet.csv`) → `python3 scripts/build_translation_review.py` → write the STOP (a) instructions → stop. In parallel: a subagent is writing `scripts/compare_en_bn.py` + `tests/test_compare_en_bn.py` (Phase 3.3 prep, tested on committed results, no API).
 
 ## Decisions log
 
@@ -37,6 +37,9 @@ Phase 2.2 — merge `data_bn/translations/batch_{1..5}.csv` → `data_bn/templat
 - 2026-10-04 #13 — **Probe (1.6), 14 requests, 2026-10-04 09:46:** gpt-oss:20b, gpt-oss:120b, nemotron-3-nano:30b, gemma4:31b → chat 200 + native tool call 200 with valid JSON args (latency 0.7–1.9 s). glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7 → **HTTP 402 "this model is not included in your free usage"** → removed from MODEL_REGISTRY (commit 8372c87) so they can never be called. No rate-limit headers are returned. Results: `results/probe/ollama_cloud_2026-10-04.json`.
 - 2026-10-04 #14 — `uv run` (without `--frozen`) rewrote `WorkBench/uv.lock` (revision 3→5). Reverted. **Always use `uv run --frozen`.** The patch subagent's pyright run made one unintended PyPI version-check request (no install). Don't run pyright again.
 - 2026-10-04 #15 — Translation register: "তুমি"-form imperatives (চ্যাটে সহকর্মী/অ্যাসিস্ট্যান্টকে লেখার ধরন). Dates rendered as "{date} তারিখে" to avoid inflecting the month name. To be confirmed at STOP (a).
+- 2026-10-04 #16 — Review cycle 1 (independent reviewer): 99/204 rows changed (18 critical: list names/status transliterated into Bangla script → Latin; 63 major: unneeded quotes on enums, cross-batch terminology; 18 minor fluency). No meaning errors were found. Cycle 2 rules: board references stay Latin (`front-end বোর্ডে`); `CRM সিস্টেমে` → `CRM-এ`; enums keep EN case; curly quotes are OK; casual questions mirror EN punctuation.
+- 2026-10-04 #17 — Checker refinements: allow DB enum words (list_name, CRM status/product_interest, traffic_source, plot types) and `CRM-`; GT-literal survival check excludes `field=` argument names (schema, not task text).
+- 2026-10-04 #18 — Pilot subset built: 90 tasks (15/file), 63/69 templates, 90/204 variants, seed 20261004 (`data_bn/pilot/`).
 
 ## Blockers / needs-human
 
