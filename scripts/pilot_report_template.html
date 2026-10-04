@@ -1,0 +1,386 @@
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (summary → evidence → detail), wide table scrolls in its own box. */
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --ink: #14171c; --ink-2: #4a515c; --ink-3: #6b7280;
+  --rule: #dfe3e8; --rule-soft: #eceff3; --accent: #2a5bd7;
+  --en: #2a78d6; --bn: #eb6834; --zero: #9aa3ae;
+  --good: #1f7a3d; --good-bg: #e6f4ea; --bad: #b3261e; --bad-bg: #fbe9e7; --warn: #8a5a00; --warn-bg: #fff4d6;
+  --f-display: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Hanken Grotesk", "Hind Siliguri", "Helvetica Neue", Arial, sans-serif;
+  --f-bn: "Hind Siliguri", "Noto Sans Bengali", "Bangla Sangam MN", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111317; --surface: #191c21; --ink: #eef1f5; --ink-2: #b9c0ca; --ink-3: #8b94a1;
+  --rule: #2c3139; --rule-soft: #22262d; --accent: #7aa2ff;
+  --en: #3987e5; --bn: #d95926; --zero: #6b7480;
+  --good: #7fd49a; --good-bg: #16301f; --bad: #ff9a8f; --bad-bg: #3a1a17; --warn: #f2c25b; --warn-bg: #352a10;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #111317; --surface: #191c21; --ink: #eef1f5; --ink-2: #b9c0ca; --ink-3: #8b94a1;
+  --rule: #2c3139; --rule-soft: #22262d; --accent: #7aa2ff;
+  --en: #3987e5; --bn: #d95926; --zero: #6b7480;
+  --good: #7fd49a; --good-bg: #16301f; --bad: #ff9a8f; --bad-bg: #3a1a17; --warn: #f2c25b; --warn-bg: #352a10;
+  color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 64px; display: grid; gap: 40px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font: 600 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font: 700 clamp(28px, 4vw, 40px)/1.1 var(--f-display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font: 650 20px/1.25 var(--f-display); margin: 0 0 4px; text-wrap: balance; }
+h3 { font: 600 15px/1.3 var(--f-display); margin: 0; }
+p { margin: 0; max-width: 68ch; }
+.lede { font-size: 17px; color: var(--ink-2); max-width: 70ch; }
+.lede strong { color: var(--ink); }
+.sub { color: var(--ink-3); font-size: 13.5px; }
+.mono { font-family: var(--f-mono); font-size: 12.5px; }
+.bn { font-family: var(--f-bn); font-size: 15px; line-height: 1.6; }
+section { display: grid; gap: 16px; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; min-width: 0; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.kpi .k { font: 500 12px/1.2 var(--f-mono); color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+.kpi .v { font: 700 30px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.kpi .d { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex: none; }
+.sw.en { background: var(--en); } .sw.bn { background: var(--bn); }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+svg text { fill: var(--ink-2); font-family: var(--f-body); font-size: 12px; }
+svg .axis { stroke: var(--rule); stroke-width: 1; }
+svg .grid { stroke: var(--rule-soft); stroke-width: 1; }
+svg .zero { stroke: var(--zero); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.matrix { border-collapse: separate; border-spacing: 6px; font-variant-numeric: tabular-nums; }
+.matrix th { font: 500 12px/1.2 var(--f-mono); color: var(--ink-3); text-align: center; padding: 4px 8px; }
+.matrix th.row { text-align: right; }
+.matrix td { width: 120px; height: 72px; text-align: center; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); }
+.matrix td b { display: block; font: 700 24px/1 var(--f-display); }
+.matrix td span { font-size: 12px; color: var(--ink-3); }
+.matrix td.agree { background: var(--rule-soft); }
+.matrix td.disc { border: 1.5px solid var(--ink-3); }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; font: 500 12px/1.5 var(--f-mono); white-space: nowrap; }
+.chip.ok { color: var(--good); background: var(--good-bg); }
+.chip.fail { color: var(--bad); background: var(--bad-bg); }
+.chip.se { color: var(--warn); background: var(--warn-bg); }
+.chip.lab { color: var(--ink-2); background: var(--rule-soft); }
+.disc-list { display: grid; gap: 12px; }
+.disc-item { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.disc-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+.disc-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.disc-pair > div { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.side-k { font: 600 11px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); display: flex; gap: 6px; align-items: center; }
+.why { font-size: 13.5px; color: var(--ink-2); border-left: 2px solid var(--rule); padding-left: 10px; }
+ul.findings { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 76ch; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.controls label { font-size: 13px; color: var(--ink-3); display: flex; gap: 6px; align-items: center; }
+select, input[type="search"] { font: inherit; font-size: 14px; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 6px 10px; }
+select:focus-visible, input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tablebox { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+table.tasks { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 13.5px; }
+table.tasks th { text-align: left; font: 600 12px/1.2 var(--f-mono); color: var(--ink-3); padding: 10px 12px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; background: var(--surface); }
+table.tasks td { padding: 10px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+table.tasks td.num { font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 12.5px; white-space: nowrap; }
+table.tasks td.txt { max-width: 340px; }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12.5px; line-height: 1.4; padding: 8px 10px; border-radius: 6px; max-width: 260px; z-index: 10; font-variant-numeric: tabular-nums; }
+dl.setup { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 18px; margin: 0; font-size: 14px; }
+dl.setup dt { color: var(--ink-3); }
+dl.setup dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+footer { color: var(--ink-3); font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 16px; }
+@media (max-width: 760px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid2, .disc-pair { grid-template-columns: minmax(0, 1fr); }
+  .matrix td { width: 92px; height: 64px; }
+}
+@media (prefers-reduced-motion: no-preference) { .bar-anim { transition: opacity .15s; } }
+</style>
+
+<div class="wrap" id="app">
+  <header>
+    <div class="eyebrow" id="eyebrow">WorkBench · English vs Bangla · pilot</div>
+    <h1 id="h1">Does Bangla instruction hurt the agent?</h1>
+    <p class="lede" id="lede"></p>
+  </header>
+
+  <section aria-labelledby="s-headline">
+    <h2 id="s-headline" hidden>Headline numbers</h2>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section aria-labelledby="s-ci">
+    <div>
+      <h2 id="s-ci">Bangla minus English, with 95% confidence intervals</h2>
+      <p class="sub">Paired bootstrap over the same 90 tasks (10,000 resamples). An interval that crosses zero means no detectable difference.</p>
+    </div>
+    <div class="panel"><svg id="forest" role="img" aria-label="Forest plot of differences" width="100%"></svg></div>
+  </section>
+
+  <section aria-labelledby="s-dom">
+    <div>
+      <h2 id="s-dom">By domain</h2>
+      <p class="sub">15 tasks per domain, so each step is 6.7 points. Read these as descriptive only.</p>
+    </div>
+    <div class="legend"><span><i class="sw en"></i>English</span><span><i class="sw bn"></i>Bangla</span></div>
+    <div class="grid2">
+      <div class="panel"><h3>Task completion</h3><svg id="dumb-c" role="img" aria-label="Completion by domain" width="100%"></svg></div>
+      <div class="panel"><h3>Harmful side effects</h3><svg id="dumb-s" role="img" aria-label="Side effects by domain" width="100%"></svg></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s-pairs">
+    <div>
+      <h2 id="s-pairs">Same task, both languages</h2>
+      <p class="sub">Each of the 90 tasks counted once by its pair of outcomes. Only the outlined cells differ between languages; McNemar's test uses those.</p>
+    </div>
+    <div class="panel" style="overflow-x:auto"><table class="matrix" id="matrix"></table></div>
+  </section>
+
+  <section aria-labelledby="s-disc">
+    <div>
+      <h2 id="s-disc">The tasks where the languages disagree</h2>
+      <p class="sub" id="disc-sub"></p>
+    </div>
+    <div class="disc-list" id="disc"></div>
+  </section>
+
+  <section aria-labelledby="s-fail" id="fail-section">
+    <div>
+      <h2 id="s-fail">What kind of failures</h2>
+      <p class="sub">All failed runs, labelled with the shared failure taxonomy (docs/schema.md). One primary label per failed run.</p>
+    </div>
+    <div class="legend"><span><i class="sw en"></i>English</span><span><i class="sw bn"></i>Bangla</span></div>
+    <div class="panel"><svg id="mix" role="img" aria-label="Failure labels" width="100%"></svg></div>
+    <div class="panel" id="lang-panel" hidden><h3>How the agent handled Bangla</h3><ul class="findings" id="lang"></ul></div>
+  </section>
+
+  <section aria-labelledby="s-find">
+    <h2 id="s-find">Findings and limits</h2>
+    <div class="grid2">
+      <div class="panel"><h3 style="margin-bottom:10px">Findings</h3><ul class="findings" id="findings"></ul></div>
+      <div class="panel"><h3 style="margin-bottom:10px">Threats to validity</h3><ul class="findings" id="threats"></ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s-all">
+    <div>
+      <h2 id="s-all">All 90 tasks</h2>
+      <p class="sub">Requests = LLM calls the agent made for that task.</p>
+    </div>
+    <div class="controls">
+      <label for="f-dom">Domain <select id="f-dom"><option value="">All</option></select></label>
+      <label for="f-pair">Outcome <select id="f-pair">
+        <option value="">All</option><option value="en_only">Only English correct</option><option value="bn_only">Only Bangla correct</option>
+        <option value="both_wrong">Both wrong</option><option value="both_correct">Both correct</option></select></label>
+      <label for="f-q">Search <input type="search" id="f-q" placeholder="name, word, T23"></label>
+      <span class="sub" id="f-count"></span>
+    </div>
+    <div class="tablebox"><table class="tasks" id="tasks"><thead><tr>
+      <th>Task</th><th>Domain</th><th>English task</th><th>Bangla task</th><th>EN</th><th>BN</th><th>Requests EN / BN</th>
+    </tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section aria-labelledby="s-setup">
+    <h2 id="s-setup">Setup</h2>
+    <div class="panel"><dl class="setup" id="setup"></dl></div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const D = /*__DATA__*/null;
+const M = D.metrics, O = M.overall, rows = D.rows, N = D.notes || {};
+const pct = (x, d = 1) => (x * 100).toFixed(d) + "%";
+const pp = x => (x >= 0 ? "+" : "−") + Math.abs(x * 100).toFixed(1);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const tip = document.getElementById("tip");
+function hover(node, html) {
+  node.addEventListener("mousemove", ev => { tip.innerHTML = html; tip.hidden = false;
+    const x = Math.min(ev.clientX + 14, innerWidth - tip.offsetWidth - 8); tip.style.left = x + "px"; tip.style.top = (ev.clientY + 14) + "px"; });
+  node.addEventListener("mouseleave", () => { tip.hidden = true; });
+}
+const n = rows.length;
+const cEN = rows.filter(r => r.c_en).length, cBN = rows.filter(r => r.c_bn).length;
+const seEN = rows.filter(r => r.se_en).length, seBN = rows.filter(r => r.se_bn).length;
+
+/* header */
+document.getElementById("eyebrow").textContent = `WorkBench · English vs Bangla · ${D.meta.model_id} · pilot`;
+if (N.h1) document.getElementById("h1").textContent = N.h1;
+document.getElementById("lede").innerHTML = N.lede ||
+  `The agent completed <strong>${cEN}/${n}</strong> tasks in English and <strong>${cBN}/${n}</strong> in Bangla. The difference is ${pp(O.delta_completion)} points (95% CI ${pp(O.delta_completion_ci95_low)} to ${pp(O.delta_completion_ci95_high)}), within noise.`;
+
+/* KPIs */
+const kp = [
+  {k: '<i class="sw en"></i>English completion', v: pct(O.completion_rate_en), d: `${cEN} of ${n} tasks · side effects ${pct(O.side_effect_rate_en)}`},
+  {k: '<i class="sw bn"></i>Bangla completion', v: pct(O.completion_rate_bn), d: `${cBN} of ${n} tasks · side effects ${pct(O.side_effect_rate_bn)}`},
+  {k: 'Difference (BN − EN)', v: pp(O.delta_completion) + " pp", d: `95% CI ${pp(O.delta_completion_ci95_low)} to ${pp(O.delta_completion_ci95_high)} pp`},
+  {k: 'McNemar exact p', v: O.mcnemar_p.toFixed(2), d: `${O.n_en_only} tasks only EN solved · ${O.n_bn_only} only BN solved`},
+];
+document.getElementById("kpis").innerHTML = kp.map(x => `<div class="kpi"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="d">${x.d}</div></div>`).join("");
+
+/* forest plot */
+(function () {
+  const svg = document.getElementById("forest"), W = 960, rowH = 46, top = 16, left = 200, right = 40, H = top + rowH * 2 + 40;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const lo = -0.2, hi = 0.2, x = v => left + (v - lo) / (hi - lo) * (W - left - right);
+  for (let t = -0.2; t <= 0.2001; t += 0.05) {
+    el("line", {x1: x(t), x2: x(t), y1: top - 4, y2: top + rowH * 2, class: Math.abs(t) < 1e-9 ? "zero" : "grid"}, svg);
+    el("text", {x: x(t), y: top + rowH * 2 + 18, "text-anchor": "middle"}, svg).textContent = (t > 0 ? "+" : t < 0 ? "−" : "") + Math.abs(Math.round(t * 100)) + " pp";
+  }
+  el("text", {x: x(-0.2), y: H - 4, "text-anchor": "start", "font-size": 11}, svg).textContent = "← worse in Bangla";
+  el("text", {x: x(0.2), y: H - 4, "text-anchor": "end", "font-size": 11}, svg).textContent = "better in Bangla →";
+  const items = [
+    {lab: "Task completion", est: O.delta_completion, l: O.delta_completion_ci95_low, h: O.delta_completion_ci95_high, note: "higher is better"},
+    {lab: "Harmful side effects", est: O.delta_side_effect, l: O.delta_side_effect_ci95_low, h: O.delta_side_effect_ci95_high, note: "lower is better"},
+  ];
+  items.forEach((it, i) => {
+    const y = top + rowH * i + rowH / 2;
+    el("text", {x: 0, y: y - 3, "font-size": 13, style: "fill:var(--ink)"}, svg).textContent = it.lab;
+    el("text", {x: 0, y: y + 13, "font-size": 11}, svg).textContent = it.note;
+    const g = el("g", {}, svg);
+    el("line", {x1: x(it.l), x2: x(it.h), y1: y, y2: y, stroke: "var(--ink-2)", "stroke-width": 2, "stroke-linecap": "round"}, g);
+    el("circle", {cx: x(it.est), cy: y, r: 6, fill: "var(--bn)", stroke: "var(--surface)", "stroke-width": 2}, g);
+    el("rect", {x: x(it.l) - 6, y: y - 14, width: x(it.h) - x(it.l) + 12, height: 28, fill: "transparent"}, g);
+    hover(g, `<b>${it.lab}</b><br>Bangla − English: ${pp(it.est)} pp<br>95% CI ${pp(it.l)} to ${pp(it.h)} pp`);
+  });
+})();
+
+/* dumbbells */
+function dumbbell(id, kEN, kBN, worseIsHigh) {
+  const svg = document.getElementById(id), W = 460, rowH = 34, top = 8, left = 104, right = 40, H = top + rowH * D.domains.length + 28;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const x = v => left + v * (W - left - right);
+  [0, .25, .5, .75, 1].forEach(t => {
+    el("line", {x1: x(t), x2: x(t), y1: top, y2: top + rowH * D.domains.length, class: "grid"}, svg);
+    el("text", {x: x(t), y: H - 8, "text-anchor": "middle"}, svg).textContent = (t * 100) + "%";
+  });
+  D.domains.forEach((dm, i) => {
+    const m = M["domain:" + dm.key]; if (!m) return;
+    const y = top + rowH * i + rowH / 2, a = m[kEN], b = m[kBN];
+    el("text", {x: 0, y: y + 4}, svg).textContent = dm.label;
+    const g = el("g", {}, svg);
+    el("line", {x1: x(Math.min(a, b)), x2: x(Math.max(a, b)), y1: y, y2: y, stroke: "var(--rule)", "stroke-width": 4, "stroke-linecap": "round"}, g);
+    const sameSpot = Math.abs(a - b) < 1e-9;
+    el("circle", {cx: x(a), cy: y - (sameSpot ? 4 : 0), r: 6, fill: "var(--en)", stroke: "var(--surface)", "stroke-width": 2}, g);
+    el("circle", {cx: x(b), cy: y + (sameSpot ? 4 : 0), r: 6, fill: "var(--bn)", stroke: "var(--surface)", "stroke-width": 2}, g);
+    el("rect", {x: left - 8, y: y - rowH / 2, width: W - left - right + 16, height: rowH, fill: "transparent"}, g);
+    hover(g, `<b>${dm.label}</b> (15 tasks)<br>English ${pct(a, 0)} · Bangla ${pct(b, 0)}<br>Difference ${pp(b - a)} pp`);
+  });
+}
+dumbbell("dumb-c", "completion_rate_en", "completion_rate_bn");
+dumbbell("dumb-s", "side_effect_rate_en", "side_effect_rate_bn");
+
+/* matrix */
+(function () {
+  const cnt = k => rows.filter(r => r.pair === k).length;
+  document.getElementById("matrix").innerHTML =
+    `<tr><th></th><th>Bangla correct</th><th>Bangla wrong</th></tr>
+     <tr><th class="row">English correct</th><td class="agree"><b>${cnt("both_correct")}</b><span>both correct</span></td><td class="disc"><b>${cnt("en_only")}</b><span>only English</span></td></tr>
+     <tr><th class="row">English wrong</th><td class="disc"><b>${cnt("bn_only")}</b><span>only Bangla</span></td><td class="agree"><b>${cnt("both_wrong")}</b><span>both wrong</span></td></tr>`;
+})();
+
+/* discordant */
+const chip = (ok, se) => ok ? '<span class="chip ok">✓ correct</span>' : `<span class="chip fail">✗ wrong</span>${se ? ' <span class="chip se">⚠ side effect</span>' : ''}`;
+const labChip = l => l ? `<span class="chip lab">${esc(l.label)}${l.sub ? " · " + esc(l.sub) : ""}</span>` : "";
+const dom = k => (D.domains.find(d => d.key === k) || {label: k}).label;
+(function () {
+  const ds = rows.filter(r => r.pair === "en_only" || r.pair === "bn_only");
+  document.getElementById("disc-sub").textContent = `${ds.length} tasks: ${ds.filter(r => r.pair === "en_only").length} only English solved, ${ds.filter(r => r.pair === "bn_only").length} only Bangla solved.` + (N.disc_note ? " " + N.disc_note : "");
+  document.getElementById("disc").innerHTML = ds.map(r => {
+    const failed = r.pair === "en_only" ? r.lab_bn : r.lab_en;
+    const why = failed ? `<div class="why"><b>${r.pair === "en_only" ? "Bangla" : "English"} run:</b> ${esc(failed.notes || failed.evidence)}</div>` : "";
+    return `<article class="disc-item">
+      <div class="disc-head"><span class="mono">${esc(r.uid.replace("workbench:", ""))} · ${esc(r.template)} · ${esc(dom(r.domain))}</span><span>${labChip(failed)}</span></div>
+      <div class="disc-pair">
+        <div><div class="side-k"><i class="sw en"></i>English ${chip(r.c_en, r.se_en)}</div><div>${esc(r.en)}</div></div>
+        <div><div class="side-k"><i class="sw bn"></i>Bangla ${chip(r.c_bn, r.se_bn)}</div><div class="bn">${esc(r.bn)}</div></div>
+      </div>${why}</article>`;
+  }).join("");
+})();
+
+/* failure mix */
+(function () {
+  const labs = ["outcome", "reasoning", "planning", "tool_use", "control_flow", "memory", "multilingual"];
+  const c = {en: {}, bn: {}};
+  rows.forEach(r => { if (r.lab_en) c.en[r.lab_en.label] = (c.en[r.lab_en.label] || 0) + 1; if (r.lab_bn) c.bn[r.lab_bn.label] = (c.bn[r.lab_bn.label] || 0) + 1; });
+  const total = Object.values(c.en).concat(Object.values(c.bn)).reduce((a, b) => a + b, 0);
+  if (!total) { document.getElementById("mix").outerHTML = '<p class="sub">Failure labels pending (failure analysis still running).</p>'; return; }
+  const svg = document.getElementById("mix"), W = 960, rowH = 40, top = 8, left = 130, right = 40, H = top + rowH * labs.length + 28;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const max = Math.max(1, ...labs.map(l => Math.max(c.en[l] || 0, c.bn[l] || 0)));
+  const step = max > 10 ? 5 : max > 4 ? 2 : 1, top_ = Math.ceil(max / step) * step;
+  const x = v => left + v / top_ * (W - left - right);
+  for (let t = 0; t <= top_; t += step) {
+    el("line", {x1: x(t), x2: x(t), y1: top, y2: top + rowH * labs.length, class: "grid"}, svg);
+    el("text", {x: x(t), y: H - 8, "text-anchor": "middle"}, svg).textContent = t;
+  }
+  labs.forEach((l, i) => {
+    const y = top + rowH * i;
+    el("text", {x: 0, y: y + rowH / 2 + 4}, svg).textContent = l.replace("_", " ");
+    [["en", 0], ["bn", 1]].forEach(([L, k]) => {
+      const v = c[L][l] || 0, by = y + 8 + k * 13;
+      const g = el("g", {}, svg);
+      if (v) el("rect", {x: x(0), y: by, width: Math.max(2, x(v) - x(0)), height: 11, rx: 3, fill: `var(--${L})`}, g);
+      el("text", {x: x(v) + 6, y: by + 10, "font-size": 11}, svg).textContent = v;
+      el("rect", {x: left, y: by - 1, width: W - left - right, height: 13, fill: "transparent"}, g);
+      hover(g, `<b>${l.replace("_", " ")}</b><br>${L === "en" ? "English" : "Bangla"}: ${v} failed run${v === 1 ? "" : "s"}`);
+    });
+  });
+  if (N.language_scan && N.language_scan.length) {
+    document.getElementById("lang-panel").hidden = false;
+    document.getElementById("lang").innerHTML = N.language_scan.map(s => `<li>${s}</li>`).join("");
+  }
+})();
+
+/* findings */
+const pending = '<li class="sub">Failure analysis still running; this section fills in when the report is regenerated.</li>';
+document.getElementById("findings").innerHTML = (N.findings || []).map(s => `<li>${s}</li>`).join("") || pending;
+document.getElementById("threats").innerHTML = (N.threats || []).map(s => `<li>${s}</li>`).join("") || pending;
+
+/* table */
+(function () {
+  const fd = document.getElementById("f-dom"), fp = document.getElementById("f-pair"), fq = document.getElementById("f-q");
+  D.domains.forEach(d => fd.insertAdjacentHTML("beforeend", `<option value="${d.key}">${d.label}</option>`));
+  try { const s = JSON.parse(localStorage.getItem("wbpilot-filters") || "{}"); fd.value = s.d || ""; fp.value = s.p || ""; fq.value = s.q || ""; } catch (e) {}
+  const tb = document.querySelector("#tasks tbody");
+  function draw() {
+    const q = fq.value.trim().toLowerCase();
+    const list = rows.filter(r => (!fd.value || r.domain === fd.value) && (!fp.value || r.pair === fp.value) &&
+      (!q || (r.en + " " + r.bn + " " + r.template + " " + r.uid).toLowerCase().includes(q)));
+    tb.innerHTML = list.map(r => `<tr>
+      <td class="num">${esc(r.template)}<br><span class="sub">${esc(r.uid.replace("workbench:", ""))}</span></td>
+      <td>${esc(dom(r.domain))}</td><td class="txt">${esc(r.en)}</td><td class="txt bn">${esc(r.bn)}</td>
+      <td>${chip(r.c_en, r.se_en)}${r.lab_en ? "<br>" + labChip(r.lab_en) : ""}</td>
+      <td>${chip(r.c_bn, r.se_bn)}${r.lab_bn ? "<br>" + labChip(r.lab_bn) : ""}</td>
+      <td class="num">${r.req_en} / ${r.req_bn}</td></tr>`).join("");
+    document.getElementById("f-count").textContent = `${list.length} of ${rows.length} tasks`;
+    try { localStorage.setItem("wbpilot-filters", JSON.stringify({d: fd.value, p: fp.value, q: fq.value})); } catch (e) {}
+  }
+  [fd, fp].forEach(e => e.addEventListener("change", draw)); fq.addEventListener("input", draw); draw();
+})();
+
+/* setup */
+(function () {
+  const m = D.meta;
+  const items = [
+    ["Benchmark", "WorkBench (Styles et al., COLM 2024), ground truth v2; 90-task stratified pilot (15 per task file, seed 20261004)"],
+    ["Model", `${esc(m.model_id)} via ${esc(m.provider)} (free tier), temperature 0`],
+    ["Condition", "C1: Bangla task text; English system prompt, tool names and environment"],
+    ["Agent settings", `native tool calling · act without confirmation · tool selection ${esc(m.tool_selection)} · 1 worker · max 20 steps`],
+    ["Requests", `${m.req_en ?? "?"} English + ${m.req_bn ?? "?"} Bangla`],
+    ["Run started", `EN ${esc(m.en_started)} · BN ${esc(m.bn_started)}`],
+    ["Harness", `WorkBench @ ${esc(m.harness_commit)} + provider patch`],
+    ["Statistics", "exact McNemar on discordant pairs; paired bootstrap 95% CI (10,000 resamples)"],
+  ];
+  document.getElementById("setup").innerHTML = items.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+  document.getElementById("foot").textContent = `Comparison ${m.comparison_id} · generated by scripts/build_pilot_html.py`;
+})();
+</script>

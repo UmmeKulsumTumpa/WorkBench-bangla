@@ -1,0 +1,28 @@
+{
+ "title": "WorkBench Bangla Pilot",
+ "h1": "Bangla instructions did not hurt gemma4:31b",
+ "lede": "On 90 WorkBench tasks given in English and again in Bangla, the agent completed <strong>73</strong> in English and <strong>74</strong> in Bangla. The difference, +1.1 points (95% CI −6.7 to +8.9), is within noise, and no Bangla failure was caused mainly by the language.",
+ "disc_note": "The note under each card explains the failed run.",
+ "findings": [
+  "No detectable completion gap: 81.1% English vs 82.2% Bangla, exact McNemar p = 1.00. With 90 pairs the pilot can rule out a drop larger than about 7 points for this model.",
+  "Disagreements look like run-to-run noise: 6 tasks only English solved, 7 only Bangla solved, and the failed side was labelled <em>reasoning</em> in 11 of the 13.",
+  "Harmful side effects were slightly lower in Bangla (12.2% vs 16.7%), with a CI that crosses zero (−11.1 to +2.2 points).",
+  "Failure mix is nearly identical: reasoning 11 vs 9, planning 4 vs 3, tool use 1 vs 2, control flow 1 vs 2 (English vs Bangla). 0 of 16 Bangla failures have <em>multilingual</em> as the primary label.",
+  "Multi-domain tasks are the hard part in both languages (53% completion each), so a language gap, if one exists, is more likely to show up there in the full 690-task run."
+ ],
+ "threats": [
+  "The Bangla translations have not yet been reviewed by a native speaker (machine translation plus two independent model-review cycles). If they change, the Bangla side must be re-run.",
+  "Small sample: 90 tasks, 15 per domain. Per-domain differences are descriptive only.",
+  "One model (gemma4:31b, Gemma family, trained heavily on multilingual data). Models with weaker Bangla may behave differently.",
+  "Condition C1 only: the system prompt and tool descriptions stay English. A fully Bangla interface (C2) is untested.",
+  "Single run per task at temperature 0 on a hosted free-tier endpoint; the provider can update the model silently.",
+  "Failure labels were assigned by a model, not by human annotators."
+ ],
+ "language_scan": [
+  "88 of 88 completed Bangla runs answered in Bangla; none switched to English mid-answer. English appeared only for names and IDs.",
+  "The agent wrote Bengali digits in its prose (346 digits across 52 answers) but used ASCII digits in every tool argument.",
+  "0 of 345 tool calls passed Bangla script as an argument. All 76 names written with a case marker in the task (e.g. <span class=\"bn\">nadia-কে</span>) were sent to tools as the bare name.",
+  "One invalid tool name in Bangla (crm:77, <span class=\"mono\">customer_relationship_manager_update_task</span>), none in English.",
+  "One possible language effect: <span class=\"bn\">আগামী শুক্রবার</span> (\"next Friday\") was read as the coming Friday (Dec 1) in multi_domain:169, where the answer key expects Dec 8. The wording needs the native-speaker review."
+ ]
+}
