@@ -69,6 +69,7 @@ Preview of the STOP (b) decisions (`docs/pilot_design.md`):
 - 2026-10-04 #16 — Review cycle 1 (independent reviewer): 99/204 rows changed (18 critical: list names/status transliterated into Bangla script → Latin; 63 major: unneeded quotes on enums, cross-batch terminology; 18 minor fluency). No meaning errors were found. Cycle 2 rules: board references stay Latin (`front-end বোর্ডে`); `CRM সিস্টেমে` → `CRM-এ`; enums keep EN case; curly quotes are OK; casual questions mirror EN punctuation.
 - 2026-10-04 #17 — Checker refinements: allow DB enum words (list_name, CRM status/product_interest, traffic_source, plot types) and `CRM-`; GT-literal survival check excludes `field=` argument names (schema, not task text).
 - 2026-10-04 #18 — Pilot subset built: 90 tasks (15/file), 63/69 templates, 90/204 variants, seed 20261004 (`data_bn/pilot/`).
+- 2026-10-04 #19 — **Owner instruction:** "first run 10 tasks for both bangla and english" → a 10-task EN+BN smoke run on `ollama-gemma4-31b`, before the STOP (a) review is finished (owner's choice; translations may still change, so this run is exploratory, not part of the pilot). Subset: `data_bn/smoke10/` = the first N pilot rows per file (email 2, calendar 2, crm 1, analytics 2, pm 1, multi 2). Settings: `--structured_outputs --act_without_confirmation --tool_selection all --workers 1 --log_traces`. Budget: 20 tasks × ~4 = ~80 requests (cap 400).
 
 ## Blockers / needs-human
 
@@ -88,4 +89,4 @@ Preview of the STOP (b) decisions (`docs/pilot_design.md`):
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 14 (probe, 2026-10-04) | dry run 3.1 (after STOP a): 4 tasks, expected ~16 req (cap 80); pilot (after STOP b): ~720 req per model |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 14 (probe, 2026-10-04) | smoke10 (owner-requested): 20 tasks, ~80 req (cap 400); pilot (after STOP b): ~720 req per model |
