@@ -35,6 +35,7 @@ Principle: **translate the instruction side, keep the environment English** (MAP
     - `average session duration` → `গড় সেশনের সময়কাল`
 
 ## 4. Canonical (decided once, applied everywhere)
+- **DB/tool enum values stay in Latin script, unquoted, with the same case as in the EN task.** They are not quoted unless the EN task quotes them. This covers project list names (`Backlog`, `In Progress`, `In Review`, `Completed`), whether they appear as slots or as template text. It also covers the enum slot values listed below.
 - **Values whose English surface form is the DB/tool enum value** stay in **Latin script**: CRM status (`qualified`, `won`, `lost`, `proposal`, `lead`), product interest (`hardware`, `software`, …), traffic source (`direct`, `referral`, `search engine`, `social media`), plot type (`bar`, `line`, `scatter`, `histogram`). This is how Bangla professionals type CRM/analytics jargon, and it keeps the environment vocabulary English (MAPS).
 - **Case markers on Latin-script entities** use a hyphen: `{name}-কে`, `{name}-এর`, `{name}-কে ইমেইল করো`. This is standard Bangla orthography for Latin words. It also exposes a realistic failure mode: an agent passing `nadia-কে` to a tool is labelled `language_induced_tool_misuse`.
 - **Fixed workplace loanwords**, used the same way in every template:
@@ -52,7 +53,10 @@ Principle: **translate the instruction side, keep the environment English** (MAP
   - forward → ফরোয়ার্ড
   - deadline/due date → ডেডলাইন
   - status → স্ট্যাটাস
-  - lead → lead (enum)
+  - subject/title → সাবজেক্ট
+  - backlog → `Backlog` (enum, Latin)
+  - CRM statuses → Latin (`lead`, `won`, …)
+- **Bangla suffixes attach directly to Bangla-script slot values** (`{natural_language_metric}ের` → মোট ভিজিটের; `{natural_language_date} তারিখে`). They take a hyphen after Latin-script values (`{name}-এর`, `CRM-এ`, `In Progress-এ`).
 
 ## 5. Template slot syntax in `templates_bn.csv`
 - `{slot}` renders the glossary Bangla value if `(slot, value)` is in `glossary.csv`; otherwise it renders the raw value (preserve).

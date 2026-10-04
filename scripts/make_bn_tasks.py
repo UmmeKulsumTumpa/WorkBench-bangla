@@ -41,6 +41,14 @@ BENGALI_CHAR_RE = re.compile("[ঀ-৿]")
 # Quoted segments may keep English literal text (they reach tool arguments).
 QUOTED_RE = re.compile(r"'[^']*'|\"[^\"]*\"|‘[^’]*’|“[^”]*”")
 LATIN_ALLOWLIST = {"CRM"}
+# DB/tool enum values are kept in Latin script, unquoted (policy §4). Words compared case-insensitively.
+# project_tasks.list_name, crm status / product_interest, analytics traffic_source, plot types.
+ENUM_PHRASES = ["Backlog", "In Progress", "In Review", "Completed",
+                "Lead", "Lost", "Proposal", "Qualified", "Won",
+                "Consulting", "Hardware", "Services", "Software", "Training",
+                "direct", "referral", "search engine", "social media",
+                "bar", "line", "scatter", "histogram"]
+ENUM_WORDS = {w.lower() for ph in ENUM_PHRASES for w in ph.split()}
 
 
 def nfc(s):
@@ -69,7 +77,8 @@ def check_template(en, bn):
     if not BENGALI_CHAR_RE.search(bn):
         problems.append("no Bangla script at all")
     stray = re.sub(QUOTED_RE, " ", leftover)
-    latin = [w for w in re.findall(r"[A-Za-z][A-Za-z.\-]*", stray) if w not in LATIN_ALLOWLIST]
+    latin = [w for w in (t.rstrip(".-") for t in re.findall(r"[A-Za-z][A-Za-z.\-]*", stray))
+             if w not in LATIN_ALLOWLIST and w.lower() not in ENUM_WORDS]
     if latin:
         problems.append(f"stray Latin outside quotes/slots: {latin}")
     return problems
@@ -100,12 +109,14 @@ def render(template_bn, slots, glossary):
 
 
 def outcome_literals(outcome):
-    """All string constants inside the outcome's call strings."""
+    """String argument values in the outcome's calls (excluding `field=` names, which are schema, not task text)."""
     lits = []
     for call in ast.literal_eval(outcome):
         for node in ast.walk(ast.parse(call, mode="eval")):
-            if isinstance(node, ast.Constant) and isinstance(node.value, str):
-                lits.append(node.value)
+            if not isinstance(node, ast.Call):
+                continue
+            vals = [a for a in node.args] + [k.value for k in node.keywords if k.arg != "field"]
+            lits += [v.value for v in vals if isinstance(v, ast.Constant) and isinstance(v.value, str)]
     return lits
 
 
