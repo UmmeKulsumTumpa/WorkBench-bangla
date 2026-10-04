@@ -9,13 +9,42 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 |---|---|---|
 | 0 Bootstrap | ✅ | progress.md, .gitignore, spec, project-local toolchain (`env.sh`, `.tools/`) |
 | 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
-| 2 Bangla translation | 🔄 | 2.1 ✅ policy draft + glossary; 2.2 all 5 batches translated (204 variants) → merge + reviewer pass in progress |
+| 2 Bangla translation | 🛑 | **STOP (a): waiting for owner review.** 204 variants translated + 2 independent review cycles (cycle 1: 99 rows, cycle 2: 42 rows); 690 BN tasks rendered, all checks pass |
 | 3 Pilot run | ⬜ | waits for STOP (a) then STOP (b) |
 | 4 Extensions | ⬜ | owner instruction only |
 
 ## Current step
 
-Phase 2.2 review cycle 2 (final), run by the reviewer subagent → `data_bn/review/templates_bn_cycle2_candidate.csv`. Next: copy the candidate over `data_bn/templates_bn.csv` → `python3 scripts/make_bn_tasks.py` → `python3 scripts/make_pilot.py` → rebuild the review sheet (inline script used 2026-10-04; see the git history of `data_bn/review_sheet.csv`) → `python3 scripts/build_translation_review.py` → write the STOP (a) instructions → stop. In parallel: a subagent is writing `scripts/compare_en_bn.py` + `tests/test_compare_en_bn.py` (Phase 3.3 prep, tested on committed results, no API).
+**STOP (a): owner review of the Bangla translation.** Nothing runs until the owner replies.
+
+What the owner should check (≈45–60 min):
+1. **Policy:** `docs/translation_policy.md`. Decide each item in §7 plus these new questions:
+   - (a) "তুমি" register everywhere.
+   - (b) Dates written as `{date} তারিখে` (e.g. "6 ডিসেম্বর তারিখের").
+   - (c) DB labels stay Latin and unquoted: list names `in progress`, `backlog`; CRM status `lead`, `won`; boards `front-end`; plot types `line`.
+   - (d) Case marker after vowel-final Latin names: `Akira-এর` (current) or `Akira-র`?
+   - (e) "delete … in the CRM" rendered `CRM থেকে … ডিলিট` (natural) rather than `CRM-এ`.
+   - (f) Loanwords ইমেইল, মিটিং, টাস্ক, সাবজেক্ট, চার্ট, প্লিজ; "next Friday" → "আগামী শুক্রবার".
+2. **Translations:** `docs/translation_review.md`. All 204 EN/BN variants are grouped under the 69 templates, each with one real rendered task. Check meaning first (quantifiers, conditions, step order), then naturalness, then consistency.
+3. **Glossary:** `data_bn/glossary.csv`, column `value_bn` (months, weekdays, the 3 analytics metrics, comparators, durations).
+4. Optional context: `data_bn/review/review_cycle1_summary.md` (what the reviewers changed and why).
+
+How the owner gives corrections, either way:
+- **Edit `data_bn/templates_bn.csv` directly**, column `template_bn`. Rules: keep each `{slot}` name exactly; inside quotes that are copied into a tool call, use `{slot!en}`; ASCII digits only. VS Code or Excel are both fine; BOM/CRLF is handled. For glossary values, edit `data_bn/glossary.csv` → `value_bn`.
+- **Or** write corrections in chat as `T23.v2: <new Bangla>`, plus policy answers as 1(a)…(f).
+
+After the owner's edits, I run:
+1. `git diff data_bn/templates_bn.csv` → the reviewer subagent checks only the changed rows.
+2. `python3 scripts/make_bn_tasks.py`, then `python3 scripts/make_pilot.py`, then `python3 scripts/build_translation_review.py`.
+3. Commit.
+
+Then Phase 3.1 (dry run, ~16 requests) → STOP (b).
+
+Preview of the STOP (b) decisions (`docs/pilot_design.md`):
+- Primary model `ollama-gemma4-31b` (gemma4:31b), second `ollama-gpt-oss-20b`.
+- `--tool_selection all` instead of `domains` (upstream crm bug).
+- `--act_without_confirmation`.
+- About 720 requests per model for the pilot.
 
 ## Decisions log
 

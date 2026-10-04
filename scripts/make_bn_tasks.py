@@ -48,7 +48,7 @@ ENUM_PHRASES = ["Backlog", "In Progress", "In Review", "Completed",
                 "Consulting", "Hardware", "Services", "Software", "Training",
                 "direct", "referral", "search engine", "social media",
                 "bar", "line", "scatter", "histogram",
-                # project board names (DB enum; owner decision review cycle 2: Latin, EN surface form)
+                # project board names (DB enum; review cycle 2 decision, pending owner confirmation at STOP (a): Latin, EN surface form)
                 "Front end", "Back end", "Design", "front-end", "back-end"]
 ENUM_WORDS = {w.lower() for ph in ENUM_PHRASES for w in ph.split()}
 
@@ -58,8 +58,14 @@ def nfc(s):
 
 
 def load_templates(path):
-    with open(path, encoding="utf-8", newline="") as f:
-        return list(csv.DictReader(f))
+    # utf-8-sig + \r stripping: tolerate files saved by Excel/editors (BOM, CRLF) after owner edits.
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        rows = list(csv.DictReader(f))
+    for r in rows:
+        for k in r:
+            r[k] = (r[k] or "").replace("\r", "")
+        r["template_bn"] = nfc(r["template_bn"].strip())
+    return rows
 
 
 def check_template(en, bn):

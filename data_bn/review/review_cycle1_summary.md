@@ -40,3 +40,17 @@ These were already consistent and are kept: delete→ডিলিট, cancel→�
 4. **Curly quotes** (`‘…’`, `“…”`) in T54 and T64 work around apostrophes inside bodies (`haven't`, `let's`). The literals survive, so this is acceptable. A sturdier quote regex in the checker would let these rows use straight quotes like the rest.
 5. **CRM locative.** Batch T15–T28 uses CRM সিস্টেমে / CRM রেকর্ডে (a workaround for the old checker) and batch T57–T69 uses `CRM-এ`. Both read naturally, so I left them. Decide whether to standardise.
 6. **Stale translator notes.** Notes on T21, T23, T26, T28, T30–T40 and T50 cite checker limits that commit a5b58d4 removed. The notes column should be refreshed when the edits are merged.
+
+## Cycle 2 (final)
+Inputs: `templates_bn.csv` after cycle 1 was merged (commit 136c6d2) and the owner's decisions. Outputs: `review_cycle2.csv` (42 rows) and `templates_bn_cycle2_candidate.csv`. The candidate **passes** `make_bn_tasks.py --partial`: 204/204 templates OK, 690 tasks render, no duplicate tasks. No two variants of the same template are identical.
+
+| Severity | Rows | What changed |
+|---|---|---|
+| major | 21 | Board references moved to Latin per the owner's decision: ফ্রন্ট-এন্ড → `front-end বোর্ডে`, `front-end backlog-এ`, `front end টাস্ক` (T60–T62, T65, T66, T68, T69). In T61, transliterated `কমপ্লিট করেছে` → `completed-এ আছে` (the Completed list enum, matching T44). |
+| minor | 21 | `CRM সিস্টেমে` / `CRM রেকর্ডে` → `CRM-এ` (18 rows, T21–T28). Fluency fixes to cycle-1 edits: T45.v3 had a double genitive (`in progress-এর`), and T57.v2/T64.v2 needed rewording so the follow-up থাকলে ("if there are any") has a noun to refer to. |
+
+**Checker change:** decision 1 conflicted with the checker, which rejected bare `front-end`, `front` and `end`. I added the board names `Front end`, `Back end`, `Design`, `front-end` and `back-end` to `ENUM_PHRASES` in `scripts/make_bn_tasks.py` (a one-line addition with a comment). Please review this change before committing.
+
+**Fresh re-review:** I re-read all 115 rows that differ from the pre-cycle-1 templates (64627a6), using the rendered examples. I found no meaning, placeholder or GT-literal problems beyond the fixes listed above.
+
+**Judgement call left unchanged:** T63 and T67 say "delete … leads in the CRM", which is rendered `CRM থেকে … ডিলিট`. That is the idiomatic case for ডিলিট, and the meaning is the same. Change to `CRM-এ` only if a literal match to the EN wording is wanted.
