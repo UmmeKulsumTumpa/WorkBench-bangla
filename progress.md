@@ -10,7 +10,7 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 | 0 Bootstrap | ✅ | progress.md, .gitignore, spec, project-local toolchain (`env.sh`, `.tools/`) |
 | 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
 | 2 Bangla translation | 🛑 | **STOP (a): waiting for owner review.** 204 variants translated + 2 independent review cycles (cycle 1: 99 rows, cycle 2: 42 rows); 690 BN tasks rendered, all checks pass |
-| 3 Pilot run | ⬜ | waits for STOP (a) then STOP (b) |
+| 3 Pilot run | 🔄 | 3.2 ✅ runs done; 3.3 ✅ compare; 3.4 failure analysis (subagent) running; 3.5 report + HTML next |
 | 4 Extensions | ⬜ | owner instruction only |
 
 ## Current step
@@ -51,6 +51,7 @@ STOP (a) is still open in parallel: owner translation review (see `docs/translat
   - (3) `tests/conftest.py` keeps pytest temp dirs in `.tools/pytest-tmp`. Earlier test runs used the macOS system temp dir (`/private/var/folders/.../pytest-of-cefalo`, auto-cleaned by the OS).
   - (4) Results CSVs contain fields >128 KB, so readers need `csv.field_size_limit(sys.maxsize)`.
 - 2026-10-04 #22 — **STOP (b) passed by owner instruction:** "run the 90-task pilot on gemma4:31b and gimme a html report". Model `ollama-gemma4-31b` (gemma4:31b, Ollama Cloud free tier), C1, settings as `docs/pilot_design.md` §4 (`--tool_selection all`, `--act_without_confirmation`, `--structured_outputs`, `--workers 1`, `--log_traces`, `--resume`). Budget ≈640 requests. **STOP (a) is NOT completed:** the owner has not yet reviewed the BN translations (machine-translated + 2 independent model-review cycles). Recorded as a threat to validity; if the owner later edits translations, the BN side must be re-run.
+- 2026-10-04 #23 — **Pilot result (gemma4:31b, C1, EN 11:42–11:47, BN 11:47–11:54 local):** completion EN 73/90 = 81.1%, BN 74/90 = 82.2%. Δ = +1.1 pp, 95% paired-bootstrap CI [−6.7, +8.9], exact McNemar p = 1.0 (6 EN-only, 7 BN-only). Side effects: EN 16.7%, BN 12.2% (Δ −4.4 pp, CI [−11.1, +2.2]). Domain-mix-weighted completion: EN 76.7%, BN 77.3%. Requests: EN 445 + BN 433 = 878 (4.9/task, above the 3.6 smoke10 estimate); no 429/402/5xx. Agent errors (step limit): EN 1, BN 2. Interpretation: no detectable EN–BN gap for this model on this sample (the pilot can only rule out large gaps, roughly > 9 pp).
 
 ## Blockers / needs-human
 
@@ -70,4 +71,4 @@ STOP (a) is still open in parallel: owner translation review (see `docs/translat
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 85 total on 2026-10-04 (probe 14 + smoke10 71) | smoke10 done: 71 req (2026-10-04), no limit errors; pilot (after STOP b): ≈640 req per model (3.6 req/task measured) |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 963 total on 2026-10-04 (probe 14 + smoke10 71 + pilot 878) | pilot done: 878 req (4.9/task); no limit errors | next model's pilot ≈ 880 req |
