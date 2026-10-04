@@ -1,0 +1,11 @@
+.env
+.env.*
+WorkBench/.venv
+.venv/
+*.pyc
+__pycache__/
+.DS_Store
+# large trace dirs
+**/traces/
+**/*_traces/
+WorkBench/data/results/**/traces*
