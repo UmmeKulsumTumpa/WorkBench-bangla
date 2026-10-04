@@ -63,3 +63,22 @@ Repo root `WorkBench/`. All paths below are relative to it. **All data paths in 
 5. The ReAct parser and prompts are English-specific. `action == "Final Answer"` must be exact. A reply with no JSON block is treated as the final answer (an early silent stop). The scaffold uses "Thought:"/"Observation:". `wrong_email`/"Didn't follow REACT" are English-agnostic heuristics.
 6. `json.dump` traces use ASCII escapes (`\uXXXX`). They are valid but unreadable without `ensure_ascii=False`. `open()` is called without `encoding=` (`inference.py:155,183,248`). That is fine on macOS/Linux UTF-8 locales (inferred).
 7. Analytics/calendar dates in tasks ("November 1", "tomorrow") are resolved relative to 2023-11-30. Translated dates must stay unambiguous.
+
+## 7. Our patch (bangla-eval)
+Commit `fbfa4d3` on `WorkBench` branch `bangla-eval`, exported as `patches/0001-providers.patch`. It touches only `src/evals/agent.py` and adds `tests/evals/test_providers.py`. `tests/evals/test_routing.py` is unchanged and passes.
+- **What changed**:
+  - `_PROVIDER_BASE_URLS`/`_PROVIDER_API_KEY_ENV` are replaced by `class ProviderConfig(NamedTuple)` (`base_url, api_key_env, base_url_env=None, strip_slug_prefix=True, openrouter_fallback=True`) and a `_PROVIDERS` dict. The openai/anthropic/google/openrouter entries use the defaults, so their routing is unchanged.
+  - New providers (all `strip_slug_prefix=False, openrouter_fallback=False`):
+    - `ollama_cloud`: `https://ollama.com/v1`, key `OLLAMA_API_KEY`, URL override `OLLAMA_CLOUD_BASE_URL`.
+    - `ollama_local`: `http://localhost:11434/v1`, no key (sends the dummy `"ollama"`), URL override `OLLAMA_LOCAL_BASE_URL`.
+    - `groq`: `https://api.groq.com/openai/v1`, key `GROQ_API_KEY`, URL override `GROQ_BASE_URL`.
+  - If the key is missing for a provider with no fallback, `resolve_route` raises `OSError("Missing required environment variable 'OLLAMA_API_KEY'…")`.
+  - `_HARD_DEADLINE_SECONDS` = env `WB_HARD_DEADLINE` (default 75).
+  - New registry keys:
+    - Ollama Cloud: `ollama-gpt-oss-20b`, `ollama-gpt-oss-120b`, `ollama-nemotron-3-nano-30b`, `ollama-gemma4-31b`, `ollama-glm-5.3-flash`, `ollama-deepseek-v4.1-flash`, `ollama-minimax-m2.7`.
+    - Local: `ollama-local-qwen3-8b` (→ `qwen3:8b`).
+    - All new keys have `supports_temperature=True`.
+- **Add a provider**: add one `_PROVIDERS` entry, e.g. `"foo": ProviderConfig("https://api.foo/v1", "FOO_API_KEY", "FOO_BASE_URL", False, False)`.
+- **Add a model**: add one `MODEL_REGISTRY` entry, e.g. `"groq-gpt-oss-120b": ModelConfig("openai/gpt-oss-120b", True, "groq")`. Use the provider's exact model id. The key must have no `/`, `_` or `:`, because it becomes the results-filename prefix.
+- **Collaborators**: run `cd WorkBench && git checkout -b bangla-eval <base> && git am ../patches/0001-providers.patch`. `<base>` is upstream `49c7dfd`. Then run `uv run pytest -q`.
+- **Probe before a run**: `cd WorkBench && uv run python ../scripts/probe_provider.py --models ollama-gpt-oss-20b --dry_run`. Drop `--dry_run` for the live check. It does 2 requests per model and writes `results/probe/<provider>_<date>.json`.

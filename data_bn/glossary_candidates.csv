@@ -1,0 +1,203 @@
+slot,value_en,n_occurrences,db_value_it_maps_to_if_known
+before_or_after,before,7,< (comparator; no DB value)
+before_or_after,after,3,> (comparator; no DB value)
+day_of_week,Friday,10,weekday=Friday (resolved to ISO date relative to 2023-11-30)
+day_of_week,Wednesday,10,weekday=Wednesday (resolved to ISO date relative to 2023-11-30)
+day_of_week,Sunday,9,weekday=Sunday (resolved to ISO date relative to 2023-11-30)
+day_of_week,Monday,8,weekday=Monday (resolved to ISO date relative to 2023-11-30)
+day_of_week,Saturday,7,weekday=Saturday (resolved to ISO date relative to 2023-11-30)
+day_of_week,Tuesday,6,weekday=Tuesday (resolved to ISO date relative to 2023-11-30)
+day_of_week,monday,4,weekday=Monday (resolved to ISO date relative to 2023-11-30)
+day_of_week,friday,2,weekday=Friday (resolved to ISO date relative to 2023-11-30)
+day_of_week,sunday,2,weekday=Sunday (resolved to ISO date relative to 2023-11-30)
+day_of_week,saturday,1,weekday=Saturday (resolved to ISO date relative to 2023-11-30)
+day_of_week,tuesday,1,weekday=Tuesday (resolved to ISO date relative to 2023-11-30)
+duration,1.5 hour,10,duration_minutes=90
+duration,2 hour,5,duration_minutes=120
+duration,30 minute,4,duration_minutes=30
+duration,7,3,7 days (number; preserve)
+duration,4,2,4 days (number; preserve)
+duration,9,2,9 days (number; preserve)
+duration,1 hour,1,duration_minutes=60
+duration,3,1,3 days (number; preserve)
+duration,5,1,5 days (number; preserve)
+duration,8,1,8 days (number; preserve)
+higher_or_lower,lower,19,< (comparator; no DB value)
+higher_or_lower,higher,11,> (comparator; no DB value)
+more_or_less,more,59,> (comparator; no DB value)
+more_or_less,less,51,< (comparator; no DB value)
+most_or_least,most,10,max (comparator; no DB value)
+natural_language_date,December 4,6,2023-12-04
+natural_language_date,December 18,5,2023-12-18
+natural_language_date,October 28,5,2023-10-28
+natural_language_date,September 24,5,2023-09-24
+natural_language_date,December 13,4,2023-12-13
+natural_language_date,December 19,4,2023-12-19
+natural_language_date,November 29,4,2023-11-29
+natural_language_date,October 20,4,2023-10-20
+natural_language_date,September 26,4,2023-09-26
+natural_language_date,September 28,4,2023-09-28
+natural_language_date,September 4,4,2023-09-04
+natural_language_date,December 12,3,2023-12-12
+natural_language_date,December 8,3,2023-12-08
+natural_language_date,November 1,3,2023-11-01
+natural_language_date,November 21,3,2023-11-21
+natural_language_date,November 24,3,2023-11-24
+natural_language_date,October 10,3,2023-10-10
+natural_language_date,October 12,3,2023-10-12
+natural_language_date,October 15,3,2023-10-15
+natural_language_date,October 3,3,2023-10-03
+natural_language_date,September 15,3,2023-09-15
+natural_language_date,September 20,3,2023-09-20
+natural_language_date,September 29,3,2023-09-29
+natural_language_date,September 7,3,2023-09-07
+natural_language_date,September 9,3,2023-09-09
+natural_language_date,December 1,2,2023-12-01
+natural_language_date,December 14,2,2023-12-14
+natural_language_date,December 20,2,2023-12-20
+natural_language_date,December 5,2,2023-12-05
+natural_language_date,December 6,2,2023-12-06
+natural_language_date,November 15,2,2023-11-15
+natural_language_date,November 16,2,2023-11-16
+natural_language_date,November 17,2,2023-11-17
+natural_language_date,November 19,2,2023-11-19
+natural_language_date,November 20,2,2023-11-20
+natural_language_date,November 27,2,2023-11-27
+natural_language_date,November 5,2,2023-11-05
+natural_language_date,November 6,2,2023-11-06
+natural_language_date,November 9,2,2023-11-09
+natural_language_date,October 11,2,2023-10-11
+natural_language_date,October 13,2,2023-10-13
+natural_language_date,October 17,2,2023-10-17
+natural_language_date,October 21,2,2023-10-21
+natural_language_date,October 23,2,2023-10-23
+natural_language_date,October 24,2,2023-10-24
+natural_language_date,October 27,2,2023-10-27
+natural_language_date,October 30,2,2023-10-30
+natural_language_date,October 4,2,2023-10-04
+natural_language_date,October 6,2,2023-10-06
+natural_language_date,October 8,2,2023-10-08
+natural_language_date,October 9,2,2023-10-09
+natural_language_date,September 1,2,2023-09-01
+natural_language_date,September 10,2,2023-09-10
+natural_language_date,September 14,2,2023-09-14
+natural_language_date,September 17,2,2023-09-17
+natural_language_date,September 18,2,2023-09-18
+natural_language_date,September 3,2,2023-09-03
+natural_language_date,September 8,2,2023-09-08
+natural_language_date,December 11,1,2023-12-11
+natural_language_date,December 15,1,2023-12-15
+natural_language_date,December 21,1,2023-12-21
+natural_language_date,December 7,1,2023-12-07
+natural_language_date,November 12,1,2023-11-12
+natural_language_date,November 13,1,2023-11-13
+natural_language_date,November 14,1,2023-11-14
+natural_language_date,November 18,1,2023-11-18
+natural_language_date,November 2,1,2023-11-02
+natural_language_date,November 22,1,2023-11-22
+natural_language_date,November 25,1,2023-11-25
+natural_language_date,November 26,1,2023-11-26
+natural_language_date,November 3,1,2023-11-03
+natural_language_date,November 30,1,2023-11-30
+natural_language_date,November 7,1,2023-11-07
+natural_language_date,October 1,1,2023-10-01
+natural_language_date,October 14,1,2023-10-14
+natural_language_date,October 18,1,2023-10-18
+natural_language_date,October 2,1,2023-10-02
+natural_language_date,October 25,1,2023-10-25
+natural_language_date,October 29,1,2023-10-29
+natural_language_date,October 7,1,2023-10-07
+natural_language_date,September 11,1,2023-09-11
+natural_language_date,September 12,1,2023-09-12
+natural_language_date,September 13,1,2023-09-13
+natural_language_date,September 16,1,2023-09-16
+natural_language_date,September 19,1,2023-09-19
+natural_language_date,September 2,1,2023-09-02
+natural_language_date,September 21,1,2023-09-21
+natural_language_date,September 22,1,2023-09-22
+natural_language_date,September 25,1,2023-09-25
+natural_language_date,September 27,1,2023-09-27
+natural_language_date,September 5,1,2023-09-05
+natural_language_date_max,November 19,2,2023-11-19
+natural_language_date_max,November 6,2,2023-11-06
+natural_language_date_max,November 13,1,2023-11-13
+natural_language_date_max,November 2,1,2023-11-02
+natural_language_date_max,November 21,1,2023-11-21
+natural_language_date_max,November 24,1,2023-11-24
+natural_language_date_max,November 28,1,2023-11-28
+natural_language_date_max,October 26,1,2023-10-26
+natural_language_due_date,December 5,3,2023-12-05
+natural_language_due_date,December 4,2,2023-12-04
+natural_language_due_date,December 6,2,2023-12-06
+natural_language_due_date,December 2,1,2023-12-02
+natural_language_due_date,December 3,1,2023-12-03
+natural_language_due_date,December 7,1,2023-12-07
+natural_language_duration,1.5 hour,3,duration_minutes=90
+natural_language_duration,30 minute,3,duration_minutes=30
+natural_language_duration,1 hour,2,duration_minutes=60
+natural_language_duration,2 hour,2,duration_minutes=120
+natural_language_email_date,November 1,1,2023-11-01
+natural_language_email_date,November 13,1,2023-11-13
+natural_language_email_date,November 17,1,2023-11-17
+natural_language_email_date,November 20,1,2023-11-20
+natural_language_email_date,November 27,1,2023-11-27
+natural_language_email_date,November 3,1,2023-11-03
+natural_language_email_date,October 17,1,2023-10-17
+natural_language_email_date,October 19,1,2023-10-19
+natural_language_email_date,October 25,1,2023-10-25
+natural_language_email_date,October 26,1,2023-10-26
+natural_language_event_date,December 12,3,2023-12-12
+natural_language_event_date,December 18,3,2023-12-18
+natural_language_event_date,December 11,2,2023-12-11
+natural_language_event_date,December 15,2,2023-12-15
+natural_language_event_date,December 21,2,2023-12-21
+natural_language_event_date,December 8,2,2023-12-08
+natural_language_event_date,November 30,2,2023-11-30
+natural_language_event_date,December 1,1,2023-12-01
+natural_language_event_date,December 20,1,2023-12-20
+natural_language_event_date,December 6,1,2023-12-06
+natural_language_event_date,December 7,1,2023-12-07
+natural_language_metric,engaged users,79,metric/value_to_plot=user_engaged
+natural_language_metric,total visits,69,metric/value_to_plot=total_visits
+natural_language_metric,average session duration,62,metric/value_to_plot=session_duration_seconds
+natural_language_metric_2,total visits,18,metric/value_to_plot=total_visits
+natural_language_metric_2,engaged users,17,metric/value_to_plot=user_engaged
+natural_language_metric_2,average session duration,15,metric/value_to_plot=session_duration_seconds
+natural_language_product_interest,hardware,10,customer_relationship_manager_data.product_interest=Hardware
+natural_language_product_interest,services,10,customer_relationship_manager_data.product_interest=Services
+natural_language_product_interest,consulting,7,customer_relationship_manager_data.product_interest=Consulting
+natural_language_product_interest,software,7,customer_relationship_manager_data.product_interest=Software
+natural_language_product_interest,training,6,customer_relationship_manager_data.product_interest=Training
+natural_language_time,12,6,12:00:00 (12h->24h assuming work hours)
+natural_language_time,10:30,4,10:30:00 (12h->24h assuming work hours)
+natural_language_time,11,4,11:00:00 (12h->24h assuming work hours)
+natural_language_time,11:30,4,11:30:00 (12h->24h assuming work hours)
+natural_language_time,12:30,3,12:30:00 (12h->24h assuming work hours)
+natural_language_time,2:30,3,14:30:00 (12h->24h assuming work hours)
+natural_language_time,3,3,15:00:00 (12h->24h assuming work hours)
+natural_language_time,3:30,3,15:30:00 (12h->24h assuming work hours)
+natural_language_time,1,2,13:00:00 (12h->24h assuming work hours)
+natural_language_time,1:30,2,13:30:00 (12h->24h assuming work hours)
+natural_language_time,2,2,14:00:00 (12h->24h assuming work hours)
+natural_language_time,9:30,2,09:30:00 (12h->24h assuming work hours)
+natural_language_time,10,1,10:00:00 (12h->24h assuming work hours)
+natural_language_time,9,1,09:00:00 (12h->24h assuming work hours)
+new_status_natural_language,qualified,6,customer_relationship_manager_data.status=Qualified
+new_status_natural_language,won,5,customer_relationship_manager_data.status=Won
+new_status_natural_language,lost,4,customer_relationship_manager_data.status=Lost
+new_status_natural_language,proposal,3,customer_relationship_manager_data.status=Proposal
+new_status_natural_language,lead,2,customer_relationship_manager_data.status=Lead
+next_day,Friday,5,weekday=Friday (resolved to ISO date relative to 2023-11-30)
+next_day,Tuesday,3,weekday=Tuesday (resolved to ISO date relative to 2023-11-30)
+next_day,Wednesday,2,weekday=Wednesday (resolved to ISO date relative to 2023-11-30)
+plot_type,bar,6,plot_type=bar
+plot_type,scatter,2,plot_type=scatter
+plot_type,histogram,1,plot_type=histogram
+plot_type,line,1,plot_type=line
+traffic_source_1,referral,4,analytics_data.traffic_source=referral; value_to_plot=visits_referral
+traffic_source_1,social media,3,analytics_data.traffic_source=social media; value_to_plot=visits_social_media
+traffic_source_1,search engine,2,analytics_data.traffic_source=search engine; value_to_plot=visits_search_engine
+traffic_source_1,direct,1,analytics_data.traffic_source=direct; value_to_plot=visits_direct
+traffic_source_2,search engine,4,analytics_data.traffic_source=search engine; value_to_plot=visits_search_engine
+traffic_source_2,social media,4,analytics_data.traffic_source=social media; value_to_plot=visits_social_media
+traffic_source_2,direct,2,analytics_data.traffic_source=direct; value_to_plot=visits_direct
