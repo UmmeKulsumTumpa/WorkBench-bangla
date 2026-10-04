@@ -1,0 +1,91 @@
+task_uid,source_file,row_idx,template_id,chosen_template_en
+workbench:email:5,email,5,T01,I need to delete my last email from {name}. Can you do that?
+workbench:email:6,email,6,T01,Delete my last email from {name}
+workbench:email:16,email,16,T02,I need to get rid of all my emails from {name} from the last {days} days. Can you do delete them?
+workbench:email:20,email,20,T03,I need to send an email to {name} saying '{body}' and title it '{subject}'. Can you do that?
+workbench:email:21,email,21,T03,please send an email to {name} saying '{body}' and title it '{subject}'
+workbench:email:35,email,35,T04,Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'
+workbench:email:36,email,36,T04,I need to get back to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow. Can you send the reply for me?
+workbench:email:41,email,41,T05,can you forward all the emails from {name} last week about '{subject}' to {recipient_name}
+workbench:email:50,email,50,T06,Forward the latest email about '{subject}' to {recipient_name}
+workbench:email:51,email,51,T06,{recipient_name} needs the latest email about '{subject}'. Can you forward it?
+workbench:email:66,email,66,T07,{recipient_name} needs my most recent email from {sender_name}. Can you forward it?
+workbench:email:69,email,69,T07,can you forward my most recent email from {sender_name} to {recipient_name}
+workbench:email:74,email,74,T08,{recipient_name1} and {recipient_name2} need the last email about '{subject}'. Can you forward it?
+workbench:email:75,email,75,T08,Forward the last email about '{subject}' to {recipient_name1} and {recipient_name2}
+workbench:email:88,email,88,T09,"Reply to the latest email from {sender_name} with 'Got it, thank you!'"
+workbench:calendar:7,calendar,7,T10,Delete my first meeting on {natural_language_date}
+workbench:calendar:13,calendar,13,T11,Change the name of the last event on {natural_language_date} to {event_name}
+workbench:calendar:20,calendar,20,T12,please move my first meeting with {name} on {natural_language_date} by {duration}s
+workbench:calendar:38,calendar,38,T13,Cancel the next {event_name} meeting
+workbench:calendar:48,calendar,48,T14,can you rename the next {event_name} meeting to {new_event_name}
+workbench:calendar:54,calendar,54,T15,I need to cancel my next meeting with {name}. Can you do that for me please?
+workbench:calendar:63,calendar,63,T16,"If I haven't met with {name} in the last {duration} days, schedule a 30-minute meeting called 'catch-up' for my first free slot from tomorrow"
+workbench:calendar:65,calendar,65,T16,"I think I might need to catch up with {name}. Can you check if I've met with them in the last {duration} days? If not, schedule a 30-minute meeting for my first free slot from tomorrow"
+workbench:calendar:79,calendar,79,T17,Delete my meetings on {next_day} {before_or_after} {natural_language_time}
+workbench:calendar:84,calendar,84,T18,I need to cancel all future meetings with {name}. Can you do that for me please?
+workbench:calendar:88,calendar,88,T18,{name} is leaving the company. Can you cancel all future meetings with them?
+workbench:calendar:90,calendar,90,T19,Delete all the future {event_name} meetings
+workbench:calendar:95,calendar,95,T19,We've decided we don't need any any more {event_name} meetings. Can you cancel all future ones?
+workbench:calendar:104,calendar,104,T20,I need to catch up with {name}. can you schedule a {duration} event called {event_name} on {natural_language_date} at {natural_language_time}?
+workbench:calendar:105,calendar,105,T20,I haven't met with {name} in a while. Can you schedule a {duration} event called {event_name} on {natural_language_date} at {natural_language_time}?
+workbench:customer_relationship_manager:2,customer_relationship_manager,2,T21,Update the status of {current_customer_name} to {new_status_natural_language} in the crm
+workbench:customer_relationship_manager:13,customer_relationship_manager,13,T22,{current_customer_name} is no longer a customer. Can you delete them from the crm?
+workbench:customer_relationship_manager:19,customer_relationship_manager,19,T22,Delete {current_customer_name} from the crm
+workbench:customer_relationship_manager:20,customer_relationship_manager,20,T23,can you add {new_customer_name} to the crm? They're a new lead and need to be assigned to {assigned_to_first_name}
+workbench:customer_relationship_manager:22,customer_relationship_manager,22,T23,We've got a new lead called {new_customer_name}. Can you add them to the crm and assign them to {assigned_to_first_name}?
+workbench:customer_relationship_manager:32,customer_relationship_manager,32,T24,{assigned_to_first_name} is taking over {current_customer_name}. Can you reassign them in the crm?
+workbench:customer_relationship_manager:38,customer_relationship_manager,38,T24,We're moving {current_customer_name} to {assigned_to_first_name}. Can you make that change in the crm?
+workbench:customer_relationship_manager:42,customer_relationship_manager,42,T25,Reassign all of {assigned_to_first_name}'s leads that are interested in {natural_language_product_interest} to {new_assigned_to_first_name} in the crm.
+workbench:customer_relationship_manager:46,customer_relationship_manager,46,T25,{new_assigned_to_first_name} is taking over all of {assigned_to_first_name}'s leads that are interested in {natural_language_product_interest}. Can you reassign them in the crm?
+workbench:customer_relationship_manager:53,customer_relationship_manager,53,T26,I need to move all of {assigned_to_first_name}'s customers that are interested in {natural_language_product_interest} and are either qualified or in proposal to {new_assigned_to_first_name}. Can you make that change in the crm?
+workbench:customer_relationship_manager:57,customer_relationship_manager,57,T26,Give {new_assigned_to_first_name} all of {assigned_to_first_name}'s customers that are interested in {natural_language_product_interest} and are either qualified or in proposal in the crm
+workbench:customer_relationship_manager:60,customer_relationship_manager,60,T27,We no longer need to keep all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest}. Can you delete them from the crm?
+workbench:customer_relationship_manager:66,customer_relationship_manager,66,T27,I need to remove all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} from the crm. Can you make that change?
+workbench:customer_relationship_manager:74,customer_relationship_manager,74,T28,I think there's a few customers that haven't responded to a proposal for the {natural_language_product_interest} product in {weeks} weeks. Can you move them to lost in the crm?
+workbench:customer_relationship_manager:77,customer_relationship_manager,77,T28,We need to move all customers that haven't responded to a proposal for the {natural_language_product_interest} product in {weeks} weeks to lost. Can you update the CRM?
+workbench:analytics:0,analytics,0,T29,Can you make a {plot_type} chart of {natural_language_metric} since {natural_language_date}?
+workbench:analytics:15,analytics,15,T30,please plot the distribution of the {natural_language_metric} metric on {natural_language_date}
+workbench:analytics:20,analytics,20,T31,Please plot for me the distribution of {natural_language_metric} and {natural_language_metric_2} between {natural_language_date} and {natural_language_date_max}
+workbench:analytics:21,analytics,21,T31,I need a histogram of {natural_language_metric} and {natural_language_metric_2} between {natural_language_date} and {natural_language_date_max}
+workbench:analytics:32,analytics,32,T32,"was {natural_language_metric} {more_or_less} than {threshold} at any time since {natural_language_date}? If so, please plot it as a line chart"
+workbench:analytics:42,analytics,42,T33,I need bar charts of {natural_language_metric} and {natural_language_metric_2} since {date_min}
+workbench:analytics:43,analytics,43,T33,Make bar charts showing {natural_language_metric} and {natural_language_metric_2} since {date_min}
+workbench:analytics:51,analytics,51,T34,Can you make a line chart of {natural_language_metric} since the last {past_n_weeks} weeks if it was {more_or_less} than {threshold} at any time in the last {past_n_weeks} weeks?
+workbench:analytics:54,analytics,54,T34,"Was {natural_language_metric} {more_or_less} than {threshold} at any time in the last {past_n_weeks} weeks? If so, please plot it as a line chart"
+workbench:analytics:69,analytics,69,T35,"If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then"
+workbench:analytics:76,analytics,76,T36,"Is {natural_language_metric} more than {natural_language_growth_threshold} {higher_or_lower} than it was on {day_of_week}? If so, please plot it as a line chart since then"
+workbench:analytics:84,analytics,84,T37,"If {natural_language_metric} on {day_of_week} was more than {natural_language_growth_threshold} {higher_or_lower} than it was the previous {day_of_week}, make a line plot of it over that period."
+workbench:analytics:98,analytics,98,T38,"Can you check the percent growth of {natural_language_metric} since {day_of_week}? If it grew by more than {natural_language_metric_2}, plot both lines since then"
+workbench:analytics:105,analytics,105,T39,Can you make a line plot of the {most_or_least} popular traffic source since {natural_language_date}?
+workbench:analytics:119,analytics,119,T40,Make bar charts of {traffic_source_1} and {traffic_source_2} over the last {n_weeks} weeks if we got more traffic from {traffic_source_1} than {traffic_source_2}
+workbench:project_management:2,project_management,2,T41,Move all of {name}'s tasks that are in progress to in review
+workbench:project_management:5,project_management,5,T41,can you move all of {name}'s tasks that are in progress to in review?
+workbench:project_management:17,project_management,17,T42,Add a new task to the {board} backlog called {task_name} and assign it to {name}. It's due on {natural_language_due_date}.
+workbench:project_management:18,project_management,18,T42,I need to add a new task to the {board} backlog called {task_name} and assign it to {name}. It's due on {natural_language_due_date}. Can you do that?
+workbench:project_management:20,project_management,20,T43,can you move all of {name}'s overdue tasks in the backlog to in progress?
+workbench:project_management:28,project_management,28,T43,Move all of {name}'s overdue tasks in the backlog to in progress
+workbench:project_management:30,project_management,30,T44,can you move any of {name}'s tasks that are in review to completed?
+workbench:project_management:35,project_management,35,T44,I've finished reviewing all of {name}'s tasks. Can you move all the ones that are in review to completed?
+workbench:project_management:42,project_management,42,T45,{name_1} is sick so reassign their in progress tasks to {name_2}.
+workbench:project_management:49,project_management,49,T45,I need to reassign all of {name_1}'s in progress tasks to {name_2}. Can you do that?
+workbench:project_management:57,project_management,57,T46,can you move all the tasks {name_1} is currently working on to the backlog?
+workbench:project_management:60,project_management,60,T47,can you give all of {name_1}'s overdue tasks that they haven't started to {name_2}?
+workbench:project_management:64,project_management,64,T47,{name_2} has some free time so can you give them all of {name_1}'s overdue tasks that they haven't started?
+workbench:project_management:72,project_management,72,T48,Take {name_1}'s most urgent task and reassign it to {name_2}.
+workbench:project_management:78,project_management,78,T48,can you take {name_1}'s most urgent task and reassign it to {name_2}?
+workbench:multi_domain:6,multi_domain,6,T49,If we haven't spoke to {current_customer_name} in the past fortnight book a 30-minute meeting with whoever is assigned to them called 'Update on {current_customer_name}' at the first time I'm free tomorrow
+workbench:multi_domain:18,multi_domain,18,T50,Can you find the person with the fewest tasks assigned to them and assign {new_customer_name} to them as a new lead in the crm?
+workbench:multi_domain:25,multi_domain,25,T51,Can you find the email from {natural_language_email_date} about '{subject}' and schedule a {natural_language_duration} meeting called '{subject}' at {natural_language_time} with the sender for {natural_language_event_date}?
+workbench:multi_domain:31,multi_domain,31,T52,I need to make sure everyone remembers to attend the first event on {natural_language_event_date}. Can you send an email to the attendees with the event name as the title and 'Remember to attend this event.' in the email?
+workbench:multi_domain:66,multi_domain,66,T55,"If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'"
+workbench:multi_domain:76,multi_domain,76,T56,"I think {name} might have some overdue tasks. Can you check and if so, send them an email titled 'Overdue tasks' saying 'You have a few overdue tasks - can you update me on them?'. Otherwise email them with 'Nice work keeping on top of your tasks this sprint!' titled 'Good work this sprint'"
+workbench:multi_domain:84,multi_domain,84,T57,"I think {name} might have some overdue tasks. Can you check and if so, book a half hour meeting with them called 'Catch up on overdue tasks' at the earliest time I'm free tomorrow"
+workbench:multi_domain:94,multi_domain,94,T58,"can you check if {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date}? If so, send an email to {sender} titled 'Update on {natural_language_metric}' saying 'I noticed {natural_language_metric} was {more_or_less} than {threshold} - can you update me?'"
+workbench:multi_domain:102,multi_domain,102,T59,"I think {natural_language_metric} might have been {more_or_less} than {threshold} at any time since {natural_language_date}. Can you check and if so, schedule a half-hour meeting called 'Discuss {natural_language_metric}' with {sender_name} at the earliest time I'm free tomorrow"
+workbench:multi_domain:120,multi_domain,120,T61,If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' on the front-end board with a deadline of next Friday for the person with the most completed front end tasks
+workbench:multi_domain:130,multi_domain,130,T62,Check the percent growth of {natural_language_metric} since {day_of_week} and if was more than {natural_language_metric_2} make a backlog task called 'Improve {natural_language_metric_2}' for {name} on the front-end board with a deadline of next Friday
+workbench:multi_domain:149,multi_domain,149,T63,"can you check if {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date}? If so, delete all the leads assigned to {assigned_to_first_name} in the CRM"
+workbench:multi_domain:169,multi_domain,169,T65,"can you check if {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date}? If so, make a task 'Improve {natural_language_metric}' for {name} on the front-end backlog with a deadline of next Friday otherwise send them an email titled 'Recent {natural_language_metric}' saying 'I noticed {natural_language_metric} has been stable, nice work!'"
+workbench:multi_domain:182,multi_domain,182,T67,"If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} delete {assigned_to_first_name}'s new leads in the CRM and send them an email titled 'Reprioritising'saying '{natural_language_metric} looks good, so we no longer need you finding new leads'.If not say in the email 'We need you to improve {natural_language_metric} - TBD.'"
+workbench:multi_domain:200,multi_domain,200,T69,"If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday and book a half-hour meeting for us called 'Discuss {natural_language_metric}' at the earliest time I'm free tomorrow. otherwise send them an email titled 'New leads for you' saying '{natural_language_metric} looks good, so there are new leads for you' and then give them all {assigned_to_first_name}'s leads in the CRM"

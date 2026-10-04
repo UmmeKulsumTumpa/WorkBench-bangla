@@ -1,9 +1,21 @@
 # progress.md — WorkBench → Bangla (source of truth)
 
 Spec: `docs/superpowers/specs/2026-10-04-workbench-bangla-design.md` (re-read §0 on every resume).
-Resume protocol: read this file → `git log --oneline -15` → continue from `## Current step
+Resume protocol: read this file → `git log --oneline -15` → continue from the "Current step" section. Always `source env.sh` first; use `uv run --frozen`.
 
-Phase 1.7 + 2.2 in parallel. 1.7: write `docs/pilot_design.md`. 2.2: translator subagents are writing `data_bn/translations/batch_{1..5}.csv` (batch 1 done; 2–5 running). Next: when all 5 are done → merge into `data_bn/templates_bn.csv` (`cat` with a single header; 204 rows) → `python3 scripts/make_bn_tasks.py --check_templates` → independent reviewer subagent (max 2 fix cycles) → `python3 scripts/make_bn_tasks.py` (render 690) → copy `data_bn/*_bn_tasks_and_outcomes.csv` → `docs/translation_review.md` → STOP (a).
+## Status
+
+| Phase | State | Note |
+|---|---|---|
+| 0 Bootstrap | ✅ | progress.md, .gitignore, spec, project-local toolchain (`env.sh`, `.tools/`) |
+| 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
+| 2 Bangla translation | 🔄 | 2.1 ✅ policy draft + glossary; 2.2 all 5 batches translated (204 variants) → merge + reviewer pass in progress |
+| 3 Pilot run | ⬜ | waits for STOP (a) then STOP (b) |
+| 4 Extensions | ⬜ | owner instruction only |
+
+## Current step
+
+Phase 2.2 — merge `data_bn/translations/batch_{1..5}.csv` → `data_bn/templates_bn.csv` (204 rows, same order as `data_bn/variants_en.csv`), then `python3 scripts/make_bn_tasks.py --check_templates`, then the independent reviewer subagent (max 2 fix cycles), then `python3 scripts/make_bn_tasks.py` (render 690), then `python3 scripts/make_pilot.py`, then `docs/translation_review.md`, then STOP (a).
 
 ## Decisions log
 
@@ -44,4 +56,4 @@ Phase 1.7 + 2.2 in parallel. 1.7: write `docs/pilot_design.md`. 2.2: translator 
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 14 (probe, 2026-10-04) | dry run 3.1: ~4 tasks × ≤20 = ≤80 req (expected ~16) — needs STOP (b)? no: dry run comes after STOP (a); pilot needs STOP (b) |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 14 (probe, 2026-10-04) | dry run 3.1 (after STOP a): 4 tasks, expected ~16 req (cap 80); pilot (after STOP b): ~720 req per model |
