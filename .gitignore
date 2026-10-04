@@ -1,6 +1,6 @@
 .env
 .env.*
-WorkBench/.venv
+WorkBench/
 .venv/
 *.pyc
 __pycache__/
@@ -9,3 +9,4 @@ __pycache__/
 **/traces/
 **/*_traces/
 WorkBench/data/results/**/traces*
+.tools/
