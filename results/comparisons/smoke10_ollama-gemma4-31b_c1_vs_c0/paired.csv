@@ -1,4 +1,4 @@
-task_uid,domain,template_id,correct_en,correct_bn,side_effect_en,side_effect_bn,pair_class
+task_uid,domain,template_id,correct_ref,correct_treat,side_effect_ref,side_effect_treat,pair_class
 workbench:email:5,email,T01,1,1,0,0,both_correct
 workbench:email:6,email,T01,1,1,0,0,both_correct
 workbench:calendar:7,calendar,T10,1,1,0,0,both_correct

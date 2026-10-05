@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import re
+import subprocess
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict
@@ -168,6 +169,22 @@ def _save_progress(
         trace_path = save_path.replace(".csv", "_traces.json")
         with open(trace_path, "w") as f:
             json.dump(trace_data, f, indent=2)
+
+
+def _harness_git_state() -> dict[str, object]:
+    """Commit of the enclosing git repo and whether harness code or condition assets have local changes."""
+    root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    try:
+        commit = subprocess.run(["git", "-C", root, "rev-parse", "HEAD"], capture_output=True, text=True, check=True)
+        dirty = subprocess.run(
+            ["git", "-C", root, "status", "--porcelain", "--", "src", "data/conditions"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return {"harness_commit": None, "harness_dirty": None}
+    return {"harness_commit": commit.stdout.strip(), "harness_dirty": bool(dirty.stdout.strip())}
 
 
 def _find_latest_results_path(save_dir: str, model_name: str, tool_selection: str) -> str | None:
@@ -337,6 +354,7 @@ def generate_results(
             per_task_tools[0], datetime_prefix, act_without_confirmation, prompt_kwargs.get("extra_instructions", ())
         )
     meta_extra["system_prompt_sent"] = system_prompt_sent
+    meta_extra.update(_harness_git_state())
     meta_extra["tool_descriptions_sha256"] = hashlib.sha256(
         json.dumps({t.name: t.description for t in per_task_tools[0]}, ensure_ascii=False, sort_keys=True).encode()
     ).hexdigest()

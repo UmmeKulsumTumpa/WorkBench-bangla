@@ -1,6 +1,6 @@
 {
   "benchmark": "workbench",
-  "run_id": "workbench_pilot_bn_ollama-gemma4-31b_c1",
+  "run_id": "workbench_pilot_c1_ollama-gemma4-31b",
   "model_key": "ollama-gemma4-31b",
   "model_id": "gemma4:31b",
   "provider": "ollama_cloud",
@@ -8,20 +8,22 @@
   "temperature": 0,
   "language": "bn",
   "condition": "c1",
+  "run_label": null,
+  "condition_spec": null,
+  "condition_assets": null,
+  "system_prompt_sent": null,
   "subset": "pilot",
   "n_tasks": 90,
   "tasks_file": "data_bn/pilot/pilot_bn_tasks_and_outcomes.csv",
   "tasks_file_sha256": "2bb7146d9743890cd5d447e095490b985415b09ec53d2519570081b899822d07",
+  "results_file": "WorkBench/data/results/c1/pilot_bn/ollama-gemma4-31b_all_2026-10-04_11-47-57.csv",
   "tool_selection": "all",
   "structured_outputs": true,
   "act_without_confirmation": true,
-  "harness_commit": "4171e78259847663175af17aae4c478a8bc57f9e",
-  "patch_files": [
-    "patches/0001-Add-OpenAI-compatible-providers-ollama_cloud-ollama_.patch",
-    "patches/0002-Remove-Ollama-Cloud-models-outside-the-free-tier-402.patch"
-  ],
+  "harness_commit": "43194cbf0632193e50b3c846a5be5e6383555ad7",
+  "harness_dirty": false,
   "started_at": "2026-10-04T11:47:57.988399",
   "finished_at": "2026-10-04T11:53:58.998111",
   "total_llm_requests": 433,
-  "notes": "results_file=WorkBench/data/results/pilot_bn/ollama-gemma4-31b_all_2026-10-04_11-47-57.csv"
+  "notes": "run predates the --condition flag; condition taken from the results folder"
 }

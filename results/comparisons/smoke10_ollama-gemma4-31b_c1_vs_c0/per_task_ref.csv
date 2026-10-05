@@ -1,0 +1,11 @@
+benchmark,run_id,model_key,model_id,provider,language,condition,task_uid,domain,template_id,correct,side_effect,error,n_llm_requests,n_tool_calls,run_date
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:email:5,email,T01,1,0,,6,5,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:email:6,email,T01,1,0,,3,2,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:calendar:7,calendar,T10,1,0,,3,2,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:calendar:13,calendar,T11,1,0,,3,2,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:analytics:0,analytics,T29,1,0,,2,1,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:analytics:15,analytics,T30,1,0,,2,1,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:project_management:2,project_management,T41,1,0,,4,3,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:customer_relationship_manager:2,customer_relationship_manager,T21,1,0,,3,2,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:multi_domain:6,multi_domain,T49,0,1,,4,3,2026-10-04
+workbench,workbench_smoke10_c0_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,en,c0,workbench:multi_domain:18,multi_domain,T50,0,1,,7,6,2026-10-04
