@@ -45,9 +45,9 @@ Not free (HTTP 402): glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7. They are 
 - **Failure analysis:** every task whose outcome differs between EN and BN, plus all BN failures with a non-empty error, is labelled with the `docs/data/schema.md` taxonomy. Primary labels: outcome / reasoning / planning / tool_use / control_flow / memory / multilingual. Multilingual subtypes: wrong-language output, language mixing, numeral/script error, language-induced tool misuse (e.g. `nadia-কে` passed as a name).
 
 ## 6. Request budget
-- 1 LLM request per agent step. Committed runs average 2.5–4.1 tool calls per task, so expect **≈ 4 requests per task**; the hard cap is 20 per task.
+- 1 LLM request per model response (one response may carry several tool calls). Measured on the pilot: **≈ 3.8 requests per task**; the hard cap is 20 per task.
 - **Dry run (Phase 3.1):** 2 EN + 2 BN tasks on the primary model, ≈ 16 requests (cap 80). This measures the real requests per task.
-- **Pilot, one model:** 180 tasks × ~4 ≈ **720 requests** (worst case 3,600).
-- **Two models:** ≈ 1,440.
+- **Pilot, one model:** 180 tasks × ~3.8 ≈ **684 requests** (worst case 3,600).
+- **Two models:** ≈ 1,370.
 - **Pacing:** 1 concurrent request at ~2–5 s each ≈ 10–20 min of wall-clock per 100 tasks. Ollama's free tier is metered in monthly credits with an unpublished cap and sends no rate-limit headers. We watch for 429/402 and stop on the first quota signal. `--resume` lets a run continue on a later day.
 - **Fallback:** if the quota cannot carry one model's pilot within ~3 days, record a blocker recommending a Groq or Gemini free key, and prepare local `qwen3:8b`.

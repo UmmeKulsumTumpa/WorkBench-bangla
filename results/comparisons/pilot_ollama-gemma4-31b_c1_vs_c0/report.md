@@ -7,7 +7,7 @@ Date: 2026-10-04 · Interactive version: `results/comparisons/pilot_ollama-gemma
 - **Model:** gemma4:31b via the Ollama Cloud free tier, temperature 0.
 - **Settings:** native tool calling, act-without-confirmation, all 27 tools, 1 worker, max 20 steps.
 - **Condition C1:** Bangla task text; English system prompt and tools.
-- **Requests:** 445 EN + 433 BN = 878, with no rate-limit or quota errors.
+- **Requests:** 340 EN + 342 BN = 682, with no rate-limit or quota errors.
 
 ## Results
 | metric | EN | BN | Δ (BN−EN) | 95% CI |
@@ -51,6 +51,6 @@ Paired outcomes: 67 both correct, 10 both wrong, 6 only EN, 7 only BN. Exact McN
 
 ## Recommendations
 1. **Finish STOP (a) first.** Have the native speaker review the translations, especially relative-date phrases like "আগামী শুক্রবার". Then re-run BN for any changed templates.
-2. **Second model: `ollama-gpt-oss-20b`.** It is a smaller open reasoning model, likely weaker in Bangla, so it is a better place to look for a gap. Cost is about 880 requests on the free tier.
-3. **Condition C2 (Bangla system prompt):** run it only after a model shows a C1 gap, or on gemma4:31b as a robustness check (about 880 requests).
-4. **Full 690 run:** about 6,800 requests per model across both languages. Run it on the model with the largest pilot gap; multi-domain tasks carry most of the signal.
+2. **Second model: `ollama-gpt-oss-20b`.** It is a smaller open reasoning model, likely weaker in Bangla, so it is a better place to look for a gap. Cost is about 680 requests on the free tier.
+3. **Condition C2 (Bangla system prompt):** run it only after a model shows a C1 gap, or on gemma4:31b as a robustness check (about 680 requests).
+4. **Full 690 run:** about 5,200 requests per model across both languages. Run it on the model with the largest pilot gap; multi-domain tasks carry most of the signal.

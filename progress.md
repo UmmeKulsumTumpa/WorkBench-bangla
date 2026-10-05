@@ -18,7 +18,7 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 Phase 3b: everything is built and tested; **no API call yet**. Waiting for the owner on:
 - (1) **Review the new Bangla assets:** `docs/conditions/translation_review.md` (system prompt + 27 tool descriptions; machine-translated, not yet native-reviewed). Edits go to `WorkBench/data/conditions/bn/*.json` (runbook §6).
-- (2) **Budget approval (rule 6).** Owner's current plan (decision #30): **C6 and C0-rep2** on the 90-task pilot with `ollama-gemma4-31b`, about 441 requests each, **about 880 in total** (Ollama Cloud free tier, 1 worker). Optionally a smoke10 check first (about 50 requests each). The other conditions (c2–c5, c0-rep3) are deferred.
+- (2) **Budget approval (rule 6).** Owner's current plan (decision #30): **C6 and C0-rep2** on the 90-task pilot with `ollama-gemma4-31b`, about 342 requests each, **about 684 in total** (Ollama Cloud free tier, 1 worker). Optionally a smoke10 check first (about 38 requests each). The other conditions (c2–c5, c0-rep3) are deferred.
 - (3) Still open: STOP (a) review of the task templates (`docs/translation/template_review.md`; the pilot flagged "আগামী শুক্রবার"). If templates change, c1–c4 must be re-run.
 
 Next action after approval: `scripts/run_condition.py --condition c6 --model ollama-gemma4-31b`, then `--condition c0 --run_label rep2` (runbook §1–3). Then compare c6 vs c0, c0-rep2 vs c0 (noise floor), and c6 vs c1.
@@ -82,6 +82,8 @@ To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_
 
 - 2026-10-05 #30 — **C6 added (issue #4).** The owner's teammates ran the Bangla condition with a Bangla system prompt, English tool descriptions and the reply language *forced* to Bangla. C2 leaves the reply language free, so it would differ from their setup by one prompt line. C6 = C2 + the Bangla output-language line (asserted in a test). The owner's next runs are **C6 and C0 (repeat `rep2`)**, set up the same as the teammates'.
 
+- 2026-10-05 #32 — **Request counts corrected (issue #7).** `n_llm_requests` / `total_llm_requests` were computed as the number of trace steps, but in native tool-calling mode one LLM response can carry several tool calls, each its own step with the same `llm_input`. The fix counts distinct `llm_input` per task, which matches the `HTTP/1.1 200 OK` lines in the run logs exactly. Pilot: c0 445 → 340, c1 433 → 342 (total 878 → 682; 4.9 → 3.8 requests/task). Smoke10: c0 37 → 34, c1 34 → 31 (71 → 65). C6 pilot: 296 (log count; the old method gave 375). Projections recomputed at 3.8/task: about 342 per 90-task run. `metrics.csv`, `paired.csv` and `summary.csv` are unchanged. The dated entries above keep the old numbers as history.
+
 ## Blockers / needs-human
 
 - ~~B1: OLLAMA_API_KEY empty~~ — resolved 2026-10-04 (owner pasted the key).
@@ -100,4 +102,4 @@ To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 963 total on 2026-10-04 (probe 14 + smoke10 71 + pilot 878); 0 on 2026-10-05 | pilot: 878 req (4.9/task); no limit errors | **Next: C6 + C0-rep2 on gemma4:31b, 90 tasks each: ≈ 2 × 441 ≈ 880 req (cap 2 × 1,800). Awaiting owner approval.** |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (c6 pilot) | pilot: 682 req (3.8/task); no limit errors | **Next: C6 + C0-rep2 on gemma4:31b, 90 tasks each: ≈ 2 × 342 ≈ 684 req (cap 2 × 1,800). Awaiting owner approval.** |

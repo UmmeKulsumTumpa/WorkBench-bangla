@@ -8,4 +8,4 @@ workbench,workbench_smoke10_c1_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ol
 workbench,workbench_smoke10_c1_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,bn,c1,workbench:project_management:2,project_management,T41,1,0,,4,3,2026-10-04
 workbench,workbench_smoke10_c1_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,bn,c1,workbench:customer_relationship_manager:2,customer_relationship_manager,T21,1,0,,3,2,2026-10-04
 workbench,workbench_smoke10_c1_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,bn,c1,workbench:multi_domain:6,multi_domain,T49,0,1,,4,3,2026-10-04
-workbench,workbench_smoke10_c1_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,bn,c1,workbench:multi_domain:18,multi_domain,T50,0,1,,7,6,2026-10-04
+workbench,workbench_smoke10_c1_ollama-gemma4-31b,ollama-gemma4-31b,gemma4:31b,ollama_cloud,bn,c1,workbench:multi_domain:18,multi_domain,T50,0,1,,4,6,2026-10-04
