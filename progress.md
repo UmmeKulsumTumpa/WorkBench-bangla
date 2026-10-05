@@ -16,6 +16,8 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 ## Current step
 
+**Next (approved, #34):** execute `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (per-model folders, then gpt-oss:20b c0 and c6: a smoke10 gate, then 90 tasks). Start by confirming "C7 = C6" with the owner. Handoff: `.claude/HANDOFF.md`.
+
 C6 report published (private artifact): https://claude.ai/artifact/RwtdFQ5pvZ4uVXdrQNuzGc; regenerate with `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c6_vs_c0` and republish `report_fragment.html`. C6 code: tag `run/pilot-c6-gemma4-31b` (0950e72). Follow-ups: issue #9.
 
 Phase 3b: **C6 pilot is done** (296 requests, 2026-10-05) and compared with C0: `results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/` (report.md, report.html, failure analysis). C2–C5 are built but not run.
@@ -92,6 +94,8 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
   - New in C6: 2 empty final answers (crm:74, md:149), no visible cause; C0 had 0.
   - Analytics is lower in C6 (87% → 67%, 3 vs 0 discordant); descriptive only at n = 15.
   - Threats: C0 and C6 ran on different days (provider drift possible), no C0 repeat (noise unmeasured), unreviewed BN prompt, one model, n = 90.
+
+- 2026-10-05 #34 — **Next: gpt-oss:20b, c0 and c6 (owner).** The owner asked to "run the same test on GPT-OSS 20 billion for both the C0 and C7"; C7 does not exist, so it is taken as C6 and must be confirmed with the owner at the start of the next session. The owner also wants every model's runs in separate folders (issue #12) and everything tracked in git. Plan: `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (issues #12, #13). Budget approved: smoke10 about 80 requests plus pilot about 684. If the smoke10 gate fails, the fallbacks are `ollama-gpt-oss-120b` or local `qwen3:8b`. The session was handed off via `.claude/HANDOFF.md` and the project `CLAUDE.md`.
 
 ## Blockers / needs-human
 
