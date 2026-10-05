@@ -95,7 +95,7 @@ Method: a script over the C6 trace file. Final answer = `action_input` of the la
 **Invalid tool names.**
 - There was exactly 1 invalid tool name in 285 C6 calls, in crm:77 at step 1: `customer_relationship_manager_update_task(field="status", new_value="Lost", task_id="00000147")`.
   - The tool returned "Tool … not found". The model then made a valid `update_customer` call.
-  - Scoring rejects it too: `WARNING: Rejected disallowed tool name: customer_relationship_manager_update_task.func` appears at lines 634–635 of `results/logs/pilot/c6_ollama-gemma4-31b_2026-10-05_16-12-02.log`.
+  - Scoring rejects it too: `WARNING: Rejected disallowed tool name: customer_relationship_manager_update_task.func` appears at lines 634–635 of `results/logs/pilot/ollama-gemma4-31b/c6_2026-10-05_16-12-02.log`.
 - The name combines the CRM prefix with project_management's `update_task` and `task_id`. That pattern does not suggest a language cause.
 - C0 had 0 invalid tool names in 356 calls.
 

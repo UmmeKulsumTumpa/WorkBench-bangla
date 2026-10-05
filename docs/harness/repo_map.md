@@ -88,6 +88,6 @@ Details: `docs/conditions/README.md`.
 - `src/evals/conditions.py`: condition registry (C0–C5), loader for the Bangla assets in `data/conditions/bn/`, task-language check, and asset hashes.
 - `agent.py`: `build_system_prompt` / `build_structured_system_prompt` take the act-without-confirmation text and extra instruction lines. Their defaults are upstream's, so upstream behaviour is unchanged without `--condition`.
 - `inference.py` / `cli.py` add `--condition` and `--run_label`:
-  - Results go to `data/results/<condition>[-<label>]/<tasks>/`.
+  - Results go to `data/results/<condition>[-<label>]/<tasks>/<model_name>/` (one folder per model, since 2026-10-05; without `--condition` the path is upstream's `data/results/{domain}/`).
   - `_meta.json` adds `condition`, `condition_spec`, `condition_assets`, `run_label`, `system_prompt_sent`, `tool_descriptions_sha256`, `harness_commit` and `harness_dirty`.
 - The upstream `.github/` CI folder was removed: it is inert at a nested path.

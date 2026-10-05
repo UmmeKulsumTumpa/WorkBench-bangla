@@ -50,7 +50,7 @@ data_bn/             ← Bangla task data: templates, glossary, translated task 
   smoke10/             10-task smoke subset
 WorkBench/           ← the agent harness (upstream WorkBench + our changes: providers, --condition)
   data/conditions/bn/  Bangla system prompt + tool descriptions
-  data/results/        RAW run outputs: <condition>[-<label>]/<subset>_<lang>/<model>_all_<ts>.csv (+ _meta.json)
+  data/results/        RAW run outputs: <condition>[-<label>]/<subset>_<lang>/<model>/<model>_all_<ts>.csv (+ _meta.json)
 scripts/             ← run_condition.py, compare_conditions.py, build_report_html.py, data/translation builders
 tests/               ← tests for the project scripts (WorkBench has its own tests/)
 results/             ← ANALYSED outputs
@@ -60,10 +60,10 @@ results/             ← ANALYSED outputs
 
 | path | what is in it | written by |
 |---|---|---|
-| `WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/` | raw run: `<model>_all_<ts>.csv` (one row per task), `_meta.json` (condition, exact prompt, asset hashes, git commit), `_traces.json` (full trajectories, git-ignored) | `run_condition.py` |
+| `WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/<model>/` | raw run (one folder per model): `<model>_all_<ts>.csv` (one row per task), `_meta.json` (condition, exact prompt, asset hashes, git commit), `_traces.json` (full trajectories, git-ignored) | `run_condition.py` |
 | `results/comparisons/<subset>_<model>_<treat>_vs_<ref>/` | one comparison: `paired.csv`, `metrics.csv`, `per_task_{ref,treat}.csv`, `run_meta_{ref,treat}.json`; optional `failure_labels.csv`, `report.md`, `report.html` | `compare_conditions.py`, `build_report_html.py` |
 | `results/summary.csv` | one row per comparison (completion, Δ, CI, p, side effects) | `compare_conditions.py` (rebuilt each time) |
-| `results/logs/` | `run_log.csv` (every run: time, condition, commit, exit code) and the console log of each run | `run_condition.py` |
+| `results/logs/` | `run_log.csv` (every run: time, condition, model, commit, exit code) and the console log of each run in `<subset>/<model>/<cond>[-<label>]_<timestamp>.log` | `run_condition.py` |
 | `results/probe/` | provider probe results | `probe_provider.py` |
 
 ## Quick start
