@@ -11,19 +11,18 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 | 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
 | 2 Bangla translation | 🛑 | **STOP (a): waiting for owner review.** 204 variants translated + 2 independent review cycles (cycle 1: 99 rows, cycle 2: 42 rows); 690 BN tasks rendered, all checks pass |
 | 3 Pilot run | ✅ | gemma4:31b: EN 81.1% vs BN 82.2% (p=1.0); failure analysis + pilot_report.md + HTML report (artifact) done |
-| 3b Conditions C2–C5 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). Runs: ⬜ waiting for asset review + budget approval |
+| 3b Conditions C2–C6 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). **C6 pilot run + report: ✅** (gemma4:31b, 74/90 vs C0 73/90, p=1.0). Other runs (c2–c5, repeats): ⬜ waiting for owner review of the BN prompt + budget approval |
 | 4 Extensions | ⬜ | owner instruction only (300 tasks only if the 90-task runs show a finding) |
 
 ## Current step
 
-Phase 3b: everything is built and tested; **no API call yet**. Waiting for the owner on:
-- (1) **Review the new Bangla assets:** `docs/conditions/translation_review.md` (system prompt + 27 tool descriptions; machine-translated, not yet native-reviewed). Edits go to `WorkBench/data/conditions/bn/*.json` (runbook §6).
-- (2) **Budget approval (rule 6).** Owner's current plan (decision #30): **C6 and C0-rep2** on the 90-task pilot with `ollama-gemma4-31b`, about 342 requests each, **about 684 in total** (Ollama Cloud free tier, 1 worker). Optionally a smoke10 check first (about 38 requests each). The other conditions (c2–c5, c0-rep3) are deferred.
-- (3) Still open: STOP (a) review of the task templates (`docs/translation/template_review.md`; the pilot flagged "আগামী শুক্রবার"). If templates change, c1–c4 must be re-run.
+Phase 3b: **C6 pilot is done** (296 requests, 2026-10-05) and compared with C0: `results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/` (report.md, report.html, failure analysis). C2–C5 are built but not run.
 
-Next action after approval: `scripts/run_condition.py --condition c6 --model ollama-gemma4-31b`, then `--condition c0 --run_label rep2` (runbook §1–3). Then compare c6 vs c0, c0-rep2 vs c0 (noise floor), and c6 vs c1.
+Next, waiting for the owner:
+- (1) **Review the Bangla prompt wording**, including "আগামী শুক্রবার" (md:120 read it as Dec 1; the same phrase gave Dec 8 in md:169): `docs/conditions/translation_review.md` for the system prompt and tool descriptions, `docs/translation/template_review.md` for the task templates (STOP (a)). Edits go to `WorkBench/data/conditions/bn/*.json` (runbook §6). If wording changes, C6 (and c1–c4) must be re-run.
+- (2) **Optional repeat runs** `c0-rep2` and `c6-rep2` (about 342 requests each; `--run_label rep2`) to measure the noise floor. Needs owner approval first (rule 6).
 
-To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c1_vs_c0`, then re-publish `report_fragment.html` to artifact https://claude.ai/artifact/6Nd3cAmYaD5sDRT5WsGa2q.
+To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c6_vs_c0`. To regenerate the C1 report, use the C1 id, then re-publish `report_fragment.html` to artifact https://claude.ai/artifact/6Nd3cAmYaD5sDRT5WsGa2q.
 
 ## Decisions log
 
@@ -84,6 +83,13 @@ To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_
 
 - 2026-10-05 #31 — **STOP (b) passed for C6 (owner):** "yes, match … start with the c6". The settings match the collaborators' (gemma4:31b, structured outputs, act without confirmation, all tools, temperature 0, 20 steps). Budget: about 441 requests, cap 1,800, Ollama Cloud free tier. C0-rep2 is deferred: the owner treats the 2026-10-04 C0 pilot as the all-English reference. Executed subagent-driven from the plan `docs/design/plans/2026-10-05-c6-pilot-run.md` (issue #6).
 - 2026-10-05 #32 — **Request counts corrected (issue #7).** `n_llm_requests` / `total_llm_requests` were computed as the number of trace steps, but in native tool-calling mode one LLM response can carry several tool calls, each its own step with the same `llm_input`. The fix counts distinct `llm_input` per task, which matches the `HTTP/1.1 200 OK` lines in the run logs exactly. Pilot: c0 445 → 340, c1 433 → 342 (total 878 → 682; 4.9 → 3.8 requests/task). Smoke10: c0 37 → 34, c1 34 → 31 (71 → 65). C6 pilot: 296 (log count; the old method gave 375). Projections recomputed at 3.8/task: about 342 per 90-task run. `metrics.csv`, `paired.csv` and `summary.csv` are unchanged. The dated entries above keep the old numbers as history.
+- 2026-10-05 #33 — **C6 pilot result (gemma4:31b, 90 tasks, 2026-10-05 16:12–16:18 local; C0 is the 2026-10-04 11:42 run).** Completion C0 73/90 = 81.1%, C6 74/90 = 82.2%. Δ = +1.1 pp, 95% paired-bootstrap CI [−7.8, +10.0], exact McNemar p = 1.0 (7 C0-only, 8 C6-only, 66 both correct, 9 both wrong). Side effects 16.7% → 8.9% (Δ −7.8 pp, CI [−15.6, +0.0]). Domain-mix-weighted completion 76.7% vs 77.8%. Requests: C0 340, C6 296; no 429/402/5xx.
+  - Failure analysis (33 failed runs, model-labelled): 0/16 C6 failures primarily `multilingual`; 3 secondary (md:120, email:41, analytics:20). 88/88 non-empty answers in Bangla; Bengali digits in prose only; 0/285 tool arguments with Bangla script; 1 invalid tool name (crm:77).
+  - Relative-date errors: 2–3 of 7 C6-only failures vs 0 of 8 C0-only (analytics:98 resolved the weekday correctly and erred on the baseline day, so it is not counted). Post hoc; a hypothesis for repeated runs.
+  - md:120 "আগামী শুক্রবার" → Dec 1 stays reasoning-primary, but may be a translation-fidelity issue (the same phrase gave Dec 8 in md:169): for the native-speaker review.
+  - New in C6: 2 empty final answers (crm:74, md:149), no visible cause; C0 had 0.
+  - Analytics is lower in C6 (87% → 67%, 3 vs 0 discordant); descriptive only at n = 15.
+  - Threats: C0 and C6 ran on different days (provider drift possible), no C0 repeat (noise unmeasured), unreviewed BN prompt, one model, n = 90.
 
 ## Blockers / needs-human
 
@@ -103,4 +109,4 @@ To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (c6 pilot) | pilot: 682 req (3.8/task); no limit errors | **Next: C6 + C0-rep2 on gemma4:31b, 90 tasks each: ≈ 2 × 342 ≈ 684 req (cap 2 × 1,800). Awaiting owner approval.** |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (c6 pilot) | pilot: 682 req (3.8/task); c6 pilot: 296 req; no limit errors | **Next (optional): c0-rep2 + c6-rep2 on gemma4:31b, about 342 and 296 req (cap 1,800 each). Needs owner approval.** |

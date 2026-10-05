@@ -2,7 +2,7 @@
 
 Research project: we run the same multi-step office tasks ([WorkBench](https://github.com/olly-styles/WorkBench), COLM 2024) on an LLM agent in English and in Bangla. We compare task completion, harmful side effects and failure types. Outputs use a shared schema so they can be merged with collaborators' OfficeBench and τ²-bench results.
 
-**Status (2026-10-05):** C0/C1 pilot done (90 tasks, gemma4:31b). C2–C6 are implemented. **Next runs: C6 (teammates' setup) and a C0 repeat.** Details: [`progress.md`](progress.md).
+**Status (2026-10-05):** C0, C1 and C6 pilots done (90 tasks, gemma4:31b). C2–C6 are implemented. **Next: owner review of the Bangla prompt wording, then optional repeat runs (c0-rep2, c6-rep2) to measure noise.** Details: [`progress.md`](progress.md).
 
 ## Conditions
 
@@ -16,8 +16,8 @@ All conditions run from the same code and are chosen with `--condition` ([detail
 | c3 | BN | BN | BN | free | ⬜ ready |
 | c4 | BN | EN | EN | forced EN | ⬜ ready |
 | c5 | EN | EN | EN | forced BN | ⬜ ready |
-| **c6** | BN | BN | EN | forced BN | ⬜ **next** (teammates' setup) |
-| c0-rep2/3 | repeats of c0 (noise floor) | | | | ⬜ **next** (rep2) |
+| c6 | BN | BN | EN | forced BN | ✅ pilot 90 (teammates' setup) |
+| c0-rep2/3 | repeats of c0 (noise floor) | | | | ⬜ optional (rep2) |
 
 ## Results so far
 
@@ -26,8 +26,11 @@ Full table: [`results/summary.csv`](results/summary.csv). Each row is one compar
 | comparison | n | C0 | treatment | Δ (95% CI) | McNemar p | side effects C0 → treat |
 |---|---|---|---|---|---|---|
 | C1 vs C0, pilot, gemma4:31b | 90 | 81.1% | 82.2% | +1.1 pp (−6.7, +8.9) | 1.00 | 16.7% → 12.2% |
+| C6 vs C0, pilot, gemma4:31b | 90 | 81.1% | 82.2% | +1.1 pp (−7.8, +10.0) | 1.00 | 16.7% → 8.9% |
 
 **Reading:** no detectable language gap for C1 on this model. 0 of 16 Bangla failures were language-caused ([report](results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/failure_analysis.md)).
+
+**Reading (C6):** no detectable gap for C6 either. 0 of 16 Bangla failures were primarily language-caused, and C0 ran a day earlier with no repeat yet, so noise is unmeasured ([report](results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/failure_analysis.md)).
 
 ## Where things are
 

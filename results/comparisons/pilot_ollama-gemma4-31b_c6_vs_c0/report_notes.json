@@ -1,0 +1,31 @@
+{
+ "title": "WorkBench Bangla Pilot",
+ "h1": "Bangla prompt and forced Bangla replies did not hurt gemma4:31b",
+ "lede": "On 90 WorkBench tasks, the all-English agent completed <strong>73</strong> and the Bangla agent (Bangla task and system prompt, replies forced to Bangla) <strong>74</strong>. The difference, +1.1 points (95% CI −7.8 to +10.0), is within noise, and no Bangla failure was caused mainly by the language.",
+ "disc_note": "The note under each card explains the failed run.",
+ "findings": [
+  "No detectable completion gap: 81.1% English vs 82.2% Bangla, exact McNemar p = 1.00. With 90 pairs the pilot can rule out a drop larger than about 8 points for this model.",
+  "Disagreements look like run-to-run noise: 7 tasks only English solved, 8 only Bangla solved, and the failed side was labelled <em>reasoning</em> in 12 of the 15.",
+  "Harmful side effects were lower in Bangla (8.9% vs 16.7%), but the CI reaches zero (−15.6 to +0.0 points). 8 of 16 Bangla failures leave no side effect, against 2 of 17 English failures.",
+  "Failure mix is similar: reasoning 11 vs 10, planning 4 vs 2, tool use 1 vs 2, control flow 1 vs 2 (English vs Bangla). 0 of 16 Bangla failures have <em>multilingual</em> as the primary label.",
+  "Analytics is the one domain where Bangla is lower (87% vs 67%; 3 tasks only English solved, none only Bangla). With 15 tasks per domain this is descriptive only.",
+  "Multi-domain tasks are still the hard part (53% and 60%), with calendar free-slot errors as the main shared weak spot in both languages."
+ ],
+ "threats": [
+  "English ran on 2026-10-04 and Bangla on 2026-10-05, so provider drift is possible. There is no English repeat yet, so the noise floor is not measured.",
+  "The Bangla system prompt translation, and the task translations, have not been reviewed by a native speaker. If they change, the Bangla side must be re-run.",
+  "One model (gemma4:31b, Gemma family, trained heavily on multilingual data). Models with weaker Bangla may behave differently.",
+  "Small sample: n = 90, 15 per domain. Per-domain differences are descriptive only.",
+  "C6 changes the task, the system prompt and the reply language together, so a difference could not be assigned to one of them.",
+  "Single run per task at temperature 0 on a hosted free-tier endpoint.",
+  "Failure labels were assigned by one model annotator, not by human annotators."
+ ],
+ "language_scan": [
+  "88 of 88 non-empty Bangla answers are in Bangla; none switched to English. English appeared only as borrowed names, titles and status values.",
+  "51 of 88 answers write numbers in Bengali digits (366 digits), but every tool argument uses ASCII digits. 0 of 285 tool calls passed Bangla script as an argument.",
+  "One invalid tool name in Bangla (crm:77, <span class=\"mono\">customer_relationship_manager_update_task</span>), none in English.",
+  "2–3 of the 7 Bangla-only failures are relative-date errors (email:41, analytics:119, md:120), against 0 of 8 English-only failures. analytics:98 is not counted: it resolved the weekday correctly and erred on the baseline day. This grouping is post hoc, so it is a hypothesis for repeated runs.",
+  "<span class=\"bn\">আগামী শুক্রবার</span> (\"next Friday\") was read as the coming Friday (Dec 1) in md:120, where the answer key expects Dec 8. It stays labelled reasoning, but it may be a translation-fidelity issue: the same phrase gave Dec 8 in md:169. It goes to the native-speaker review.",
+  "Observation: 2 of 90 Bangla runs (crm:74, md:149) ended with an empty final answer; English had 0. The traces show no cause."
+ ]
+}
