@@ -4,7 +4,7 @@
 glossary.csv: one row per (slot, value_en) for every slot value that is NOT
 rendered verbatim in Bangla tasks. Slots/values absent from the glossary are
 preserved byte-identical (names, emails, subjects, numbers, ISO dates, ...).
-Rules are deterministic and documented in docs/translation_policy.md.
+Rules are deterministic and documented in docs/translation/policy.md.
 
 variants_en.csv: the 204 distinct chosen_templates (translation units), each
 with one example task + outcome, so translators can see which literals reach

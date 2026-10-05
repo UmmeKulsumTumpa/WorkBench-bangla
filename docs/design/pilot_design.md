@@ -12,7 +12,7 @@ Before spending the free quota on 690 × 2 tasks, find out whether a free open m
   - `data_bn/pilot/pilot_en_tasks_and_outcomes.csv`
   - `data_bn/pilot/pilot_bn_tasks_and_outcomes.csv`
   - `data_bn/pilot/pilot_index.csv` (`task_uid` = `workbench:<file>:<row>`)
-- For runs, both task files are copied into `WorkBench/data/processed/tasks_and_outcomes/`. Results land in `data/results/pilot_en/` and `pilot_bn/`. `workbench-evaluate --tools pilot_en pilot_bn --all_tools` then scores each run against its own file, with the identical `outcome` column. Matching is by task text, which is why the BN run needs its own GT file (`docs/repo_map.md` §3).
+- For runs, both task files are copied into `WorkBench/data/processed/tasks_and_outcomes/`. Results land in `data/results/pilot_en/` and `pilot_bn/`. `workbench-evaluate --tools pilot_en pilot_bn --all_tools` then scores each run against its own file, with the identical `outcome` column. Matching is by task text, which is why the BN run needs its own GT file (`docs/harness/repo_map.md` §3).
 - Limitation: multi_domain is under-sampled relative to the full set (15 of 210 vs 15 of 80–120 elsewhere). Overall rates are therefore reported both unweighted and re-weighted to the full 690-task domain mix.
 
 ## 3. Model shortlist (Ollama Cloud free tier, probe 2026-10-04)
@@ -34,7 +34,7 @@ Not free (HTTP 402): glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7. They are 
 - Temperature is 0 (hard-coded in WorkBench). `--workers 1`, because the free tier allows one concurrent request. Retries are WorkBench's built-in exponential backoff on 429/5xx (×10, max 90 s). 402 is not retried.
 - Order: EN first, then BN, on the same day if possible (provider-side model updates are a validity threat).
 
-## 5. Analysis (`scripts/compare_en_bn.py` → formats in `docs/schema.md`)
+## 5. Analysis (`scripts/compare_conditions.py` → formats in `docs/data/schema.md`)
 - **Per task:** `correct`, `side_effect` for EN and BN, paired by `task_uid`.
 - **Completion rate** EN and BN, and Δ = BN − EN.
   - **Exact McNemar test** on discordant pairs (binomial, two-sided).
@@ -42,7 +42,7 @@ Not free (HTTP 402): glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7. They are 
 - **Side-effect rate** EN and BN, and Δ (same CI method).
 - **Per-domain** table: descriptive only (n = 15 per domain; no per-domain tests).
 - **Power (inference):** with 90 pairs, only large gaps are detectable, roughly ≥ 12–15 pp with typical discordance. The pilot estimates the effect size and failure mix; the full 690 run is the confirmatory test.
-- **Failure analysis:** every task whose outcome differs between EN and BN, plus all BN failures with a non-empty error, is labelled with the `docs/schema.md` taxonomy. Primary labels: outcome / reasoning / planning / tool_use / control_flow / memory / multilingual. Multilingual subtypes: wrong-language output, language mixing, numeral/script error, language-induced tool misuse (e.g. `nadia-কে` passed as a name).
+- **Failure analysis:** every task whose outcome differs between EN and BN, plus all BN failures with a non-empty error, is labelled with the `docs/data/schema.md` taxonomy. Primary labels: outcome / reasoning / planning / tool_use / control_flow / memory / multilingual. Multilingual subtypes: wrong-language output, language mixing, numeral/script error, language-induced tool misuse (e.g. `nadia-কে` passed as a name).
 
 ## 6. Request budget
 - 1 LLM request per agent step. Committed runs average 2.5–4.1 tool calls per task, so expect **≈ 4 requests per task**; the hard cap is 20 per task.

@@ -65,7 +65,7 @@ Repo root `WorkBench/`. All paths below are relative to it. **All data paths in 
 7. Analytics/calendar dates in tasks ("November 1", "tomorrow") are resolved relative to 2023-11-30. Translated dates must stay unambiguous.
 
 ## 7. Our patch (bangla-eval)
-Commit `fbfa4d3` on `WorkBench` branch `bangla-eval`, exported as `patches/0001-providers.patch`. It touches only `src/evals/agent.py` and adds `tests/evals/test_providers.py`. `tests/evals/test_routing.py` is unchanged and passes.
+Originally commit `fbfa4d3` on the old nested `WorkBench` repo (branch `bangla-eval`); since 2026-10-05 part of this repo's history. It touches only `src/evals/agent.py` and adds `tests/evals/test_providers.py`. `tests/evals/test_routing.py` is unchanged and passes.
 - **What changed**:
   - `_PROVIDER_BASE_URLS`/`_PROVIDER_API_KEY_ENV` are replaced by `class ProviderConfig(NamedTuple)` (`base_url, api_key_env, base_url_env=None, strip_slug_prefix=True, openrouter_fallback=True`) and a `_PROVIDERS` dict. The openai/anthropic/google/openrouter entries use the defaults, so their routing is unchanged.
   - New providers (all `strip_slug_prefix=False, openrouter_fallback=False`):
@@ -80,5 +80,14 @@ Commit `fbfa4d3` on `WorkBench` branch `bangla-eval`, exported as `patches/0001-
     - All new keys have `supports_temperature=True`.
 - **Add a provider**: add one `_PROVIDERS` entry, e.g. `"foo": ProviderConfig("https://api.foo/v1", "FOO_API_KEY", "FOO_BASE_URL", False, False)`.
 - **Add a model**: add one `MODEL_REGISTRY` entry, e.g. `"groq-gpt-oss-120b": ModelConfig("openai/gpt-oss-120b", True, "groq")`. Use the provider's exact model id. The key must have no `/`, `_` or `:`, because it becomes the results-filename prefix.
-- **Collaborators**: since 2026-10-05, `WorkBench/` is tracked directly in this repo (private GitHub `UmmeKulsumTumpa/WorkBench-bangla`); just clone it, `cd WorkBench && uv sync --frozen && uv run pytest -q`. Base is upstream `olly-styles/WorkBench` `49c7dfd`; `patches/` holds our changes against that base for anyone applying them to a fresh upstream clone.
+- **Collaborators**: since 2026-10-05, `WorkBench/` is tracked directly in this repo (private GitHub `UmmeKulsumTumpa/WorkBench-bangla`); just clone it, `cd WorkBench && uv sync --frozen && uv run pytest -q`. Base is upstream `olly-styles/WorkBench` `49c7dfd`; `git diff` of `WorkBench/` against that upstream commit shows every change we made (the old `patches/` folder was removed 2026-10-05: it no longer covered the harness).
 - **Probe before a run**: `cd WorkBench && uv run python ../scripts/probe_provider.py --models ollama-gpt-oss-20b --dry_run`. Drop `--dry_run` for the live check. It does 2 requests per model and writes `results/probe/<provider>_<date>.json`.
+
+## 8. Condition support (2026-10-05)
+Details: `docs/conditions/README.md`.
+- `src/evals/conditions.py`: condition registry (C0–C5), loader for the Bangla assets in `data/conditions/bn/`, task-language check, and asset hashes.
+- `agent.py`: `build_system_prompt` / `build_structured_system_prompt` take the act-without-confirmation text and extra instruction lines. Their defaults are upstream's, so upstream behaviour is unchanged without `--condition`.
+- `inference.py` / `cli.py` add `--condition` and `--run_label`:
+  - Results go to `data/results/<condition>[-<label>]/<tasks>/`.
+  - `_meta.json` adds `condition`, `condition_spec`, `condition_assets`, `run_label`, `system_prompt_sent`, `tool_descriptions_sha256`, `harness_commit` and `harness_dirty`.
+- The upstream `.github/` CI folder was removed: it is inert at a nested path.

@@ -19,7 +19,7 @@
 
 RQ: do LLM agents complete the same realistic multi-step tasks less reliably when instructed in Bangla than in English, and how do failure types shift? Pipeline: WorkBench (English, COLM 2024) → Bangla task instructions → identical agents on EN and BN → compare task completion, harmful side effects, failure types.
 
-Collaborators run the same design on OfficeBench and τ²-bench. All outputs (CSV schemas, metric names, failure-taxonomy labels, result tables) must be mergeable: plain CSV/JSON, formats documented in `docs/schema.md`. Correctness and reproducibility over speed.
+Collaborators run the same design on OfficeBench and τ²-bench. All outputs (CSV schemas, metric names, failure-taxonomy labels, result tables) must be mergeable: plain CSV/JSON, formats documented in `docs/data/schema.md`. Correctness and reproducibility over speed.
 
 Owner-stated facts (re-verify against code):
 - Repo https://github.com/olly-styles/WorkBench (MIT). Paper Styles et al., COLM 2024 (openreview 4HNAwZFDcH; arXiv 2405.00823). 2026 follow-up "WorkBench Revisited" at `retro/main.pdf`.
@@ -44,7 +44,7 @@ Owner-stated facts (re-verify against code):
 
 - Only key now: `OLLAMA_API_KEY` (Ollama Cloud). Later maybe `GROQ_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`; adding a key must need only a registry entry. On "new key in .env" → re-run probe for it.
 - Ollama Cloud: verify OpenAI-compatible base URL (`https://ollama.com/v1` vs `https://api.ollama.com/v1`) from docs.ollama.com; free tier "light usage", unpublished limits, likely 1 concurrent request. List live cloud models from API; pick tool-calling ones (candidates gpt-oss 120b/20b, qwen3.x, glm, kimi, deepseek-v4-flash — exact IDs from API).
-- Patch `MODEL_REGISTRY` minimally: providers `ollama_cloud`, `ollama_local` (`http://localhost:11434/v1`, no key), `groq` (`https://api.groq.com/openai/v1`), configurable base_url + env-var name. One commit; document in `docs/repo_map.md`.
+- Patch `MODEL_REGISTRY` minimally: providers `ollama_cloud`, `ollama_local` (`http://localhost:11434/v1`, no key), `groq` (`https://api.groq.com/openai/v1`), configurable base_url + env-var name. One commit; document in `docs/harness/repo_map.md`.
 - Probe `scripts/probe_provider.py`: one tiny chat + one tool-call test per candidate; record success, latency, 429/limit headers in progress.md.
 - Quota discovery: dry run (3.1), watch 429/5xx, infer safe req/hour → `## Request budget`. If free quota can't sustain pilot in ~3 days → blocker recommending Groq/Gemini key; prepare local-Ollama fallback (`ollama pull qwen3:8b`, `--tool_selection domains`).
 - Discipline: `--workers 1` on Ollama Cloud, exponential backoff on 429/5xx, always `--resume`, measure req/task in dry run, project totals before each run.
@@ -56,23 +56,23 @@ Owner-stated facts (re-verify against code):
 1. Install `uv`; Python 3.12+.
 2. Clone into `./WorkBench` (plain subfolder); `uv sync --frozen`; record versions.
 3. No-API smoke test: `uv run workbench-evaluate` on committed results; confirm it reproduces README numbers.
-4. Subagent → `docs/repo_map.md` (≤2 pages): template location/task generation, inference loop, evaluation & side effects, `--resume`/`_meta.json`, `MODEL_REGISTRY` + provider dispatch.
+4. Subagent → `docs/harness/repo_map.md` (≤2 pages): template location/task generation, inference loop, evaluation & side effects, `--resume`/`_meta.json`, `MODEL_REGISTRY` + provider dispatch.
 5. Subagent → `data_bn/templates_en.csv` (69 base templates + one example task + domain). Verify 69 and 690→exactly-one mapping.
-6. Provider patch; Ollama Cloud probe; `docs/schema.md` (per-task result row, metrics file, failure-label file).
-7. `docs/pilot_design.md`: ~90-task stratified pilot (15/CSV, fixed seed, max template coverage), model shortlist, paired evaluation (McNemar, bootstrap CI, side-effect rate, failure taxonomy), request-budget plan.
+6. Provider patch; Ollama Cloud probe; `docs/data/schema.md` (per-task result row, metrics file, failure-label file).
+7. `docs/design/pilot_design.md`: ~90-task stratified pilot (15/CSV, fixed seed, max template coverage), model shortlist, paired evaluation (McNemar, bootstrap CI, side-effect rate, failure taxonomy), request-budget plan.
 
 **Phase 2 — Bangla translation (no benchmark API spend)**
-1. `docs/translation_policy.md` + `data_bn/glossary.csv` (scan DB CSVs in `data/processed/` for slot values).
+1. `docs/translation/policy.md` + `data_bn/glossary.csv` (scan DB CSVs in `data/processed/` for slot values).
 2. Translate 69 templates → `data_bn/templates_bn.csv` (`template_en, template_bn, notes`); subagent per ~15; independent reviewer (placeholders intact, no Bengali numerals, no translated entity names, meaning, register). Max two fix cycles.
 3. `scripts/make_bn_tasks.py`: render BN template with slot values recovered by aligning `chosen_template` vs `task`. Assert row count, identical outcome, placeholders filled, no stray English except preserved entities, no Bengali digits. Commit outputs to `data_bn/`.
-4. `docs/translation_review.md`: side-by-side table of 69 EN/BN templates.
+4. `docs/translation/template_review.md`: side-by-side table of 69 EN/BN templates.
 → **STOP (a)** with instructions for owner review (owner edits `data_bn/templates_bn.csv`; then re-run reviewer on diff and regenerate).
 
 **Phase 3 — Pilot (after approval of translations AND budget)**
 1. Dry run: 2 EN + 2 BN tasks, `--log_traces --structured_outputs --tool_selection domains --workers 1`. Confirm UTF-8 end-to-end; measure req/task. → **STOP (b)**.
 2. Pilot EN and BN, identical settings; `data/results/pilot_en_<model>`, `pilot_bn_<model>_c1`; `--resume`.
-3. `workbench-evaluate` (v2 GT via `_meta.json`); `scripts/compare_en_bn.py`: paired table, completion, side-effect rate, McNemar p, bootstrap 95% CI, per-domain — in `docs/schema.md` formats.
-4. Failure analysis (BabelArena-adapted taxonomy: outcome / reasoning / planning / tool-use / control-flow / memory / multilingual [wrong-language output, language mixing, numeral/script error, language-induced tool misuse]) → `results/pilot_failure_analysis.md`, `results/failure_labels.csv`.
-5. `results/pilot_report.md` (≤3 pages).
+3. `workbench-evaluate` (v2 GT via `_meta.json`); `scripts/compare_conditions.py`: paired table, completion, side-effect rate, McNemar p, bootstrap 95% CI, per-domain — in `docs/data/schema.md` formats.
+4. Failure analysis (BabelArena-adapted taxonomy: outcome / reasoning / planning / tool-use / control-flow / memory / multilingual [wrong-language output, language mixing, numeral/script error, language-induced tool misuse]) → `results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/failure_analysis.md`, `results/failure_labels.csv`.
+5. `results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/report.md` (≤3 pages).
 
 **Phase 4 — owner instruction only:** more models, full 690, C2, merged formats.

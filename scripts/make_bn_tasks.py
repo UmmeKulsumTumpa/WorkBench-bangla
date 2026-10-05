@@ -10,7 +10,7 @@ Outputs
   data_bn/{src}_bn_tasks_and_outcomes.csv  — same rows/columns/order as EN; only `task` and
   `chosen_template` differ. Named so that workbench-evaluate finds GT for results dir `{src}_bn`.
 
-Template syntax (docs/translation_policy.md §5): `{slot}` -> glossary BN value if present else raw;
+Template syntax (docs/translation/policy.md §5): `{slot}` -> glossary BN value if present else raw;
 `{slot!en}` -> raw English value always.
 
 Modes
