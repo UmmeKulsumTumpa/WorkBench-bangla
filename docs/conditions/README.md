@@ -1,8 +1,8 @@
-# Experimental conditions (C0–C5)
+# Experimental conditions (C0–C6)
 
 A **condition** fixes which parts of the agent's input are in Bangla. Every condition runs from the same code; you pick one with `--condition` (never a git branch). Defined in `WorkBench/src/evals/conditions.py`.
 
-## The six conditions
+## The seven conditions
 
 | id | task text | system prompt | tool descriptions | replies | isolates |
 |---|---|---|---|---|---|
@@ -12,10 +12,12 @@ A **condition** fixes which parts of the agent's input are in Bangla. Every cond
 | **c3** | BN | BN | BN | free | fully Bangla interface |
 | **c4** | BN | EN | EN | forced EN | does *answering* in Bangla hurt? (with c1) |
 | **c5** | EN | EN | EN | forced BN | output language alone (with c0) |
+| **c6** | BN | BN | EN | forced BN | **collaborators' setup** (c2 + one output-language line) |
 
 Two ways to read them:
 - **Dose-response:** c0 → c1 → c2 → c3 adds Bangla one layer at a time.
 - **2×2, input × output language:** c0 (EN→EN), c5 (EN→BN), c4 (BN→EN), c1 (BN→BN, which the model chooses itself).
+- **c6 matches the OfficeBench/τ²-bench teammates' Bangla run** (owner, 2026-10-05). It is c2 plus the Bangla line "টাস্ক যে ভাষাতেই লেখা হোক না কেন, ইউজারকে সবসময় বাংলায় উত্তর দিও।" Comparing c6 with c2 shows whether forcing the reply language changes anything.
 
 The reference for every comparison is **c0** (`Condition.reference`). Repeated runs of the same condition (`--run_label rep2`) measure the run-to-run noise floor.
 
@@ -26,13 +28,13 @@ The reference for every comparison is **c0** (`Condition.reference`). Repeated r
 - **Tool observations**, i.e. the environment data. Grading compares the final sandbox state, so translating it would change the answer key.
 - The ReAct prompt (`PREFIX`, `FORMAT_INSTRUCTIONS`, `SUFFIX`) is not translated. That is why c2 and c3 require `--structured_outputs`, the study setting; the harness refuses otherwise.
 
-In native tool-calling mode the **whole system prompt** is: date line + act-without-confirmation line + (c4/c5) output-language line. You can see it per run in `_meta.json` → `system_prompt_sent`, or before a run with `scripts/run_condition.py --dry_run`.
+In native tool-calling mode the **whole system prompt** is: date line + act-without-confirmation line + (c4/c5/c6) output-language line, written in the system prompt's language. You can see it per run in `_meta.json` → `system_prompt_sent`, or before a run with `scripts/run_condition.py --dry_run`.
 
 ## Assets
 
 | file | content | used by |
 |---|---|---|
-| `WorkBench/data/conditions/bn/system_prompt.json` | Bangla date line (with weekday names), act-without-confirmation line, output-language template | c2, c3 |
+| `WorkBench/data/conditions/bn/system_prompt.json` | Bangla date line (with weekday names), act-without-confirmation line, output-language template | c2, c3, c6 |
 | `WorkBench/data/conditions/bn/tool_descriptions.json` | Bangla description for each of the 27 tools, keyed by tool name | c3 |
 | English texts | upstream strings, kept in code (`conditions.py`, `agent.py`) | all |
 

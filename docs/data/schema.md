@@ -4,7 +4,7 @@ Version 2.0 — 2026-10-05. Used by WorkBench (this repo), OfficeBench and τ²-
 
 **Changes from 1.0** (2026-10-04):
 - A comparison is now *reference* vs *treatment*, not EN vs BN. Columns and metrics use `_ref`/`_treat` instead of `_en`/`_bn`. Reason: c5 has an English task on both sides, and repeat runs compare one condition with itself.
-- `condition` ids are `c0`–`c5`; c0 replaces `en`.
+- `condition` ids are `c0`–`c6` (c6 added 2026-10-05); c0 replaces `en`.
 - Paths moved under `results/comparisons/`, and `results/summary.csv` was added.
 - `failure_labels.csv` is keyed by `condition`, the side that failed.
 - `run_meta` gains `run_label`, `condition_spec`, `condition_assets`, `system_prompt_sent`, `results_file` and `harness_dirty`, and drops `patch_files`.
@@ -23,7 +23,7 @@ General rules
 |---|---|
 | `benchmark` | `workbench`, `officebench`, `tau2bench` |
 | `language` | `en`, `bn` |
-| `condition` | `c0` … `c5`, defined in `docs/conditions/README.md`; a repeated run appends `-<label>`, e.g. `c0-rep2` (in `run_id`, `ref_condition`/`condition` of metrics) |
+| `condition` | `c0` … `c6`, defined in `docs/conditions/README.md`; a repeated run appends `-<label>`, e.g. `c0-rep2` (in `run_id`, `ref_condition`/`condition` of metrics) |
 | `provider` | as registered in the run, e.g. `ollama_cloud`, `ollama_local`, `groq`, `openrouter`, `google` |
 | `failure_label` | `outcome`, `reasoning`, `planning`, `tool_use`, `control_flow`, `memory`, `multilingual` |
 | `multilingual_subtype` (only when `failure_label=multilingual`) | `wrong_language_output`, `language_mixing`, `numeral_script_error`, `language_induced_tool_misuse` |

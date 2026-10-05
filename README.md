@@ -2,7 +2,7 @@
 
 Research project: we run the same multi-step office tasks ([WorkBench](https://github.com/olly-styles/WorkBench), COLM 2024) on an LLM agent in English and in Bangla. We compare task completion, harmful side effects and failure types. Outputs use a shared schema so they can be merged with collaborators' OfficeBench and τ²-bench results.
 
-**Status (2026-10-05):** C0/C1 pilot done (90 tasks, gemma4:31b). C2–C5 are implemented and waiting for the native-speaker review of the Bangla prompt and tool texts, then their runs. Details: [`progress.md`](progress.md).
+**Status (2026-10-05):** C0/C1 pilot done (90 tasks, gemma4:31b). C2–C6 are implemented. **Next runs: C6 (teammates' setup) and a C0 repeat.** Details: [`progress.md`](progress.md).
 
 ## Conditions
 
@@ -16,7 +16,8 @@ All conditions run from the same code and are chosen with `--condition` ([detail
 | c3 | BN | BN | BN | free | ⬜ ready |
 | c4 | BN | EN | EN | forced EN | ⬜ ready |
 | c5 | EN | EN | EN | forced BN | ⬜ ready |
-| c0-rep2/3 | repeats of c0 (noise floor) | | | | ⬜ ready |
+| **c6** | BN | BN | EN | forced BN | ⬜ **next** (teammates' setup) |
+| c0-rep2/3 | repeats of c0 (noise floor) | | | | ⬜ **next** (rep2) |
 
 ## Results so far
 
@@ -36,7 +37,7 @@ progress.md          ← source of truth: status, current step, decisions log, r
 env.sh               ← `source env.sh` before every command (keeps all tooling inside this folder)
 docs/                ← all documentation, by topic (index: docs/README.md)
   design/              research spec, pilot design
-  conditions/          C0–C5 definitions, assets, Bangla review sheet
+  conditions/          C0–C6 definitions, assets, Bangla review sheet
   runbook/             how to run, compare, report, reproduce, switch conditions
   data/                result file formats (shared schema)
   translation/         translation policy, task-template review

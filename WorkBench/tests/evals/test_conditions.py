@@ -11,6 +11,7 @@ from src.data_generation.data_generation_utils import HARDCODED_CURRENT_TIME
 from src.evals.agent import ACT_WITHOUT_CONFIRMATION_SUFFIX, AgentResult, Route, build_structured_system_prompt
 from src.evals.conditions import (
     CONDITIONS,
+    Condition,
     act_without_confirmation_text,
     build_datetime_prefix,
     check_task_language,
@@ -20,7 +21,7 @@ from src.evals.conditions import (
     localize_tools,
 )
 from src.evals.inference import generate_results
-from src.tools.tool import tool_to_openai_schema
+from src.tools.tool import Tool, tool_to_openai_schema
 from src.tools.toolkits import all_tools
 
 _FAKE_ROUTE = Route("openai/gpt-4", "https://openrouter.ai/api/v1", "fake-key", "openrouter", True)
@@ -35,7 +36,7 @@ PILOT_SYSTEM_PROMPT = PILOT_DATETIME_PREFIX + " " + ACT_WITHOUT_CONFIRMATION_SUF
 
 
 def test_registry_ids_and_references():
-    assert list(CONDITIONS) == ["c0", "c1", "c2", "c3", "c4", "c5"]
+    assert list(CONDITIONS) == ["c0", "c1", "c2", "c3", "c4", "c5", "c6"]
     for c in CONDITIONS.values():
         assert c.reference is None or c.reference in CONDITIONS
     with pytest.raises(ValueError):
@@ -72,6 +73,23 @@ def test_output_language_lines():
     assert extra_instructions(get_condition("c5")) == (
         "Always write your replies to the user in Bangla, regardless of the language of the task.",
     )
+    # c6: the output line is written in the system-prompt language (Bangla)
+    assert extra_instructions(get_condition("c6")) == ("টাস্ক যে ভাষাতেই লেখা হোক না কেন, ইউজারকে সবসময় বাংলায় উত্তর দিও।",)
+
+
+def _structured_prompt(c: Condition) -> str:
+    return build_structured_system_prompt(
+        build_datetime_prefix(HARDCODED_CURRENT_TIME, c.system_lang),
+        True,
+        act_without_confirmation_text(c.system_lang),
+        extra_instructions(c),
+    )
+
+
+def test_c6_differs_from_c2_only_by_the_output_line():
+    c2, c6 = get_condition("c2"), get_condition("c6")
+    assert (c2.task_lang, c2.system_lang, c2.tool_desc_lang) == (c6.task_lang, c6.system_lang, c6.tool_desc_lang)
+    assert _structured_prompt(c6) == _structured_prompt(c2) + " " + extra_instructions(c6)[0]
 
 
 def test_bangla_tool_descriptions_cover_all_tools_and_keep_identifiers():
@@ -105,7 +123,7 @@ def _run(tmpdir: str, tasks: list[str], **kwargs: object) -> tuple[list[dict], s
     pd.DataFrame({"task": tasks, "outcome": ["[]"] * len(tasks)}).to_csv(csv_path, index=False)
     calls: list[dict] = []
 
-    def fake_agent(model_name, tools, task, datetime_prefix, **kw):
+    def fake_agent(model_name: str, tools: list[Tool], task: str, datetime_prefix: str, **kw: object) -> AgentResult:
         calls.append({"tools": tools, "datetime_prefix": datetime_prefix, **kw})
         return AgentResult(output="ok", intermediate_steps=[])
 
