@@ -377,7 +377,7 @@ document.getElementById("threats").innerHTML = (N.threats || []).map(s => `<li>$
     ["Agent settings", `native tool calling · act without confirmation · tool selection ${esc(m.tool_selection)} · 1 worker · max 20 steps`],
     ["Requests", `${m.req_en ?? "?"} English + ${m.req_bn ?? "?"} Bangla`],
     ["Run started", `EN ${esc(m.en_started)} · BN ${esc(m.bn_started)}`],
-    ["Harness", `WorkBench @ ${esc(m.harness_commit)} + provider patch`],
+    ["Harness", `WorkBench: EN @ ${esc(m.harness_ref)} · BN @ ${esc(m.harness_treat)} + provider patch`],
     ["Statistics", "exact McNemar on discordant pairs; paired bootstrap 95% CI (10,000 resamples)"],
   ];
   document.getElementById("setup").innerHTML = items.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");

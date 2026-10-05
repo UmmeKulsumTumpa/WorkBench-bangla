@@ -105,9 +105,19 @@ def main():
     # --condition flag (the C1 pilot) have no condition_spec, so they keep the original C1 text.
     spec = meta_bn.get("condition_spec")
     if isinstance(spec, dict) and spec.get("description"):
-        condition_label = f"{str(meta_bn.get('condition') or spec.get('id', '')).upper()}: {spec['description']}"
+        cond_name = str(meta_bn.get("condition") or spec.get("id", "")).upper()
+        if meta_bn.get("run_label"):
+            cond_name += f"-{meta_bn['run_label']}"
+        condition_label = f"{cond_name}: {spec['description']}"
     else:
         condition_label = "C1: Bangla task text; English system prompt, tool names and environment"
+
+    # Code of each side: runs that predate the --condition flag (condition_spec null) carry only the commit at
+    # comparison time in their metadata, so show the tag of the pilot code instead.
+    def code_ref(meta):
+        if meta.get("condition_spec") is None:
+            return "run/pilot-c0c1-gemma4-31b"
+        return (meta.get("harness_commit") or "")[:7]
 
     notes_p = d / "report_notes.json"
     notes = json.loads(notes_p.read_text(encoding="utf-8")) if notes_p.exists() else {}
@@ -123,7 +133,8 @@ def main():
             "bn_started": meta_bn.get("started_at", ""),
             "req_en": meta_en.get("total_llm_requests"),
             "req_bn": meta_bn.get("total_llm_requests"),
-            "harness_commit": meta_en.get("harness_commit", "")[:7],
+            "harness_ref": code_ref(meta_en),
+            "harness_treat": code_ref(meta_bn),
             "tool_selection": meta_en.get("tool_selection"),
             "comparison_id": a.comparison_id,
             "condition_label": condition_label,

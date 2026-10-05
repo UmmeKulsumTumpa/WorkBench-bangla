@@ -42,7 +42,7 @@ python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c3_
 - **Output:** `results/comparisons/<subset>_<model>_<treat>_vs_<ref>/`, and `results/summary.csv` is rebuilt. Formats: [`docs/data/schema.md`](../data/schema.md).
 - **Any pair works,** e.g. `--ref c1 --treat c2` gives the effect of the Bangla system prompt alone.
 - **Failure analysis:** label every failed run in a discordant or both-wrong pair, in `failure_labels.csv` in the comparison folder (schema §4). Write `failure_analysis.md` next to it.
-- **HTML report:** the template's wording assumes an English-task reference and a Bangla-task treatment, so it works for c1–c4 vs c0. For c5 the template must be generalized first; the builder refuses until then.
+- **HTML report:** the template's wording assumes an English-task reference and a Bangla-task treatment, so it works for c1–c4 and c6 vs c0. For c5 the template must be generalized first; the builder refuses until then.
 
 ## 4. Switch between conditions
 

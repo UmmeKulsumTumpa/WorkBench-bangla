@@ -6,8 +6,8 @@ Date: 2026-10-05 · Interactive version: `results/comparisons/pilot_ollama-gemma
 - **Data:** WorkBench (v2 ground truth). Same 90-task stratified pilot as C0: 15 per task file, seed 20261004, 63/69 templates covered.
 - **Model:** gemma4:31b via the Ollama Cloud free tier, temperature 0.
 - **Settings:** native tool calling, act-without-confirmation, all 27 tools, 1 worker, max 20 steps.
-- **Reference C0:** all English (task, system prompt, tool descriptions). Ran 2026-10-04 11:42.
-- **Condition C6:** Bangla task text and Bangla system prompt; English tool descriptions; replies forced to Bangla (the collaborators' setup). Ran 2026-10-05 16:12, harness commit 0950e72.
+- **Reference C0:** all English (task, system prompt, tool descriptions). Ran 2026-10-04 11:42; code: tag run/pilot-c0c1-gemma4-31b.
+- **Condition C6:** Bangla task text and Bangla system prompt; English tool descriptions; replies forced to Bangla (the collaborators' setup). Ran 2026-10-05 16:12; code: commit 0950e72.
 - **Requests:** 340 C0 + 296 C6 = 636, with no rate-limit or quota errors.
 
 ## Results
@@ -38,7 +38,7 @@ Paired outcomes: 66 both correct, 9 both wrong, 7 only C0, 8 only C6. Exact McNe
 - Observation: 2 of 90 C6 runs (crm:74, md:149) ended with an empty final answer; C0 had 0. The traces show no cause.
 
 ## Findings
-- No detectable completion gap: 81.1% English vs 82.2% Bangla, exact McNemar p = 1.00. With 90 pairs the pilot can rule out a drop larger than about 8 points for this model.
+- No detectable completion gap: 81.1% English vs 82.2% Bangla, exact McNemar p = 1.00. The 95% CI lower bound is −7.8 pp (task sampling only; run-to-run noise not measured).
 - The disagreements show no detectable difference and no clear language cause (no repeat runs yet, so noise is not measured): 7 tasks only C0 solved, 8 only C6 solved, and the failed side was labelled reasoning in 12 of the 15.
 - Harmful side effects were lower in Bangla (8.9% vs 16.7%), but the CI reaches zero (−15.6 to +0.0 points). 8 of 16 C6 failures leave no side effect (wrong plots, empty answers, no action), against 2 of 17 C0 failures.
 - Failure mix is similar: reasoning 11 vs 10, planning 4 vs 2, tool use 1 vs 2, control flow 1 vs 2 (C0 vs C6).

@@ -108,8 +108,8 @@ Method: a script over the C6 trace file. Final answer = `action_input` of the la
   - analytics:20, "ডিস্ট্রিবিউশন … চার্টে দেখিয়ে দাও" → line plot. This is weak, because the same wording gave a histogram in analytics:15.
 - **The one C6-specific pattern is relative-time resolution:** 2–3 of 7 C6-only failures (email:41, analytics:119, md:120; analytics:98 is not counted, because it resolved the weekday correctly and its error was the baseline day) vs 0 of 8 C0-only failures. This grouping is post hoc and each case has a non-language explanation, so it is a hypothesis for repeated runs (k ≥ 3), not a finding.
 - **Overall, the failure mix is very similar:** reasoning 11 C0 vs 10 C6, planning 4 vs 2, tool_use 1 vs 2, control_flow 1 vs 2.
-  - C6 is not worse on completion: Δ = +1.1 pp, 95% CI −7.8 to +10.0 pp.
-  - C6 has fewer side effects: 8.9% vs 16.7%. 8/16 C6 failures leave no side effect (wrong or extra plots, empty responses, no action), against 2/17 C0 failures.
+  - No detectable difference in completion: Δ = +1.1 pp, 95% CI −7.8 to +10.0 pp.
+  - C6 has fewer side effects: 8.9% vs 16.7% (Δ −7.8 pp, 95% CI −15.6 to +0.0 pp). 8/16 C6 failures leave no side effect (wrong or extra plots, empty responses, no action), against 2/17 C0 failures.
   - At this n, an effect of a few points cannot be detected or ruled out.
 - **Forced-Bangla output works at the surface level:**
   - 88/88 non-empty answers are in Bangla, with English only as borrowed names and titles.

@@ -28,9 +28,9 @@ Full table: [`results/summary.csv`](results/summary.csv). Each row is one compar
 | C1 vs C0, pilot, gemma4:31b | 90 | 81.1% | 82.2% | +1.1 pp (−6.7, +8.9) | 1.00 | 16.7% → 12.2% |
 | C6 vs C0, pilot, gemma4:31b | 90 | 81.1% | 82.2% | +1.1 pp (−7.8, +10.0) | 1.00 | 16.7% → 8.9% |
 
-**Reading:** no detectable language gap for C1 on this model. 0 of 16 Bangla failures were language-caused ([report](results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/failure_analysis.md)).
+**Reading:** no detectable language gap for C1 on this model. 0 of 16 Bangla failures were labelled primarily multilingual (single model annotator) ([report](results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/failure_analysis.md)).
 
-**Reading (C6):** no detectable gap for C6 either. 0 of 16 Bangla failures were primarily language-caused, and C0 ran a day earlier with no repeat yet, so noise is unmeasured ([report](results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/failure_analysis.md)).
+**Reading (C6):** no detectable gap for C6 either. 0 of 16 Bangla failures were labelled primarily multilingual (single model annotator), and C0 ran a day earlier with no repeat yet, so noise is unmeasured ([report](results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/failure_analysis.md)).
 
 ## Where things are
 

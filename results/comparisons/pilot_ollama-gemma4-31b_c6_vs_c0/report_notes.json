@@ -1,10 +1,10 @@
 {
- "title": "WorkBench Bangla Pilot",
+ "title": "WorkBench C6 vs C0",
  "h1": "No detectable completion gap between C0 and C6",
- "lede": "On 90 WorkBench tasks, the all-English agent completed <strong>73</strong> and the Bangla agent (Bangla task and system prompt, replies forced to Bangla) <strong>74</strong>. The difference, +1.1 points (95% CI −7.8 to +10.0), shows no detectable difference, and no Bangla failure was caused mainly by the language.",
+ "lede": "On 90 WorkBench tasks, the all-English agent completed <strong>73</strong> and the Bangla agent (Bangla task and system prompt, replies forced to Bangla) <strong>74</strong>. The difference, +1.1 points (95% CI −7.8 to +10.0), shows no detectable difference, and no Bangla failure was labelled primarily multilingual (single model annotator).",
  "disc_note": "The note under each card explains the failed run.",
  "findings": [
-  "No detectable completion gap: 81.1% English vs 82.2% Bangla, exact McNemar p = 1.00. With 90 pairs the pilot can rule out a drop larger than about 8 points for this model.",
+  "No detectable completion gap: 81.1% English vs 82.2% Bangla, exact McNemar p = 1.00. The 95% CI lower bound is −7.8 pp (task sampling only; run-to-run noise not measured).",
   "The disagreements show no detectable difference and no clear language cause (no repeat runs yet, so noise is not measured): 7 tasks only English solved, 8 only Bangla solved, and the failed side was labelled <em>reasoning</em> in 12 of the 15.",
   "Harmful side effects were lower in Bangla (8.9% vs 16.7%), but the CI reaches zero (−15.6 to +0.0 points). 8 of 16 Bangla failures leave no side effect, against 2 of 17 English failures.",
   "Failure mix is similar: reasoning 11 vs 10, planning 4 vs 2, tool use 1 vs 2, control flow 1 vs 2 (English vs Bangla). 0 of 16 Bangla failures have <em>multilingual</em> as the primary label.",
