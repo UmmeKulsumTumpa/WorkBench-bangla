@@ -82,6 +82,8 @@ To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_
 
 - 2026-10-05 #30 — **C6 added (issue #4).** The owner's teammates ran the Bangla condition with a Bangla system prompt, English tool descriptions and the reply language *forced* to Bangla. C2 leaves the reply language free, so it would differ from their setup by one prompt line. C6 = C2 + the Bangla output-language line (asserted in a test). The owner's next runs are **C6 and C0 (repeat `rep2`)**, set up the same as the teammates'.
 
+- 2026-10-05 #31 — **STOP (b) passed for C6 (owner):** "yes, match … start with the c6". The settings match the collaborators' (gemma4:31b, structured outputs, act without confirmation, all tools, temperature 0, 20 steps). Budget: about 441 requests, cap 1,800, Ollama Cloud free tier. C0-rep2 is deferred: the owner treats the 2026-10-04 C0 pilot as the all-English reference. Executed subagent-driven from the plan `docs/design/plans/2026-10-05-c6-pilot-run.md` (issue #6).
+
 ## Blockers / needs-human
 
 - ~~B1: OLLAMA_API_KEY empty~~ — resolved 2026-10-04 (owner pasted the key).
