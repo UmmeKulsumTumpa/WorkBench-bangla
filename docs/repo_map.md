@@ -80,5 +80,5 @@ Commit `fbfa4d3` on `WorkBench` branch `bangla-eval`, exported as `patches/0001-
     - All new keys have `supports_temperature=True`.
 - **Add a provider**: add one `_PROVIDERS` entry, e.g. `"foo": ProviderConfig("https://api.foo/v1", "FOO_API_KEY", "FOO_BASE_URL", False, False)`.
 - **Add a model**: add one `MODEL_REGISTRY` entry, e.g. `"groq-gpt-oss-120b": ModelConfig("openai/gpt-oss-120b", True, "groq")`. Use the provider's exact model id. The key must have no `/`, `_` or `:`, because it becomes the results-filename prefix.
-- **Collaborators**: run `cd WorkBench && git checkout -b bangla-eval <base> && git am ../patches/0001-providers.patch`. `<base>` is upstream `49c7dfd`. Then run `uv run pytest -q`.
+- **Collaborators**: since 2026-10-05, `WorkBench/` is tracked directly in this repo (private GitHub `UmmeKulsumTumpa/WorkBench-bangla`); just clone it, `cd WorkBench && uv sync --frozen && uv run pytest -q`. Base is upstream `olly-styles/WorkBench` `49c7dfd`; `patches/` holds our changes against that base for anyone applying them to a fresh upstream clone.
 - **Probe before a run**: `cd WorkBench && uv run python ../scripts/probe_provider.py --models ollama-gpt-oss-20b --dry_run`. Drop `--dry_run` for the live check. It does 2 requests per model and writes `results/probe/<provider>_<date>.json`.

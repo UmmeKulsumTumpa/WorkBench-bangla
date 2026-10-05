@@ -1,6 +1,5 @@
 .env
 .env.*
-WorkBench/
 .venv/
 *.pyc
 __pycache__/
