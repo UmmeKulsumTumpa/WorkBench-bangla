@@ -16,6 +16,8 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 ## Current step
 
+C6 report published (private artifact): https://claude.ai/artifact/RwtdFQ5pvZ4uVXdrQNuzGc; regenerate with `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c6_vs_c0` and republish `report_fragment.html`. C6 code: tag `run/pilot-c6-gemma4-31b` (0950e72). Follow-ups: issue #9.
+
 Phase 3b: **C6 pilot is done** (296 requests, 2026-10-05) and compared with C0: `results/comparisons/pilot_ollama-gemma4-31b_c6_vs_c0/` (report.md, report.html, failure analysis). C2–C5 are built but not run.
 
 Next, waiting for the owner:
