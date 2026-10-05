@@ -69,7 +69,7 @@ results/             ← ANALYSED outputs
 source env.sh
 # 1. see exactly what a run will send, at no API cost
 uv run --project WorkBench --frozen python scripts/run_condition.py --condition c3 --model ollama-gemma4-31b --dry_run
-# 2. run it (free tier, ~440 requests for 90 tasks; resumable)
+# 2. run it (free tier, ~340 requests for 90 tasks; resumable)
 uv run --project WorkBench --frozen python scripts/run_condition.py --condition c3 --model ollama-gemma4-31b
 # 3. compare with the baseline
 uv run --project WorkBench --frozen python scripts/compare_conditions.py --ref c0 --treat c3 --model ollama-gemma4-31b

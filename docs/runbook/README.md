@@ -9,7 +9,7 @@ Every command runs from the project root after `source env.sh`. `uv run --projec
    ```bash
    uv run --project WorkBench --frozen python scripts/run_condition.py --condition c3 --model ollama-gemma4-31b --subset pilot --dry_run
    ```
-3. **Record and approve the budget.** Write the projected requests in `progress.md` → `## Request budget` and get the owner's go-ahead (project rule). Measured cost: **≈ 4.9 requests per task**, so about 440 for the 90-task pilot.
+3. **Record and approve the budget.** Write the projected requests in `progress.md` → `## Request budget` and get the owner's go-ahead (project rule). Measured cost: **≈ 3.8 requests per task**, so about 342 for the 90-task pilot.
 
 ## 1. Run a condition
 

@@ -53,7 +53,7 @@ STUDY_FLAGS = [
     "--log_traces",
     "--resume",
 ]
-REQUESTS_PER_TASK = 4.9  # measured on the 2026-10-04 pilot (878 requests / 180 tasks)
+REQUESTS_PER_TASK = 3.8  # measured on the 2026-10-04 pilot: 682 LLM requests / 180 tasks (c0 340 + c1 342)
 GT_DIR = WB / "data" / "processed" / "tasks_and_outcomes"
 LOG_DIR = ROOT / "results" / "logs"
 RUN_LOG = LOG_DIR / "run_log.csv"

@@ -153,8 +153,15 @@ def test_uid_fallback_positional_index():
 
 def test_trace_counts(tmp_path):
     p = tmp_path / "t_traces.json"
-    p.write_text(json.dumps([{"task": "a", "steps": [{}, {}, {}]}, {"task": "b", "steps": []}]))
-    assert cmp.load_trace_counts(str(p)) == {"a": 3, "b": 0}
+    traces = [
+        # one LLM request carrying two tool calls (shared llm_input) -> 1
+        {"task": "shared", "steps": [{"llm_input": "m1"}, {"llm_input": "m1"}]},
+        # three distinct requests -> 3
+        {"task": "three", "steps": [{"llm_input": "m1"}, {"llm_input": "m2"}, {"llm_input": "m3"}]},
+        {"task": "empty", "steps": []},
+    ]
+    p.write_text(json.dumps(traces))
+    assert cmp.load_trace_counts(str(p)) == {"shared": 1, "three": 3, "empty": 0}
 
 
 def test_run_and_comparison_ids():
