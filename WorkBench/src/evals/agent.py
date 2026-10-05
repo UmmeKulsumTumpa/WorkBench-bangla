@@ -186,12 +186,32 @@ def _create_with_deadline(client: openai.OpenAI, **kwargs: Any) -> ChatCompletio
         done.set()
 
 
-def build_system_prompt(tools: list[Tool], datetime_prefix: str, act_without_confirmation: bool = False) -> str:
+def build_system_prompt(
+    tools: list[Tool],
+    datetime_prefix: str,
+    act_without_confirmation: bool = False,
+    extra_instructions: tuple[str, ...] = (),
+) -> str:
+    """ReAct system prompt. ``extra_instructions`` (condition lines, see conditions.py) go after the suffix."""
     tool_descriptions = "\n".join(render_tool_description(t) for t in tools)
     tool_names = ", ".join(f'"{t.name}"' for t in tools)
     format_block = FORMAT_INSTRUCTIONS.replace("{tool_names}", tool_names)
     suffix = SUFFIX + ACT_WITHOUT_CONFIRMATION_SUFFIX if act_without_confirmation else SUFFIX
+    suffix += "".join(" " + s.strip() for s in extra_instructions)
     return datetime_prefix + "\n\n".join([PREFIX, tool_descriptions, format_block, suffix])
+
+
+def build_structured_system_prompt(
+    datetime_prefix: str,
+    act_without_confirmation: bool = False,
+    act_text: str = ACT_WITHOUT_CONFIRMATION_SUFFIX,
+    extra_instructions: tuple[str, ...] = (),
+) -> str:
+    """System prompt for native tool calling: date line, optional act line, optional condition lines."""
+    system_prompt = datetime_prefix
+    if act_without_confirmation:
+        system_prompt += " " + act_text.strip()
+    return system_prompt + "".join(" " + s.strip() for s in extra_instructions)
 
 
 PARSE_ERROR = "__parse_error__"
@@ -468,8 +488,9 @@ def run_agent(
     max_execution_time: float = 600,
     temperature: float = 0,
     act_without_confirmation: bool = False,
+    extra_instructions: tuple[str, ...] = (),
 ) -> AgentResult:
-    system_prompt = build_system_prompt(tools, datetime_prefix, act_without_confirmation)
+    system_prompt = build_system_prompt(tools, datetime_prefix, act_without_confirmation, extra_instructions)
     tool_map = {t.name: t for t in tools}
     scratchpad = ""
     steps: list[tuple[str, dict[str, str]]] = []
@@ -584,6 +605,8 @@ def run_agent_structured(
     max_execution_time: float = 600,
     temperature: float = 0,
     act_without_confirmation: bool = False,
+    act_text: str = ACT_WITHOUT_CONFIRMATION_SUFFIX,
+    extra_instructions: tuple[str, ...] = (),
 ) -> AgentResult:
     """Run the agent using native API tool calling instead of ReAct text parsing."""
     route = resolve_route(model_name)
@@ -591,9 +614,9 @@ def run_agent_structured(
     tools_schema, original_by_sanitized = _sanitized_tool_schemas(tools)
     tool_map = {t.name: t for t in tools}
 
-    system_prompt = datetime_prefix
-    if act_without_confirmation:
-        system_prompt += " " + ACT_WITHOUT_CONFIRMATION_SUFFIX.strip()
+    system_prompt = build_structured_system_prompt(
+        datetime_prefix, act_without_confirmation, act_text, extra_instructions
+    )
 
     messages: list[dict] = [{"role": "user", "content": task}]
     steps: list[tuple[str, dict[str, str]]] = []

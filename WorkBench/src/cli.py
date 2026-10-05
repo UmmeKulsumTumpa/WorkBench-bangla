@@ -22,6 +22,7 @@ def inference() -> None:
 
     import pandas as pd
 
+    from src.evals.conditions import CONDITIONS
     from src.evals.inference import AVAILABLE_LLMS, generate_results
     from src.evals.metrics import calculate_metrics
 
@@ -64,6 +65,19 @@ def inference() -> None:
         help="resume the most recent matching run for this (domain, model, tool_selection): "
         "keep rows with empty error and only re-run missing/errored tasks",
     )
+    parser.add_argument(
+        "--condition",
+        type=str,
+        default=None,
+        choices=sorted(CONDITIONS),
+        help="EN/BN study condition (src/evals/conditions.py); results go to data/results/<condition>/<tasks>/",
+    )
+    parser.add_argument(
+        "--run_label",
+        type=str,
+        default=None,
+        help="label for a repeated run of the same condition, e.g. rep2 -> data/results/<condition>-rep2/<tasks>/",
+    )
 
     args = parser.parse_args()
     ground_truth = pd.read_csv(args.tasks_path)
@@ -77,6 +91,8 @@ def inference() -> None:
         act_without_confirmation=args.act_without_confirmation,
         structured_outputs=args.structured_outputs,
         resume=args.resume,
+        condition=args.condition,
+        run_label=args.run_label,
     )
     calculate_metrics(ground_truth, results)
 
