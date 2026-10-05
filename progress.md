@@ -18,10 +18,10 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 Phase 3b: everything is built and tested; **no API call yet**. Waiting for the owner on:
 - (1) **Review the new Bangla assets:** `docs/conditions/translation_review.md` (system prompt + 27 tool descriptions; machine-translated, not yet native-reviewed). Edits go to `WorkBench/data/conditions/bn/*.json` (runbook §6).
-- (2) **Budget approval (rule 6)** for the 90-task pilot runs on `ollama-gemma4-31b`, order: c0-rep2, c3, c4, c5, c2, c0-rep3 — about 440 requests each, **about 2,650 in total**. Ollama Cloud free tier; 1 worker; spread across days if a quota signal appears.
+- (2) **Budget approval (rule 6).** Owner's current plan (decision #30): **C6 and C0-rep2** on the 90-task pilot with `ollama-gemma4-31b`, about 441 requests each, **about 880 in total** (Ollama Cloud free tier, 1 worker). Optionally a smoke10 check first (about 50 requests each). The other conditions (c2–c5, c0-rep3) are deferred.
 - (3) Still open: STOP (a) review of the task templates (`docs/translation/template_review.md`; the pilot flagged "আগামী শুক্রবার"). If templates change, c1–c4 must be re-run.
 
-Next action after approval: `scripts/run_condition.py --condition c0 --run_label rep2 --model ollama-gemma4-31b` (runbook §1–3), then compare each run with c0.
+Next action after approval: `scripts/run_condition.py --condition c6 --model ollama-gemma4-31b`, then `--condition c0 --run_label rep2` (runbook §1–3). Then compare c6 vs c0, c0-rep2 vs c0 (noise floor), and c6 vs c1.
 
 To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c1_vs_c0`, then re-publish `report_fragment.html` to artifact https://claude.ai/artifact/6Nd3cAmYaD5sDRT5WsGa2q.
 
@@ -80,6 +80,8 @@ To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_
   - Results moved to `results/comparisons/`, `results/logs/` and `results/summary.csv`.
   - Older log entries above keep their original paths as history.
 
+- 2026-10-05 #30 — **C6 added (issue #4).** The owner's teammates ran the Bangla condition with a Bangla system prompt, English tool descriptions and the reply language *forced* to Bangla. C2 leaves the reply language free, so it would differ from their setup by one prompt line. C6 = C2 + the Bangla output-language line (asserted in a test). The owner's next runs are **C6 and C0 (repeat `rep2`)**, set up the same as the teammates'.
+
 ## Blockers / needs-human
 
 - ~~B1: OLLAMA_API_KEY empty~~ — resolved 2026-10-04 (owner pasted the key).
@@ -98,4 +100,4 @@ To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 963 total on 2026-10-04 (probe 14 + smoke10 71 + pilot 878); 0 on 2026-10-05 | pilot: 878 req (4.9/task); no limit errors | **C2–C5 + 2 C0 repeats on gemma4:31b, 90 tasks each: ≈ 6 × 441 ≈ 2,650 req (cap 6 × 1,800). Awaiting owner approval.** |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 963 total on 2026-10-04 (probe 14 + smoke10 71 + pilot 878); 0 on 2026-10-05 | pilot: 878 req (4.9/task); no limit errors | **Next: C6 + C0-rep2 on gemma4:31b, 90 tasks each: ≈ 2 × 441 ≈ 880 req (cap 2 × 1,800). Awaiting owner approval.** |

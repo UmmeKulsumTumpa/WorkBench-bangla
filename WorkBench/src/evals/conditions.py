@@ -93,6 +93,15 @@ CONDITIONS: dict[str, Condition] = {
         Condition(
             "c5", "English task, system prompt and tools; replies forced to Bangla", "en", "en", "en", "bn", "c0"
         ),
+        Condition(
+            "c6",
+            "Bangla task and system prompt; English tool descriptions; replies forced to Bangla",
+            "bn",
+            "bn",
+            "en",
+            "bn",
+            "c0",
+        ),
     ]
 }
 

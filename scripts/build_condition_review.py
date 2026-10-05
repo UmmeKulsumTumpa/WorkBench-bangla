@@ -47,7 +47,7 @@ def main() -> None:
         "Reviewer checklist: meaning identical; তুমি register as in the task templates; identifiers, quoted strings, "
         "formats and examples unchanged; ASCII digits only; status/field values (`Lead`, `Won`, `Backlog`) in English.",
         "",
-        "## 1. System prompt (c2, c3)",
+        "## 1. System prompt (c2, c3, c6)",
         "",
         "| piece | English | Bangla |",
         "|---|---|---|",
@@ -59,7 +59,8 @@ def main() -> None:
         "",
         "c4 and c5 use the **English** output-language line (their system prompt is English): "
         f"`{en['output_language_instruction'].format(language='English')}` / "
-        f"`{en['output_language_instruction'].format(language='Bangla')}`.",
+        f"`{en['output_language_instruction'].format(language='Bangla')}`. "
+        f"c6 uses the **Bangla** line: `{bn['output_language_instruction'].format(language=bn['language_names']['bn'])}`.",
         "",
         "## 2. Tool descriptions (c3)",
         "",
