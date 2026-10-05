@@ -1,9 +1,11 @@
 import ast
 import csv
 import glob
+import hashlib
 import json
 import logging
 import os
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict
@@ -18,10 +20,20 @@ from src.evals.agent import (
     MODEL_REGISTRY,
     AgentResult,
     Route,
+    build_structured_system_prompt,
     build_system_prompt,
     resolve_route,
     run_agent,
     run_agent_structured,
+)
+from src.evals.conditions import (
+    act_without_confirmation_text,
+    build_datetime_prefix,
+    check_task_language,
+    condition_metadata,
+    extra_instructions,
+    get_condition,
+    localize_tools,
 )
 from src.evals.metrics import CURRENT_GROUND_TRUTH_VERSION
 from src.tools.state import reset_state
@@ -92,6 +104,7 @@ def _run_single_task(
     datetime_prefix: str,
     act_without_confirmation: bool = False,
     structured_outputs: bool = False,
+    prompt_kwargs: dict | None = None,
 ) -> dict[str, object]:
     task_start = time.time()
     error = ""
@@ -107,6 +120,7 @@ def _run_single_task(
             datetime_prefix,
             temperature=0,
             act_without_confirmation=act_without_confirmation,
+            **(prompt_kwargs or {}),
         )
         response = result
         _collect_result(result, function_calls, all_traces)
@@ -222,6 +236,7 @@ def _write_run_metadata(
     sample_system_prompt: str,
     started_at: str,
     finished_at: str | None = None,
+    extra: dict | None = None,
 ) -> None:
     meta = {
         "model_name": model_name,
@@ -243,6 +258,7 @@ def _write_run_metadata(
         "sample_system_prompt": sample_system_prompt,
         "started_at": started_at,
         "finished_at": finished_at,
+        **(extra or {}),
     }
     meta_path = save_path.replace(".csv", "_meta.json")
     with open(meta_path, "w") as f:
@@ -258,12 +274,19 @@ def generate_results(
     act_without_confirmation: bool = False,
     structured_outputs: bool = False,
     resume: bool = False,
+    condition: str | None = None,
+    run_label: str | None = None,
 ) -> pd.DataFrame:
     """Generates results for a given model and set of tasks. Saves the results to a csv file.
 
     When ``resume`` is True, reuses the most recent matching results CSV for
     (domain, model, tool_selection): rows with an empty ``error`` are kept verbatim,
     and only missing / errored tasks are re-run.
+
+    ``condition`` (see conditions.py) sets the language of the system prompt, the tool descriptions
+    and the replies, checks the task language, and saves to ``data/results/<condition>/<tasks>/``.
+    ``run_label`` (e.g. ``rep2``) separates repeated runs: ``data/results/<condition>-<label>/<tasks>/``.
+    Without ``condition`` the behaviour is upstream's, unchanged.
     """
     if model_name not in MODEL_REGISTRY:
         raise ValueError("Invalid --model_name. Must be one of " + ", ".join(AVAILABLE_LLMS))
@@ -273,12 +296,17 @@ def generate_results(
 
     route = resolve_route(model_name)
     print(f"Routing '{model_name}' to {route.provider} ({route.base_url}) as model id '{route.model_id}'")
-    datetime_prefix = (
-        f"Today's date is {HARDCODED_CURRENT_TIME.strftime('%A')}, {HARDCODED_CURRENT_TIME.date()} "
-        f"and the current time is {HARDCODED_CURRENT_TIME.time()}. "
-        f"Remember the current date and time when completing tasks. "
-        f"Meetings must not start before 9am or end after 6pm."
-    )
+    cond = get_condition(condition) if condition else None
+    if run_label is not None and (cond is None or not re.fullmatch(r"[a-z0-9]+", run_label)):
+        raise ValueError("--run_label needs --condition and must match [a-z0-9]+ (e.g. rep2)")
+    if cond is not None:
+        if cond.needs_structured_outputs and not structured_outputs:
+            raise ValueError(
+                f"Condition {cond.id} translates the system prompt or tools; it needs --structured_outputs"
+            )
+        check_task_language(tasks, cond.task_lang)
+    system_lang = cond.system_lang if cond else "en"
+    datetime_prefix = build_datetime_prefix(HARDCODED_CURRENT_TIME, system_lang)
 
     if tool_selection == "domains":
         per_task_tools = [get_toolkits(ast.literal_eval(domains)) for domains in tasks_df["domains"]]
@@ -286,8 +314,38 @@ def generate_results(
         default_tools = get_toolkits(list(_TOOLKIT_MAP))
         per_task_tools = [default_tools] * len(tasks)
 
+    prompt_kwargs: dict = {}
+    meta_extra: dict = {}
+    if cond is not None:
+        localized = {}
+        per_task_tools = [
+            localized.setdefault(id(ts), localize_tools(ts, cond.tool_desc_lang)) for ts in per_task_tools
+        ]
+        prompt_kwargs["extra_instructions"] = extra_instructions(cond)
+        if structured_outputs:
+            prompt_kwargs["act_text"] = act_without_confirmation_text(system_lang)
+        meta_extra = {**condition_metadata(cond), "run_label": run_label}
+    if structured_outputs:
+        system_prompt_sent = build_structured_system_prompt(
+            datetime_prefix,
+            act_without_confirmation,
+            prompt_kwargs.get("act_text", act_without_confirmation_text("en")),
+            prompt_kwargs.get("extra_instructions", ()),
+        )
+    else:
+        system_prompt_sent = build_system_prompt(
+            per_task_tools[0], datetime_prefix, act_without_confirmation, prompt_kwargs.get("extra_instructions", ())
+        )
+    meta_extra["system_prompt_sent"] = system_prompt_sent
+    meta_extra["tool_descriptions_sha256"] = hashlib.sha256(
+        json.dumps({t.name: t.description for t in per_task_tools[0]}, ensure_ascii=False, sort_keys=True).encode()
+    ).hexdigest()
+
     domain = tasks_path.split("/")[-1].split(".")[0].replace("_tasks_and_outcomes", "")
-    save_dir = os.path.join("data", "results", domain)
+    if cond is None:
+        save_dir = os.path.join("data", "results", domain)
+    else:
+        save_dir = os.path.join("data", "results", cond.id + (f"-{run_label}" if run_label else ""), domain)
     os.makedirs(save_dir, exist_ok=True)
 
     save_path: str | None = None
@@ -328,6 +386,7 @@ def generate_results(
         datetime_prefix=datetime_prefix,
         sample_system_prompt=sample_system_prompt,
         started_at=started_at,
+        extra=meta_extra,
     )
 
     pending = [(i, task) for i, task in enumerate(tasks) if i not in skip_indices]
@@ -342,6 +401,7 @@ def generate_results(
                 datetime_prefix,
                 act_without_confirmation,
                 structured_outputs,
+                prompt_kwargs,
             )
             for i, task in pending
         ]
@@ -371,6 +431,7 @@ def generate_results(
         sample_system_prompt=sample_system_prompt,
         started_at=started_at,
         finished_at=pd.Timestamp.now().isoformat(),
+        extra=meta_extra,
     )
 
     sorted_rows = sorted(row_dicts, key=lambda d: d["_index"])
