@@ -48,7 +48,7 @@ C6 prompt (`system_prompt_sent` in the C6 meta): the Bangla date/time and meetin
 | multilingual (secondary) | – | 3 | – | 3 |
 
 **What the one-sided failures are about.**
-- C6-only (7): 4 are relative-time resolution errors — "গত সপ্তাহে" (email:41), "বুধবার থেকে" (analytics:98), "গত 4 সপ্তাহের" (analytics:119), "আগামী শুক্রবার" (md:120). The others are a plot type (analytics:20), a 6-week cutoff (crm:77) and a free-slot error (md:84).
+- C6-only (7): 2–3 are relative-date resolution errors — "গত সপ্তাহে" (email:41), "গত 4 সপ্তাহের" (analytics:119), "আগামী শুক্রবার" (md:120). analytics:98 ("বুধবার থেকে") is not counted: it resolved the weekday correctly (11-29) and its error was the baseline day. The others are a plot type (analytics:20), a 6-week cutoff (crm:77) and a free-slot error (md:84), plus analytics:98.
 - C0-only (8): none is a relative-time resolution error. 3 are CRM "leads" or reassignment misreadings (crm:42, crm:46, crm:57), 3 are free-slot errors (calendar:63, md:102, and md:6, which is a scoring artefact), 1 is due-today-as-overdue (pm:28) and 1 is a condition checked too late (md:130).
 - This grouping was made after reading the traces (post hoc), and n is small. C0 resolved the same four phrases correctly in English. Within C6, the trace evidence cuts against a language cause in each case:
   - analytics:98 dated Wednesday correctly (11-29) and erred on the baseline day.
@@ -106,7 +106,7 @@ Method: a script over the C6 trace file. Final answer = `action_input` of the la
   - md:120, "আগামী শুক্রবার" → 12-01. This is the strongest case: the answer states the reading explicitly, and the Bangla phrase idiomatically means "the coming Friday". It is not primary because the same run resolved the phrase to 12-08 in 2/2 other tasks with a deadline. *Action: the owner should review the BN wording for "next Friday" (e.g. "পরের সপ্তাহের শুক্রবার").*
   - email:41, "গত সপ্তাহে" read as the past 7 days. This is plausible but weak, because English "last week" is equally ambiguous.
   - analytics:20, "ডিস্ট্রিবিউশন … চার্টে দেখিয়ে দাও" → line plot. This is weak, because the same wording gave a histogram in analytics:15.
-- **The one C6-specific pattern is relative-time resolution:** 4/7 C6-only failures vs 0/8 C0-only failures. This grouping is post hoc and each case has a non-language explanation, so it is a hypothesis for repeated runs (k ≥ 3), not a finding.
+- **The one C6-specific pattern is relative-time resolution:** 2–3 of 7 C6-only failures (email:41, analytics:119, md:120; analytics:98 is not counted, because it resolved the weekday correctly and its error was the baseline day) vs 0 of 8 C0-only failures. This grouping is post hoc and each case has a non-language explanation, so it is a hypothesis for repeated runs (k ≥ 3), not a finding.
 - **Overall, the failure mix is very similar:** reasoning 11 C0 vs 10 C6, planning 4 vs 2, tool_use 1 vs 2, control_flow 1 vs 2.
   - C6 is not worse on completion: Δ = +1.1 pp, 95% CI −7.8 to +10.0 pp.
   - C6 has fewer side effects: 8.9% vs 16.7%. 8/16 C6 failures leave no side effect (wrong or extra plots, empty responses, no action), against 2/17 C0 failures.

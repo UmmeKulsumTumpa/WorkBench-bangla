@@ -109,4 +109,4 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (c6 pilot) | pilot: 682 req (3.8/task); c6 pilot: 296 req; no limit errors | **Next (optional): c0-rep2 + c6-rep2 on gemma4:31b, about 342 and 296 req (cap 1,800 each). Needs owner approval.** |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (c6 pilot) | pilot: 682 req (3.8/task); no limit errors | **Next (optional): c0-rep2 + c6-rep2 on gemma4:31b, about 342 and 296 req (cap 1,800 each). Needs owner approval.** |

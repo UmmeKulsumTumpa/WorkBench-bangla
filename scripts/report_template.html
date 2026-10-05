@@ -215,7 +215,7 @@ const seEN = rows.filter(r => r.se_en).length, seBN = rows.filter(r => r.se_bn).
 document.getElementById("eyebrow").textContent = `WorkBench · English vs Bangla · ${D.meta.model_id} · pilot`;
 if (N.h1) document.getElementById("h1").textContent = N.h1;
 document.getElementById("lede").innerHTML = N.lede ||
-  `The agent completed <strong>${cEN}/${n}</strong> tasks in English and <strong>${cBN}/${n}</strong> in Bangla. The difference is ${pp(O.delta_completion)} points (95% CI ${pp(O.delta_completion_ci95_low)} to ${pp(O.delta_completion_ci95_high)}), within noise.`;
+  `The agent completed <strong>${cEN}/${n}</strong> tasks in English and <strong>${cBN}/${n}</strong> in Bangla. The difference is ${pp(O.delta_completion)} points (95% CI ${pp(O.delta_completion_ci95_low)} to ${pp(O.delta_completion_ci95_high)}).`;
 
 /* KPIs */
 const kp = [
@@ -373,7 +373,7 @@ document.getElementById("threats").innerHTML = (N.threats || []).map(s => `<li>$
   const items = [
     ["Benchmark", "WorkBench (Styles et al., COLM 2024), ground truth v2; 90-task stratified pilot (15 per task file, seed 20261004)"],
     ["Model", `${esc(m.model_id)} via ${esc(m.provider)} (free tier), temperature 0`],
-    ["Condition", "C1: Bangla task text; English system prompt, tool names and environment"],
+    ["Condition", esc(m.condition_label)],
     ["Agent settings", `native tool calling · act without confirmation · tool selection ${esc(m.tool_selection)} · 1 worker · max 20 steps`],
     ["Requests", `${m.req_en ?? "?"} English + ${m.req_bn ?? "?"} Bangla`],
     ["Run started", `EN ${esc(m.en_started)} · BN ${esc(m.bn_started)}`],

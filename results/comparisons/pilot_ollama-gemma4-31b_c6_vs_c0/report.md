@@ -39,7 +39,7 @@ Paired outcomes: 66 both correct, 9 both wrong, 7 only C0, 8 only C6. Exact McNe
 
 ## Findings
 - No detectable completion gap: 81.1% English vs 82.2% Bangla, exact McNemar p = 1.00. With 90 pairs the pilot can rule out a drop larger than about 8 points for this model.
-- Disagreements look like run-to-run noise: 7 tasks only C0 solved, 8 only C6 solved, and the failed side was labelled reasoning in 12 of the 15.
+- The disagreements show no detectable difference and no clear language cause (no repeat runs yet, so noise is not measured): 7 tasks only C0 solved, 8 only C6 solved, and the failed side was labelled reasoning in 12 of the 15.
 - Harmful side effects were lower in Bangla (8.9% vs 16.7%), but the CI reaches zero (−15.6 to +0.0 points). 8 of 16 C6 failures leave no side effect (wrong plots, empty answers, no action), against 2 of 17 C0 failures.
 - Failure mix is similar: reasoning 11 vs 10, planning 4 vs 2, tool use 1 vs 2, control flow 1 vs 2 (C0 vs C6).
 - Analytics is the one domain where C6 is lower (87% vs 67%; 3 tasks only C0 solved, none only C6). With 15 tasks per domain this is descriptive only.

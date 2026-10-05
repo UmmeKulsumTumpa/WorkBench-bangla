@@ -101,6 +101,14 @@ def main():
             }
         )
 
+    # Condition label for the setup block: "<ID>: <description>" from the run metadata. Runs that predate the
+    # --condition flag (the C1 pilot) have no condition_spec, so they keep the original C1 text.
+    spec = meta_bn.get("condition_spec")
+    if isinstance(spec, dict) and spec.get("description"):
+        condition_label = f"{str(meta_bn.get('condition') or spec.get('id', '')).upper()}: {spec['description']}"
+    else:
+        condition_label = "C1: Bangla task text; English system prompt, tool names and environment"
+
     notes_p = d / "report_notes.json"
     notes = json.loads(notes_p.read_text(encoding="utf-8")) if notes_p.exists() else {}
     data = {
@@ -118,6 +126,7 @@ def main():
             "harness_commit": meta_en.get("harness_commit", "")[:7],
             "tool_selection": meta_en.get("tool_selection"),
             "comparison_id": a.comparison_id,
+            "condition_label": condition_label,
         },
     }
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
