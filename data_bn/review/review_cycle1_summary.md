@@ -1,6 +1,6 @@
 # Review cycle 1: EN→BN templates (204 rows)
 
-Reviewer: independent senior reviewer. Inputs: `templates_bn.csv` (=`review_sheet.csv` template_bn), `glossary.csv`, `docs/translation_policy.md`.
+Reviewer: independent senior reviewer. Inputs: `templates_bn.csv` (=`review_sheet.csv` template_bn), `glossary.csv`, `docs/translation/policy.md`.
 Outputs: `review_cycle1.csv` (99 rows flagged), `templates_bn_cycle1_candidate.csv`. The candidate **passes** `make_bn_tasks.py --partial`: 204/204 templates OK, 690 tasks render, GT literals survive, no duplicate tasks, no Bengali digits. No two variants of the same template are identical.
 
 ## Counts

@@ -1,6 +1,6 @@
 # Pilot report — WorkBench EN vs BN, gemma4:31b, condition C1
 
-Date: 2026-10-04 · Interactive version: `results/workbench_pilot_ollama-gemma4-31b_c1/report.html` (claude.ai artifact 6Nd3cAmYaD5sDRT5WsGa2q, private).
+Date: 2026-10-04 · Interactive version: `results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/report.html` (claude.ai artifact 6Nd3cAmYaD5sDRT5WsGa2q, private).
 
 ## Setup
 - **Data:** WorkBench (v2 ground truth). 90-task stratified pilot: 15 per task file, seed 20261004, 63/69 templates covered. The same tasks are run in EN and BN.
@@ -27,7 +27,7 @@ Paired outcomes: 67 both correct, 10 both wrong, 6 only EN, 7 only BN. Exact McN
 | customer_relationship_manager | 73% | 80% | 27% | 13% |
 | multi_domain | 53% | 53% | 47% | 47% |
 
-## Failure analysis (details: `results/pilot_failure_analysis.md`, labels: `failure_labels.csv`)
+## Failure analysis (details: `results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/failure_analysis.md`, labels: `failure_labels.csv`)
 - 88 of 88 completed Bangla runs answered in Bangla; none switched to English mid-answer. English appeared only for names and IDs.
 - The agent wrote Bengali digits in its prose (346 digits across 52 answers) but used ASCII digits in every tool argument.
 - 0 of 345 tool calls passed Bangla script as an argument. All 76 names written with a case marker in the task (e.g. nadia-কে) were sent to tools as the bare name.

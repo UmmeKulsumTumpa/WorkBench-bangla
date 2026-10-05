@@ -1,6 +1,6 @@
 # progress.md — WorkBench → Bangla (source of truth)
 
-Spec: `docs/superpowers/specs/2026-10-04-workbench-bangla-design.md` (re-read §0 on every resume).
+Spec: `docs/design/spec.md` (re-read §0 on every resume).
 Resume protocol: read this file → `git log --oneline -15` → continue from the "Current step" section. Always `source env.sh` first; use `uv run --frozen`.
 
 ## Status
@@ -11,15 +11,19 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 | 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
 | 2 Bangla translation | 🛑 | **STOP (a): waiting for owner review.** 204 variants translated + 2 independent review cycles (cycle 1: 99 rows, cycle 2: 42 rows); 690 BN tasks rendered, all checks pass |
 | 3 Pilot run | ✅ | gemma4:31b: EN 81.1% vs BN 82.2% (p=1.0); failure analysis + pilot_report.md + HTML report (artifact) done |
-| 4 Extensions | ⬜ | owner instruction only |
+| 3b Conditions C2–C5 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). Runs: ⬜ waiting for asset review + budget approval |
+| 4 Extensions | ⬜ | owner instruction only (300 tasks only if the 90-task runs show a finding) |
 
 ## Current step
 
-Phase 3 is done for gemma4:31b. Waiting for the owner on:
-- (1) **STOP (a) translation review** (still open; see the policy questions in `docs/translation_policy.md` §7 and `docs/translation_review.md`; the pilot flagged "আগামী শুক্রবার").
-- (2) Next: implement the `--condition` flag and the C2–C5 assets (BN system prompt, BN tool docstrings, output-language lines). Decisions #25/#26.
+Phase 3b: everything is built and tested; **no API call yet**. Waiting for the owner on:
+- (1) **Review the new Bangla assets:** `docs/conditions/translation_review.md` (system prompt + 27 tool descriptions; machine-translated, not yet native-reviewed). Edits go to `WorkBench/data/conditions/bn/*.json` (runbook §6).
+- (2) **Budget approval (rule 6)** for the 90-task pilot runs on `ollama-gemma4-31b`, order: c0-rep2, c3, c4, c5, c2, c0-rep3 — about 440 requests each, **about 2,650 in total**. Ollama Cloud free tier; 1 worker; spread across days if a quota signal appears.
+- (3) Still open: STOP (a) review of the task templates (`docs/translation/template_review.md`; the pilot flagged "আগামী শুক্রবার"). If templates change, c1–c4 must be re-run.
 
-To regenerate the report: `python3 scripts/build_pilot_html.py --comparison_id workbench_pilot_ollama-gemma4-31b_c1`, then re-publish `report_fragment.html` to artifact https://claude.ai/artifact/6Nd3cAmYaD5sDRT5WsGa2q.
+Next action after approval: `scripts/run_condition.py --condition c0 --run_label rep2 --model ollama-gemma4-31b` (runbook §1–3), then compare each run with c0.
+
+To regenerate the C1 report: `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c1_vs_c0`, then re-publish `report_fragment.html` to artifact https://claude.ai/artifact/6Nd3cAmYaD5sDRT5WsGa2q.
 
 ## Decisions log
 
@@ -34,7 +38,7 @@ To regenerate the report: `python3 scripts/build_pilot_html.py --comparison_id w
 - 2026-10-04 #7 — Global uv artifacts removed (`~/.local/bin/{uv,uvx,python3.12}`, `~/.local/share/uv`, `~/.cache/uv`, `~/.config/uv`, all created by me today). `WorkBench/.venv` rebuilt on `.tools/python/cpython-3.12.15`.
 - 2026-10-04 #8 — **BN file naming:** use `{stem}_bn_tasks_and_outcomes.csv`, not `{domain}_tasks_and_outcomes_bn.csv`. Reason (code-verified): `workbench-evaluate` finds GT as `data/processed/tasks_and_outcomes/{results_dir}_tasks_and_outcomes.csv`, and the results dir = tasks-file stem minus `_tasks_and_outcomes`. The spec's name would produce no GT match. Canonical copies are kept in `data_bn/` and copied into `WorkBench/data/processed/tasks_and_outcomes/` for runs. Pilot subsets: `pilot_en_tasks_and_outcomes.csv` / `pilot_bn_tasks_and_outcomes.csv` → results dirs `data/results/pilot_en/`, `pilot_bn/`. Fallback: `scripts/evals/calculate_metrics_for_single_file.py --ground_truth_path`.
 - 2026-10-04 #9 — **Upstream bug (verified, `src/evals/inference.py:43`):** `_TOOLKIT_MAP` has no `"crm"` key, but 50 multi_domain tasks list `'crm'`, so with `--tool_selection domains` their CRM tools are silently dropped. Proposal: the pilot uses `--tool_selection all` (27 tools; same setting as README / Revisited headline runs; avoids the bug) instead of the spec's `domains`. To be confirmed by the owner at STOP (b). Not patched upstream (keeps comparability).
-- 2026-10-04 #10 — Ollama Cloud (docs, 2026-10-04; see `docs/notes_ollama_cloud.md`): base `https://ollama.com/v1` (`api.ollama.com` 301-redirects to it), Bearer auth; the free tier is now **monthly credits** with **1 concurrent request**; `tools` and `temperature` supported; `tool_choice` and `response_format` structured outputs NOT supported. WorkBench `--structured_outputs` = native `tools=` (not response_format), so it is compatible. The 17 live models from the unauthenticated `/api/tags` include gpt-oss:20b/120b, gemma4:31b, nemotron-3-nano:30b, glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7 (no qwen3 on cloud).
+- 2026-10-04 #10 — Ollama Cloud (docs, 2026-10-04; see `docs/harness/ollama_cloud.md`): base `https://ollama.com/v1` (`api.ollama.com` 301-redirects to it), Bearer auth; the free tier is now **monthly credits** with **1 concurrent request**; `tools` and `temperature` supported; `tool_choice` and `response_format` structured outputs NOT supported. WorkBench `--structured_outputs` = native `tools=` (not response_format), so it is compatible. The 17 live models from the unauthenticated `/api/tags` include gpt-oss:20b/120b, gemma4:31b, nemotron-3-nano:30b, glm-5.3-flash, deepseek-v4.1-flash, minimax-m2.7 (no qwen3 on cloud).
 - 2026-10-04 #11 — The owner pasted OLLAMA_API_KEY (57 chars) and said "You can use it while processing" → treated as rule-6 confirmation for the **Phase 1.6 probe only**: 7 models × 2 requests = 14 requests. The pilot still needs STOP (b).
 
 - 2026-10-04 #12 — Smoke test (1.3) verified: `uv run workbench-evaluate --all_tools` reproduces `retro/data/model_results.json` **exactly for all 24 Revisited models** (correct/total/side_effects), incl. README headline Claude Fable 5 674/690 = 97.7% (README "98%"), SE 1.9%, and GPT-4 (v1 GT) 48.1% / 16.2% (README "48% / 16%"). The 2024 paper's 43%/26% came from the older, stricter evaluator (README says so).
@@ -51,12 +55,30 @@ To regenerate the report: `python3 scripts/build_pilot_html.py --comparison_id w
   - (2) I passed `--out_dir ../results/...`, which wrote **outside the project** (`BARTA/results/`, created 11:34 by me). Moved back and deleted. `compare_en_bn.py` now refuses any out_dir outside the project.
   - (3) `tests/conftest.py` keeps pytest temp dirs in `.tools/pytest-tmp`. Earlier test runs used the macOS system temp dir (`/private/var/folders/.../pytest-of-cefalo`, auto-cleaned by the OS).
   - (4) Results CSVs contain fields >128 KB, so readers need `csv.field_size_limit(sys.maxsize)`.
-- 2026-10-04 #22 — **STOP (b) passed by owner instruction:** "run the 90-task pilot on gemma4:31b and gimme a html report". Model `ollama-gemma4-31b` (gemma4:31b, Ollama Cloud free tier), C1, settings as `docs/pilot_design.md` §4 (`--tool_selection all`, `--act_without_confirmation`, `--structured_outputs`, `--workers 1`, `--log_traces`, `--resume`). Budget ≈640 requests. **STOP (a) is NOT completed:** the owner has not yet reviewed the BN translations (machine-translated + 2 independent model-review cycles). Recorded as a threat to validity; if the owner later edits translations, the BN side must be re-run.
+- 2026-10-04 #22 — **STOP (b) passed by owner instruction:** "run the 90-task pilot on gemma4:31b and gimme a html report". Model `ollama-gemma4-31b` (gemma4:31b, Ollama Cloud free tier), C1, settings as `docs/design/pilot_design.md` §4 (`--tool_selection all`, `--act_without_confirmation`, `--structured_outputs`, `--workers 1`, `--log_traces`, `--resume`). Budget ≈640 requests. **STOP (a) is NOT completed:** the owner has not yet reviewed the BN translations (machine-translated + 2 independent model-review cycles). Recorded as a threat to validity; if the owner later edits translations, the BN side must be re-run.
 - 2026-10-04 #23 — **Pilot result (gemma4:31b, C1, EN 11:42–11:47, BN 11:47–11:54 local):** completion EN 73/90 = 81.1%, BN 74/90 = 82.2%. Δ = +1.1 pp, 95% paired-bootstrap CI [−6.7, +8.9], exact McNemar p = 1.0 (6 EN-only, 7 BN-only). Side effects: EN 16.7%, BN 12.2% (Δ −4.4 pp, CI [−11.1, +2.2]). Domain-mix-weighted completion: EN 76.7%, BN 77.3%. Requests: EN 445 + BN 433 = 878 (4.9/task, above the 3.6 smoke10 estimate); no 429/402/5xx. Agent errors (step limit): EN 1, BN 2. Interpretation: no detectable EN–BN gap for this model on this sample (the pilot can only rule out large gaps, roughly > 9 pp).
 - 2026-10-04 #24 — Failure analysis (model-labelled, 33 failed runs): 0/16 BN failures primarily `multilingual`. One secondary multilingual case: md:169, "আগামী শুক্রবার" read as Dec 1 instead of Dec 8. BN language behaviour: 88/88 answers in Bangla; Bengali digits used in prose but never in tool arguments; 0/345 tool arguments contained Bangla script; 1 invalid tool name (BN crm:77). The HTML report is published as a private artifact. `report.html` is a standalone document; `report_fragment.html` is the version used for artifact publishing. The first `report.html` was a bare fragment that the owner reported as showing nothing; fixed.
 
 - 2026-10-05 #25 — **Single repo, conditions as a flag (owner decision).** The owner considered one git branch per condition (C0–C5); chose instead one codebase where a `--condition` flag selects prompt/tool-description/output-language variants, so EN/BN runs of every condition come from the same code and can be compared without branch switching. Short-lived feature branches only while building a condition; tag each run (`run/<scope>-<cond>-<model>`). Repo: the outer `workbench` project is now the only git repo and tracks `WorkBench/` as plain files (base upstream `49c7dfd` + our 4 commits up to `b3dd57b`). The old nested `WorkBench/.git` was moved to `.tools/WorkBench.git.bak` (not deleted). Remote: private `https://github.com/UmmeKulsumTumpa/WorkBench-bangla`. Branch renamed `master` → `main`.
 - 2026-10-05 #26 — **Next plan (owner):** run C2–C5 on the same 90 pilot tasks (C0/C1 already done) and compare. Expand to 300 tasks only if a finding appears; the full 690 is not planned yet. Conditions: C2 BN task + BN system prompt; C3 = C2 + BN tool descriptions; C4 BN task + English output forced; C5 EN task + Bangla output forced. Plus 2 repeat runs of C0 to measure the noise floor. Estimate ≈ 440 requests per run, ≈ 2,650 in total. Claude Code does all prep (translation, code, analysis); the only external calls are inference on the free tier.
+
+- 2026-10-05 #27 — **Condition flag built (PR #1).**
+  - `--condition c0..c5` and `--run_label` are in the harness, with Bangla assets in `WorkBench/data/conditions/bn/`.
+  - Structured mode sends only a short system prompt: the date line, the act line and, for c4/c5, an output-language line. So c2 translates exactly those lines, and c3 adds the 27 tool descriptions.
+  - Argument descriptions (generated from the argument names) and tool observations stay English in every condition.
+  - Owner-requested git workflow: feature branch → PR → merge into `main`.
+- 2026-10-05 #28 — **Runner and generic comparison (PR #2).**
+  - Comparisons are now reference vs treatment (`_ref`/`_treat`; schema v2), because `_en`/`_bn` would mislabel c5 and repeat runs.
+  - The C1-vs-C0 pilot was regenerated with the new script: all 63 metrics and all per-task rows are identical.
+  - Raw pilot runs moved to `WorkBench/data/results/c0/` and `c1/`.
+  - Safety: a finished run is final. Its step-limit errors are real outcomes; before this change, an accidental `--resume` of c0 would have re-run 1 task and changed the baseline. `--retry_errors` is the explicit override.
+  - Run metadata now records the run-time git commit and a dirty flag, and the runner refuses to start with uncommitted harness changes.
+- 2026-10-05 #29 — **Docs restructured (PR #3).**
+  - Root `README.md` is the entry point: conditions, results summary, folder map with output folders.
+  - `docs/` is split by topic (design, conditions, runbook, data, translation, harness). The spec moved from `docs/superpowers/specs/` to `docs/design/spec.md`.
+  - `patches/` was removed: it no longer covered the harness, and `git diff` against upstream `49c7dfd` shows every change.
+  - Results moved to `results/comparisons/`, `results/logs/` and `results/summary.csv`.
+  - Older log entries above keep their original paths as history.
 
 ## Blockers / needs-human
 
@@ -65,7 +87,7 @@ To regenerate the report: `python3 scripts/build_pilot_html.py --comparison_id w
 
 ## Verified facts about the repo
 
-- Our WorkBench commits on `bangla-eval`: fbfa4d3 (providers), 8372c87 (drop non-free models). Exported to `patches/0001-*.patch`, `patches/0002-*.patch`. 274 tests pass. Free Ollama Cloud registry keys: `ollama-gpt-oss-20b`, `ollama-gpt-oss-120b`, `ollama-nemotron-3-nano-30b`, `ollama-gemma4-31b`; local: `ollama-local-qwen3-8b`.
+- Our WorkBench changes (originally on the nested `bangla-eval` branch: fbfa4d3 providers, 8372c87 drop non-free models; since 2026-10-05 tracked in this repo, plus the condition flag). WorkBench tests: 283 pass; project tests: 19 pass. Free Ollama Cloud registry keys: `ollama-gpt-oss-20b`, `ollama-gpt-oss-120b`, `ollama-nemotron-3-nano-30b`, `ollama-gemma4-31b`; local: `ollama-local-qwen3-8b`.
 - Upstream commit 49c7dfd (2026-08-18). `requires-python >=3.12`; uv 0.12.23; CPython 3.12.15. `uv sync --frozen` OK.
 - Console scripts (pyproject): `workbench-inference = src.cli:inference`, `workbench-evaluate = src.cli:evaluate`, `workbench-generate-data = src.cli:generate_data`.
 - Task CSV dirs: `data/processed/tasks_and_outcomes/` has the top-level files plus `v1/`, `v2026-05-17/`, `v2026-05-19/`. 690 rows: email 90, calendar 110, crm 80, analytics 120, pm 80, multi_domain 210. 69 base templates × 10 tasks each; no base appears in two files.
@@ -76,4 +98,4 @@ To regenerate the report: `python3 scripts/build_pilot_html.py --comparison_id w
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 963 total on 2026-10-04 (probe 14 + smoke10 71 + pilot 878) | pilot done: 878 req (4.9/task); no limit errors | next model's pilot ≈ 880 req |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 963 total on 2026-10-04 (probe 14 + smoke10 71 + pilot 878); 0 on 2026-10-05 | pilot: 878 req (4.9/task); no limit errors | **C2–C5 + 2 C0 repeats on gemma4:31b, 90 tasks each: ≈ 6 × 441 ≈ 2,650 req (cap 6 × 1,800). Awaiting owner approval.** |

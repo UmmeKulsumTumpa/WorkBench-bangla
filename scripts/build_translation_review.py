@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild data_bn/review_sheet.csv, then write docs/translation_review.md: side-by-side EN/BN for all 204 variants grouped by the 69 base
+"""Rebuild data_bn/review_sheet.csv, then write docs/translation/template_review.md: side-by-side EN/BN for all 204 variants grouped by the 69 base
 templates, each with one rendered example task, for the owner's native-speaker review. Stdlib only."""
 import csv
 import os
@@ -63,9 +63,9 @@ def main():
         r0 = by_t[t][0]
         out.append(f"| *example* | *{cell(r0['example_task_en'])}* | *{cell(r0['example_task_bn'])}* |")
         out.append("")
-    with open(os.path.join(ROOT, "docs", "translation_review.md"), "w", encoding="utf-8") as f:
+    with open(os.path.join(ROOT, "docs", "translation", "template_review.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(out))
-    print(f"wrote docs/translation_review.md ({len(sheet)} variants, {len(bases)} templates)")
+    print(f"wrote docs/translation/template_review.md ({len(sheet)} variants, {len(bases)} templates)")
 
 
 if __name__ == "__main__":
