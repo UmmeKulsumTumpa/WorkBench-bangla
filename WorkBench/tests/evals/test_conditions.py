@@ -118,7 +118,7 @@ def test_check_task_language():
         check_task_language(["Delete my last email", "ইমেইলটা ডিলিট করো"], "bn")
 
 
-def _run(tmpdir: str, tasks: list[str], **kwargs: object) -> tuple[list[dict], str]:
+def _run(tmpdir: str, tasks: list[str], model_name: str = "gpt-4", **kwargs: object) -> tuple[list[dict], str]:
     csv_path = os.path.join(tmpdir, "pilot_xx_tasks_and_outcomes.csv")
     pd.DataFrame({"task": tasks, "outcome": ["[]"] * len(tasks)}).to_csv(csv_path, index=False)
     calls: list[dict] = []
@@ -131,7 +131,7 @@ def _run(tmpdir: str, tasks: list[str], **kwargs: object) -> tuple[list[dict], s
     os.chdir(tmpdir)
     try:
         with patch("src.evals.inference.run_agent_structured", side_effect=fake_agent):
-            generate_results(csv_path, "gpt-4", structured_outputs=True, act_without_confirmation=True, **kwargs)
+            generate_results(csv_path, model_name, structured_outputs=True, act_without_confirmation=True, **kwargs)
     finally:
         os.chdir(cwd)
     return calls, csv_path
@@ -147,7 +147,7 @@ def test_generate_results_c3_layout_prompt_and_meta(_route: MagicMock, _reset: M
         assert call["act_text"] == act_without_confirmation_text("bn")
         assert call["tools"][0].description == load_tool_descriptions("bn")[call["tools"][0].name]
 
-        out_dir = os.path.join(tmpdir, "data", "results", "c3", "pilot_xx")
+        out_dir = os.path.join(tmpdir, "data", "results", "c3", "pilot_xx", "gpt-4")
         (meta_file,) = [f for f in os.listdir(out_dir) if f.endswith("_meta.json")]
         with open(os.path.join(out_dir, meta_file), encoding="utf-8") as f:
             meta = json.load(f)
@@ -172,7 +172,20 @@ def test_generate_results_c0_repeat_label_and_unchanged_prompt(_route: MagicMock
         assert all(t.description == en_by_name[t.name] for t in calls[0]["tools"])
         assert calls[0]["extra_instructions"] == ()
         assert calls[0]["act_text"] == ACT_WITHOUT_CONFIRMATION_SUFFIX.strip()
-        assert os.path.isdir(os.path.join(tmpdir, "data", "results", "c0-rep2", "pilot_xx"))
+        assert os.path.isdir(os.path.join(tmpdir, "data", "results", "c0-rep2", "pilot_xx", "gpt-4"))
+
+
+@patch("src.evals.inference.reset_state")
+@patch("src.evals.inference.resolve_route", return_value=_FAKE_ROUTE)
+def test_generate_results_models_never_share_a_folder(_route: MagicMock, _reset: MagicMock):
+    with tempfile.TemporaryDirectory() as tmpdir:
+        _run(tmpdir, ["Delete my last email"], condition="c0")
+        _run(tmpdir, ["Delete my last email"], condition="c0", model_name="gpt-4o")
+        base = os.path.join(tmpdir, "data", "results", "c0", "pilot_xx")
+        assert sorted(os.listdir(base)) == ["gpt-4", "gpt-4o"]
+        for model in ("gpt-4", "gpt-4o"):
+            files = os.listdir(os.path.join(base, model))
+            assert files and all(f.startswith(model + "_all_") for f in files)
 
 
 @patch("src.evals.inference.reset_state")

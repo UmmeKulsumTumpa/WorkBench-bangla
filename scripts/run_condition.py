@@ -12,8 +12,8 @@ What it does:
 3. Prints the plan: condition spec, exact system prompt, tasks left, projected LLM requests. --dry_run stops here
    (no API call).
 4. Runs `workbench-inference` with the study settings (STUDY_FLAGS) and --resume, so an interrupted run continues
-   where it stopped and a finished run is a no-op. Output: WorkBench/data/results/<condition>[-<label>]/<subset>_<lang>/.
-5. Writes the full console output to results/logs/<subset>/<condition>[-<label>]_<model>_<timestamp>.log and
+   where it stopped and a finished run is a no-op. Output: WorkBench/data/results/<condition>[-<label>]/<subset>_<lang>/<model>/.
+5. Writes the full console output to results/logs/<subset>/<model>/<condition>[-<label>]_<timestamp>.log and
    appends one row to results/logs/run_log.csv.
 """
 
@@ -171,7 +171,14 @@ def main(argv=None) -> int:
     cond = get_condition(args.condition)
     tasks_rel = stage_tasks(args.subset, cond.task_lang).relative_to(WB)
     run_dir = cond.id + (f"-{args.run_label}" if args.run_label else "")
-    results_dir = WB / "data" / "results" / run_dir / f"{args.subset}_{cond.task_lang}"
+    results_dir = (
+        WB
+        / "data"
+        / "results"
+        / run_dir
+        / f"{args.subset}_{cond.task_lang}"
+        / args.model
+    )
     n_tasks = count_rows(WB / tasks_rel)
     finished, n_ok, n_err = run_state(results_dir, args.model)
     n_run = 0 if finished and not args.retry_errors else n_tasks - n_ok
@@ -234,7 +241,8 @@ def main(argv=None) -> int:
     log_file = (
         LOG_DIR
         / args.subset
-        / f"{run_dir}_{args.model}_{started:%Y-%m-%d_%H-%M-%S}.log"
+        / args.model
+        / f"{run_dir}_{started:%Y-%m-%d_%H-%M-%S}.log"
     )
     log_file.parent.mkdir(parents=True, exist_ok=True)
     with open(log_file, "w", encoding="utf-8") as log:

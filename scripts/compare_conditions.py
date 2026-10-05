@@ -8,7 +8,7 @@ floor). Paths are resolved from the condition, so the usual call is just:
         --ref c0 --treat c3 --model ollama-gemma4-31b --subset pilot [--treat_label rep2]
 
 Resolution (override any of it with the explicit --{ref,treat}_{results,tasks,traces} flags):
-- results: newest  WorkBench/data/results/<cond>[-<label>]/<subset>_<task_lang>/<model>_all_<ts>.csv
+- results: newest  WorkBench/data/results/<cond>[-<label>]/<subset>_<task_lang>/<model>/<model>_all_<ts>.csv
 - traces:  the same path with _traces.json (optional; gives LLM-request counts)
 - tasks:   data_bn/<subset>/<subset>_<task_lang>_tasks_and_outcomes.csv ; index: data_bn/<subset>/<subset>_index.csv
 
@@ -293,7 +293,7 @@ def task_lang(condition: str) -> str:
 
 
 def latest_results(condition: str, label: str | None, subset: str, model_key: str) -> Path:
-    d = RAW_RESULTS / run_dir_name(condition, label) / f"{subset}_{task_lang(condition)}"
+    d = RAW_RESULTS / run_dir_name(condition, label) / f"{subset}_{task_lang(condition)}" / model_key
     files = sorted(p for p in d.glob(f"{model_key}_all_*.csv") if RESULTS_RE.search(p.name))
     if not files:
         raise SystemExit(f"no results for {model_key} in {d}")

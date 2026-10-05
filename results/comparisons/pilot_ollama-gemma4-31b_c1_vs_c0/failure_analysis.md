@@ -77,7 +77,7 @@ The dominant shared weakness is calendar free-slot reasoning: 6 failed runs acro
 
 **Invalid tool names.**
 - There was exactly 1 invalid tool name in 180 runs (701 tool calls), in BN crm:77, step 1: `customer_relationship_manager_update_task(field="status", new_value="Lost", task_id="00000147")`.
-- This is the source of `WARNING: Rejected disallowed tool name: customer_relationship_manager_update_task.func` (lines 693–694 of `results/logs/pilot/c1_ollama-gemma4-31b_2026-10-04.log`). It was rejected, and the model then made a valid `update_customer` call.
+- This is the source of `WARNING: Rejected disallowed tool name: customer_relationship_manager_update_task.func` (lines 693–694 of `results/logs/pilot/ollama-gemma4-31b/c1_2026-10-04.log`). It was rejected, and the model then made a valid `update_customer` call.
 - The name combines the CRM prefix with project_management's `update_task` and `task_id`. That pattern does not suggest a language cause.
 - The EN runs had 0 invalid tool names.
 

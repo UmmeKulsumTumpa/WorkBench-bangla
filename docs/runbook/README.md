@@ -18,8 +18,8 @@ uv run --project WorkBench --frozen python scripts/run_condition.py --condition 
 ```
 
 - **Fixed study settings** (`STUDY_FLAGS` in the script): native tool calling, act without confirmation, all 27 tools, 1 worker, traces, `--resume`.
-- **Output:** `WorkBench/data/results/c3/pilot_bn/ollama-gemma4-31b_all_<timestamp>.csv`, plus `_meta.json` and `_traces.json`.
-- **Logs:** the console output goes to `results/logs/pilot/c3_ollama-gemma4-31b_<timestamp>.log`, and a row is appended to `results/logs/run_log.csv`.
+- **Output:** `WorkBench/data/results/c3/pilot_bn/ollama-gemma4-31b/ollama-gemma4-31b_all_<timestamp>.csv`, plus `_meta.json` and `_traces.json`.
+- **Logs:** the console output goes to `results/logs/pilot/ollama-gemma4-31b/c3_<timestamp>.log`, and a row is appended to `results/logs/run_log.csv`.
 - **Interrupted?** Run the same command again. It resumes and only runs missing tasks.
 - **Finished?** Running again does nothing. A finished run is final: its errored tasks (e.g. step limit) are real outcomes. `--retry_errors` exists but changes results; note it in `progress.md` if you use it.
 

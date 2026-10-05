@@ -16,7 +16,7 @@
   "n_tasks": 90,
   "tasks_file": "data_bn/pilot/pilot_bn_tasks_and_outcomes.csv",
   "tasks_file_sha256": "2bb7146d9743890cd5d447e095490b985415b09ec53d2519570081b899822d07",
-  "results_file": "WorkBench/data/results/c1/pilot_bn/ollama-gemma4-31b_all_2026-10-04_11-47-57.csv",
+  "results_file": "WorkBench/data/results/c1/pilot_bn/ollama-gemma4-31b/ollama-gemma4-31b_all_2026-10-04_11-47-57.csv",
   "tool_selection": "all",
   "structured_outputs": true,
   "act_without_confirmation": true,

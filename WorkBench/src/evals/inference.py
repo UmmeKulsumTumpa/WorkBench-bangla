@@ -301,8 +301,8 @@ def generate_results(
     and only missing / errored tasks are re-run.
 
     ``condition`` (see conditions.py) sets the language of the system prompt, the tool descriptions
-    and the replies, checks the task language, and saves to ``data/results/<condition>/<tasks>/``.
-    ``run_label`` (e.g. ``rep2``) separates repeated runs: ``data/results/<condition>-<label>/<tasks>/``.
+    and the replies, checks the task language, and saves to ``data/results/<condition>/<tasks>/<model_name>/``.
+    ``run_label`` (e.g. ``rep2``) separates repeated runs: ``data/results/<condition>-<label>/<tasks>/<model_name>/``.
     Without ``condition`` the behaviour is upstream's, unchanged.
     """
     if model_name not in MODEL_REGISTRY:
@@ -363,7 +363,7 @@ def generate_results(
     if cond is None:
         save_dir = os.path.join("data", "results", domain)
     else:
-        save_dir = os.path.join("data", "results", cond.id + (f"-{run_label}" if run_label else ""), domain)
+        save_dir = os.path.join("data", "results", cond.id + (f"-{run_label}" if run_label else ""), domain, model_name)
     os.makedirs(save_dir, exist_ok=True)
 
     save_path: str | None = None

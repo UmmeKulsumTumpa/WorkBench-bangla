@@ -16,7 +16,9 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 ## Current step
 
-**Next (approved, #34):** execute `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (per-model folders, then gpt-oss:20b c0 and c6: a smoke10 gate, then 90 tasks). Start by confirming "C7 = C6" with the owner. Handoff: `.claude/HANDOFF.md`.
+**Next (approved, #34):** execute `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (gpt-oss:20b c0 and c6: a smoke10 gate, then 90 tasks). Start by confirming "C7 = C6" with the owner. Handoff: `.claude/HANDOFF.md`.
+
+**Done (#35, issue #12):** raw results and run logs are now per model (`WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/<model>/`, `results/logs/<subset>/<model>/`). The gemma runs were moved there and the gemma comparisons regenerated; metrics are byte-identical.
 
 C6 report published (private artifact): https://claude.ai/artifact/RwtdFQ5pvZ4uVXdrQNuzGc; regenerate with `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gemma4-31b_c6_vs_c0` and republish `report_fragment.html`. C6 code: tag `run/pilot-c6-gemma4-31b` (0950e72). Follow-ups: issue #9.
 
@@ -96,6 +98,12 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
   - Threats: C0 and C6 ran on different days (provider drift possible), no C0 repeat (noise unmeasured), unreviewed BN prompt, one model, n = 90.
 
 - 2026-10-05 #34 — **Next: gpt-oss:20b, c0 and c6 (owner).** The owner asked to "run the same test on GPT-OSS 20 billion for both the C0 and C7"; C7 does not exist, so it is taken as C6 and must be confirmed with the owner at the start of the next session. The owner also wants every model's runs in separate folders (issue #12) and everything tracked in git. Plan: `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (issues #12, #13). Budget approved: smoke10 about 80 requests plus pilot about 684. If the smoke10 gate fails, the fallbacks are `ollama-gpt-oss-120b` or local `qwen3:8b`. The session was handed off via `.claude/HANDOFF.md` and the project `CLAUDE.md`.
+- 2026-10-05 #35 — **Per-model folders (issue #12).** Raw runs and run logs are now separated by model, so the gpt-oss:20b runs never share a folder with gemma4:31b.
+  - Raw run: `WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/<model>/<model>_all_<ts>.csv`, plus `_meta.json` and `_traces.json`. `generate_results` adds the `<model_name>` folder only when `--condition` is set; without it the path is upstream's.
+  - Run log: `results/logs/<subset>/<model>/<cond>[-<label>]_<ts>.log` (the model is no longer in the file name). `results/logs/run_log.csv` keeps its columns; the `results_dir` and `log_file` values of the c6 row were updated.
+  - `scripts/run_condition.py` and `scripts/compare_conditions.py` (`latest_results`) follow the new layout. Comparison folders are unchanged (they were already per model).
+  - Moved the gemma4:31b runs of c0 (pilot, smoke10), c1 (pilot, smoke10) and c6 (pilot) and the three gemma pilot logs. The `run_log_2026-10-04.txt` files stay where they were. Older log entries above keep their original paths as history.
+  - All three gemma comparisons were regenerated (no API calls) and both HTML reports rebuilt. `metrics.csv`, `paired.csv`, `per_task_*.csv` and `results/summary.csv` are byte-identical to before; only the `results_file` path in `run_meta_*.json` and the log paths quoted in `failure_analysis.md` changed. `harness_commit` and `harness_dirty` in `run_meta_*.json` were restored to their previous values (known issue #9: `compare_conditions.py` rewrites them to the comparison-time commit for pre-flag runs).
 
 ## Blockers / needs-human
 

@@ -48,7 +48,7 @@ In native tool-calling mode the **whole system prompt** is: date line + act-with
 - c0 and c1 send the pilot's system prompt **byte for byte**, so the 2026-10-04 pilot counts as the c0/c1 runs.
 - Localized tools keep name, signature and argument schema identical. Only `description` changes.
 - The tasks file must match the condition's task language. A Bangla condition fails fast on English tasks, and vice versa.
-- Results go to `WorkBench/data/results/<condition>[-<label>]/<subset>_<lang>/`, so conditions can never overwrite each other.
+- Results go to `WorkBench/data/results/<condition>[-<label>]/<subset>_<lang>/<model>/`, so neither conditions nor models can ever overwrite each other.
 
 ## Adding a condition or a language
 
