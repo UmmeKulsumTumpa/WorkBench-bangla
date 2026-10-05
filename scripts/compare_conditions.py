@@ -261,10 +261,14 @@ def template_ids(tasks: pd.DataFrame, index: pd.DataFrame | None) -> list[str]:
 
 
 def load_trace_counts(path: str) -> dict[str, int]:
-    """task text -> number of trace steps (one per successful LLM call) from a WorkBench `_traces.json`."""
+    """task text -> number of LLM requests, from a WorkBench `_traces.json`.
+
+    Counted as distinct `llm_input` values among a task's steps: in native tool-calling mode one
+    LLM response may carry several tool calls, each its own step, all sharing the same `llm_input`.
+    """
     with open(path, encoding="utf-8") as f:
         entries = json.load(f)
-    return {e["task"]: len(e.get("steps") or []) for e in entries}
+    return {e["task"]: len({s.get("llm_input") for s in (e.get("steps") or [])}) for e in entries}
 
 
 def run_dir_name(condition: str, label: str | None) -> str:
