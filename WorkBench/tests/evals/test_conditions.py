@@ -141,6 +141,7 @@ def test_generate_results_c3_layout_prompt_and_meta(_route: MagicMock, _reset: M
         }
         assert meta["system_prompt_sent"].startswith(call["datetime_prefix"])
         assert meta["run_label"] is None
+        assert len(meta["harness_commit"]) == 40 and isinstance(meta["harness_dirty"], bool)
 
 
 @patch("src.evals.inference.reset_state")
