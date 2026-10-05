@@ -2,3 +2,4 @@ comparison_id,model_key,ref_condition,condition,n,completion_rate_ref,completion
 pilot_ollama-gemma4-31b_c1_vs_c0,ollama-gemma4-31b,c0,c1,90,0.8111,0.8222,0.0111,-0.0667,0.0889,1.0000,6,7,0.1667,0.1222,-0.0444
 pilot_ollama-gemma4-31b_c6_vs_c0,ollama-gemma4-31b,c0,c6,90,0.8111,0.8222,0.0111,-0.0778,0.1000,1.0000,7,8,0.1667,0.0889,-0.0778
 smoke10_ollama-gemma4-31b_c1_vs_c0,ollama-gemma4-31b,c0,c1,10,0.8000,0.8000,0.0000,0.0000,0.0000,1.0000,0,0,0.2000,0.2000,0.0000
+smoke10_ollama-gpt-oss-20b_c6_vs_c0,ollama-gpt-oss-20b,c0,c6,10,0.8000,0.7000,-0.1000,-0.3000,0.0000,1.0000,1,0,0.1000,0.1000,0.0000
