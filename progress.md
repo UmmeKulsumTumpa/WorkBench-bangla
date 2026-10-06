@@ -16,7 +16,10 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 ## Current step
 
-**Next (approved, #34):** execute `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (gpt-oss:20b c0 and c6: a smoke10 gate, then 90 tasks). Start by confirming "C7 = C6" with the owner. Handoff: `.claude/HANDOFF.md`.
+**PAUSED (#36): the Ollama free-tier monthly limit was reached during the gpt-oss:20b c6 pilot run.** There is no C7; the scope is c0 vs c6 (owner, 2026-10-05). Plan `docs/design/plans/2026-10-06-gpt-oss-20b-run.md`, branch `run/gpt-oss-20b` (not merged), issue #13 open.
+- Done: Task 1 (#35, PR #15), Task 2 (smoke10 gate passed: c0 8/10, c6 7/10), c0 pilot 90/90.
+- **Resume after the monthly limit resets:** `source env.sh && PYTHONUNBUFFERED=1 uv run --project WorkBench --frozen python scripts/run_condition.py --condition c6 --subset pilot --model ollama-gpt-oss-20b`. It continues the c6 run at 76/90 and also re-runs c6's errored rows (as the c0 resume did). Then plan Tasks 4–5. Stop rules: #36.
+- Handoff: `.claude/HANDOFF.md`.
 
 **Done (#35, issue #12):** raw results and run logs are now per model (`WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/<model>/`, `results/logs/<subset>/<model>/`). The gemma runs were moved there and the gemma comparisons regenerated; metrics are byte-identical.
 
@@ -104,6 +107,17 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
   - `scripts/run_condition.py` and `scripts/compare_conditions.py` (`latest_results`) follow the new layout. Comparison folders are unchanged (they were already per model).
   - Moved the gemma4:31b runs of c0 (pilot, smoke10), c1 (pilot, smoke10) and c6 (pilot) and the three gemma pilot logs. The `run_log_2026-10-04.txt` files stay where they were. Older log entries above keep their original paths as history.
   - All three gemma comparisons were regenerated (no API calls) and both HTML reports rebuilt. `metrics.csv`, `paired.csv`, `per_task_*.csv` and `results/summary.csv` are byte-identical to before; only the `results_file` path in `run_meta_*.json` and the log paths quoted in `failure_analysis.md` changed. `harness_commit` and `harness_dirty` in `run_meta_*.json` were restored to their previous values (known issue #9: `compare_conditions.py` rewrites them to the comparison-time commit for pre-flag runs).
+- 2026-10-06 #36 — **gpt-oss:20b runs: smoke10 gate passed; c0 pilot done; c6 paused by the free-tier monthly limit.** The owner confirmed on 2026-10-05 that there is no C7: the scope is c0 vs c6.
+  - Smoke10 (2026-10-05 20:52–21:45): c0 8/10, c6 7/10; 9/10 c0 runs made a valid tool call; no quota signal. The one discordant pair (email:5) is a c6 provider stall. Requests: 54 distinct `llm_input` (#32), but 64 HTTP 200 plus 33 timed-out attempts at the provider.
+  - **Request metric:** #32's distinct `llm_input` stays the reported number. For gpt-oss, provider attempts (HTTP 200, 5xx and timeouts) are much higher, so both numbers are recorded.
+  - **c0 pilot (2026-10-05 21:50–23:57; harness unchanged since c1dc549):** stopped twice by the plan's ">3 consecutive 5xx" rule. First at 65/90 (5×500, 22:16). Then 30 min later, after a probe returned 200, it hit 4×500 within a minute of resuming.
+    - The harness already retries 5xx (10 attempts, backoff ≤ 90 s), and the 500 bodies were lost to stdout buffering.
+    - **Owner decision:** let the harness retry, stop only on 402/429/quota or on 3 consecutive tasks that end with a 5xx, and log unbuffered (`PYTHONUNBUFFERED=1`). The 500 bodies are generic: `Internal Server Error (ref: …)`.
+    - It finished 90/90 with 6 errored rows (2 × 5xx, 1 time limit, 1 connection, 2 other).
+    - **Resume caveat:** resuming an unfinished run drops its errored rows and re-runs them. Two c0 tasks that failed in the first attempt (time limit; bad kwarg `traffic_source?`) got a second try. The analysis adds a sensitivity line counting them as failures.
+  - **c6 pilot (started 2026-10-05 23:57):** 76/90 rows saved (last at 00:28). At about 03:52 the provider returned `HTTP 429 … reached your monthly usage limit, upgrade for higher limits … or add usage credits`, and the watchdog stopped the run.
+    - Owner decision: commit c0 and the partial c6, pause, and resume c6 after the monthly reset. No paid credits.
+  - **Provider attempts in the 4 pilot logs:** HTTP 200: 735; 5xx: 34; 429: 1; timeouts: 56. The free monthly credits ran out at about 1,900 successful requests this month (gemma and gpt-oss together).
 
 ## Blockers / needs-human
 
@@ -123,4 +137,4 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (c6 pilot) | pilot: 682 req (3.8/task); no limit errors. **Next (optional): c0-rep2 + c6-rep2 on gemma4:31b, about 342 req each (cap 1,800 each). Needs owner approval.** |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; **monthly limit reached 2026-10-06 ~03:52 (HTTP 429)** after about 1,900 successful requests this month; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (gemma c6 pilot); 2026-10-05/06 gpt-oss:20b: smoke10 64 HTTP 200 (54 distinct `llm_input`), probe 2, pilot logs 735 HTTP 200 + 34 5xx + 56 timeouts | **Next: after the monthly reset, finish gpt-oss c6 (14 tasks + re-run of its errored rows; about 25–90 provider attempts).** gemma rep2 runs still need owner approval. |

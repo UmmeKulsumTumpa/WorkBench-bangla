@@ -16,7 +16,7 @@ Read this file fully, then `progress.md` (source of truth) and `git log --onelin
 4. **Conditions are a `--condition` flag, never branches.** Each model and condition gets its own folders (issue #12 makes the raw results per model).
 5. **Subagent-driven execution** (`superpowers:subagent-driven-development`): an implementer and a task reviewer per task, a final review on the most capable model, rulings in the ledger, and an exhaustive list of rulings in the final message.
 6. **Results must map to a commit.** The runner refuses a dirty harness, and a finished run is final: use `--run_label rep2` for repeats and never re-run.
-7. **Do not edit dated entries** in the `progress.md` decisions log. Add a new numbered entry instead; the next is **#35**.
+7. **Do not edit dated entries** in the `progress.md` decisions log. Add a new numbered entry instead; the next is **#37**.
 
 ## 3. Done so far
 
@@ -39,12 +39,26 @@ Read this file fully, then `progress.md` (source of truth) and `git log --onelin
 - **Tags:** `run/pilot-c0c1-gemma4-31b`, `run/pilot-c6-gemma4-31b`.
 - **Merged PRs:** #1–#3, #5, #8, #10, #11.
 
-## 4. Next action (owner-approved 2026-10-05)
-The owner said: *"run the same test on GPT-OSS 20 billion for both the C0 and **C7**"*.
-- **C7 does not exist.** It almost certainly means **C6** (the collaborators' setup, which is the only Bangla condition run so far).
-- **First message to the owner:** confirm "C7 = C6?" in one line, then start.
+## 4. Next action (updated 2026-10-06: PAUSED on the free-tier monthly limit)
+**There is no C7.** On 2026-10-05 the owner confirmed the scope is **C0 vs C6**. Do not ask again.
 
-Execute `docs/design/plans/2026-10-06-gpt-oss-20b-run.md`, subagent-driven:
+**State:** branch `run/gpt-oss-20b` (not merged, issue #13 open).
+- Task 1 is done (PR #15).
+- Task 2 is done: smoke10 gate passed.
+- Task 3: c0 pilot finished 90/90; c6 pilot stopped at 76/90 on HTTP 429 "monthly usage limit". Both are committed.
+- The controller ledger is `.superpowers/sdd/2026-10-06-gpt-oss-20b-run/progress.md` (git-ignored). Its rulings, deferred minors and task reports are there; read it first.
+- `progress.md` #36 has the details.
+
+**Resume after the monthly reset**, with the owner's go:
+1. Finish c6: `source env.sh && PYTHONUNBUFFERED=1 uv run --project WorkBench --frozen python scripts/run_condition.py --condition c6 --subset pilot --model ollama-gpt-oss-20b`. It also re-runs c6's errored rows.
+2. Stop on 402, 429 or quota, or when 3 consecutive tasks end with a 5xx after the harness's 10 retries. Isolated 500s are fine. Keep a watchdog on the log.
+3. Commit the run, review Task 3, then do Tasks 4–5. Task 4 must:
+   - label 5xx, timeout and stall errors as infrastructure;
+   - add a sensitivity line over pairs without such errors;
+   - add a sensitivity line counting the 2 re-run c0 tasks (pilot idx 0 and idx 58) as failures.
+4. Report requests both as distinct `llm_input` and as provider attempts.
+
+Original plan, `docs/design/plans/2026-10-06-gpt-oss-20b-run.md`, subagent-driven:
 1. **Task 1, issue #12:** per-model folders for raw results and logs. Move the gemma runs and regenerate the comparisons; the metrics must stay byte-identical.
 2. **Task 2, issue #13:** smoke10 C0 and C6 on `ollama-gpt-oss-20b`, then the go/no-go gate (C0 ≥ 3/10, tool calls valid). If the gate fails, stop and ask the owner. The fallbacks are gpt-oss:120b or local qwen3:8b.
 3. **Tasks 3–5:** 90-task C0 and C6, comparison and failure analysis (including a descriptive "compared with gemma" section), report, HTML, README, tags, a **new** artifact.
