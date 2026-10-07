@@ -10,15 +10,16 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 | 0 Bootstrap | ✅ | progress.md, .gitignore, spec, project-local toolchain (`env.sh`, `.tools/`) |
 | 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
 | 2 Bangla translation | 🛑 | **STOP (a): waiting for owner review.** 204 variants translated + 2 independent review cycles (cycle 1: 99 rows, cycle 2: 42 rows); 690 BN tasks rendered, all checks pass |
-| 3 Pilot run | ✅ | gemma4:31b: EN 81.1% vs BN 82.2% (p=1.0); gpt-oss:20b c0 vs c6: 58.9% vs 53.3% (p=0.4244, PR open); failure analyses, reports and HTML done |
+| 3 Pilot run | ✅ | gemma4:31b: EN 81.1% vs BN 82.2% (p=1.0); gpt-oss:20b c0 vs c6: 58.9% vs 53.3% (p=0.4244, PR #17 merged); failure analyses, reports and HTML done |
 | 3b Conditions C2–C6 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). **C6 pilot run + report: ✅** (gemma4:31b, 74/90 vs C0 73/90, p=1.0; gpt-oss:20b, 53.3% vs C0 58.9%, p=0.4244, #38; PR open). Other runs (c2–c5, repeats): ⬜ waiting for owner review of the BN prompt + budget approval |
 | 4 Extensions | ⬜ | owner instruction only (300 tasks only if the 90-task runs show a finding) |
 
 ## Current step
 
-**gpt-oss:20b c0 vs c6 pilot: analysis and report are done (#38); the PR for issue #13 is open and not merged.** There is no C7; the scope is c0 vs c6 (owner, 2026-10-05). Plan `docs/design/plans/2026-10-06-gpt-oss-20b-run.md`, branch `run/gpt-oss-20b`.
+**gpt-oss:20b c0 vs c6 pilot: done (#38). PR #17 merged 2026-10-07 (closes #13). Report published (private artifact): https://claude.ai/artifact/83pZkGjNFZYgBg1WvrawMy.** There is no C7; the scope is c0 vs c6 (owner, 2026-10-05). Plan `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (complete).
 - Done: Tasks 1-5 (Task 5: `report.md`, `report_notes.json`, HTML in `results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/`, README, tags `run/pilot-c0-gpt-oss-20b` and `run/pilot-c6-gpt-oss-20b`). Result: c0 58.9% vs c6 53.3%, Δ −5.6 pp, CI includes 0 (#38).
-- **Next:** final review of the branch, merge the PR (`Closes #13`), publish `report_fragment.html` as a **new** private artifact (icon `chart`) and record its URL here through a small PR. Follow-up: issue #16 (`run_date` of resumed runs).
+- Final whole-branch review: clean after one fix wave (schema v2.1 adds the `infrastructure` label). To regenerate the report: `python3 scripts/build_report_html.py --comparison_id pilot_ollama-gpt-oss-20b_c6_vs_c0`, then republish `report_fragment.html` to the artifact above.
+- Follow-ups: issue #16 (`run_date`, `started_at` and `harness_commit` of resumed runs), issue #18 (CRLF in `failure_labels.csv`), issue #9.
 - Then the owner's open options (not approved, each needs a request estimate first): gemma C0-rep2 (noise floor, about 342 requests), 300 tasks, C3, and the native-speaker review of `docs/conditions/translation_review.md` and the task templates.
 - Handoff: `.claude/HANDOFF.md`.
 
