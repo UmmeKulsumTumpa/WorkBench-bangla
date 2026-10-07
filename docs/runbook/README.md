@@ -66,7 +66,7 @@ There is nothing to switch: every condition is a flag value, and results live in
 ## 7. Tests
 
 ```bash
-(cd WorkBench && uv run --frozen pytest -q)                      # harness: 283 tests
+(cd WorkBench && uv run --frozen pytest -q)                      # harness: 285 tests
 uv run --project WorkBench --frozen python -m pytest tests -q    # project scripts: 19 tests
 ```
 

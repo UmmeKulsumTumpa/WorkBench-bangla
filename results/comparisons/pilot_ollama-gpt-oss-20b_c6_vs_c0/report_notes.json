@@ -1,0 +1,34 @@
+{
+ "title": "WorkBench gpt-oss C6 vs C0",
+ "h1": "No detectable completion gap between C0 and C6 on gpt-oss:20b",
+ "lede": "On 90 WorkBench tasks, the all-English agent completed <strong>53</strong> and the Bangla agent (Bangla task and system prompt, replies forced to Bangla) <strong>48</strong>. The difference, −5.6 points (95% CI −16.7 to +5.6, McNemar p = 0.4244), shows no detectable gap; the interval includes 0 and also allows a moderate drop. No Bangla failure was labelled primarily multilingual (0 of 42; single model annotator).",
+ "disc_note": "The note under each card explains the failed run. A run that ended on an error has no trace: its note gives the error, and the earlier model calls cannot be inspected.",
+ "findings": [
+  "No detectable completion gap: 58.9% English vs 53.3% Bangla, exact McNemar p = 0.4244. The 95% CI (−16.7 to +5.6 pp) includes 0 and also allows a moderate drop, so a gap of 5–10 points can be neither detected nor ruled out at this n (task sampling only; run-to-run noise not measured).",
+  "<strong>S1</strong>, the 85 pairs without an infrastructure error: 62.4% vs 55.3%, −7.1 pp (CI −17.6 to +4.7, p = 0.3075). <strong>S2</strong>, recovered re-runs counted as failures: 56.7% vs 51.1%, −5.6 pp (CI and p unchanged).",
+  "Harmful side effects are about equal: 25.6% vs 24.4% (−1.1 pp, CI −11.1 to +8.9). A run that ended on an error has a lost trace and scores no side effect, so both rates may be too low (5 English rows, 8 Bangla rows).",
+  "No clear language cause: 0 of 42 Bangla failures have <em>multilingual</em> as the primary label (2 carry it as a weak secondary label). The 15 only-Bangla failures are error types that English also shows on other tasks: invented email addresses, corrupted tool arguments, dropped filters. This grouping was made after reading the traces.",
+  "Failure mix is similar (English vs Bangla): tool_use 14 vs 16, reasoning 14 vs 15, planning 3 vs 4, control_flow 2 vs 3, infrastructure 3 vs 3. Bad tool arguments on any attempt: 3 English tasks vs 8 Bangla tasks. That excess is the one pattern worth testing with repeated runs.",
+  "Analytics is the lowest domain for Bangla (73% vs 47%; 4 tasks only English solved, none only Bangla). With 15 tasks per domain this is descriptive only. Multi-domain tasks are the hard part on both sides (27%).",
+  "<strong>Compared with gemma4:31b (descriptive only).</strong> gemma scored 81.1% vs 82.2% (+1.1 pp, p = 1.0); gpt-oss scores 58.9% vs 53.3%. Both intervals include 0. gemma fails mostly by reasoning, gpt-oss about half by tool use. Neither model has a failure labelled primarily multilingual."
+ ],
+ "threats": [
+  "Different days: English ran on 2026-10-05. Bangla ran on 2026-10-05/06 (67 tasks), was stopped by the free-tier monthly limit, and ran its last 23 tasks on 2026-10-07 with a new API key (same model and tier). Provider drift cannot be excluded.",
+  "Both runs were resumed after interruptions. A resume re-runs errored rows, so some rows got a second attempt (English 2, Bangla 9). S2 brackets this.",
+  "<span class=\"mono\">run_date</span> in the per-task files is the finishing invocation's date: all 90 Bangla rows show 2026-10-07, although 67 ran on 2026-10-05/06.",
+  "Infrastructure labels say the provider ended the run, not that the model made no mistake. The traces of the 13 errored rows are lost (1–7 model calls preceded each), so a model fault before the provider error cannot be ruled out. Bangla crm:46 is the weakest label: its first attempt failed on a model error.",
+  "Failure labels were assigned by one model annotator, not by human annotators.",
+  "The Bangla system prompt translation, and the task translations, have not been reviewed by a native speaker. If they change, the Bangla side must be re-run.",
+  "Small sample: n = 90, 15 per domain. Per-domain differences are descriptive only.",
+  "One run per task and side, at temperature 0 on a hosted free-tier endpoint, and one model. There is no measured noise floor, and the many one-sided failures suggest that run-to-run variability is large compared with the observed difference.",
+  "C6 changes the task, the system prompt and the reply language together, so a difference could not be assigned to one of them."
+ ],
+ "language_scan": [
+  "80 of 80 non-empty Bangla answers contain Bengali script; none switched to English. English appeared only as borrowed names and titles (29 answers), plus 2 bracketed glosses. 2 answers are empty (English: 3).",
+  "32 of 80 answers write numbers in Bengali digits (365 digits); 4 keep some ASCII numbers in prose. 0 of 264 tool calls passed Bangla script as an argument.",
+  "Invalid tool names: Bangla 3 of 264 calls, English 2 of 297. The same invented <span class=\"mono\">crm_search_customers</span> and the same garbled names occur in both languages, so they do not point to a language cause.",
+  "Two Bangla failures carry <em>multilingual</em> only as a weak secondary label: analytics:42 (<span class=\"bn\">2023-11-10 থেকে</span> read as one day, although the same construction gave full ranges in analytics:0 and :32) and email:41 (<span class=\"bn\">গত সপ্তাহে</span> read as the past 7 days; gemma's Bangla run read it the same way). Both go to the native-speaker review.",
+  "<span class=\"bn\">আগামী শুক্রবার</span> (\"next Friday\") gave the wrong date in 0 of 5 runs, in English too, so it is not a Bangla-specific failure here.",
+  "Requests: 381 English and 346 Bangla distinct model inputs (final attempts). Provider attempts across the 5 pilot logs: 840 HTTP 200, 71 HTTP 5xx, 1 HTTP 429, 54 timeout retry lines."
+ ]
+}
