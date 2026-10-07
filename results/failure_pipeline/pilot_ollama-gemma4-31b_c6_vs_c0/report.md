@@ -274,7 +274,21 @@ What these tables show:
 - **General is the largest confound in every set:** 3/7 EN-pass/BN-fail, 6/9 both-fail BN, 12/17 English failures.
 - **The Bangla-linked labels appear only in EN-pass/BN-fail.** The 2 Genuine labels and the 1 Translation label occur nowhere else.
 - **The reasoning errors behind the General cases are the model's usual ones.** Tool-argument construction and Task constraint preservation together account for 11 of the 17 English failures (64.7%) and 3 of the 7 EN-pass/BN-fail cases.
-- **Group the "due today counted as overdue" mechanism by first failure point, not by type.** It appears in project_management:64 (EN and BN) and project_management:28 (EN). All three share the first failure point Task constraint preservation, but under the C1 sub-rule their types differ (Understanding failure on pm:64, Wrong tool/action on pm:28). Grouping by type would split one mechanism. None of these is EN-pass/BN-fail.
+- **Group the "due today counted as overdue" mechanism by first failure point, not by type.** It appears in project_management:64 (EN and BN) and project_management:28 (EN). All three share the first failure point Task constraint preservation, but under the C1 sub-rule their types differ (Understanding failure on pm:64, Wrong tool/action on pm:28). Grouping by type would split one mechanism. None of these is EN-pass/BN-fail. gpt-oss:20b shows the same mechanism in pm:60 BN and pm:28 EN (the latter inferred from a lost trace), both Task constraint preservation / Wrong tool/action. Its calendar:63 EN/BN (a meeting later today counted as already held) is a related today-boundary error and is kept separate.
+
+### 10.12 §6 watch items in WorkBench
+
+Pipeline §6 lists five items to watch. They were written for τ²-bench; WorkBench is single-turn, so they map as below. Counts are from `labels_final.csv`: "EN-pass/BN-fail" is the 7 BN rows, and "all failures" is all 33 label rows (16 BN, 17 EN). The decision tree (S1–S7) exists only for EN-pass/BN-fail.
+
+| §6 watch item | WorkBench mapping | EN-pass/BN-fail (of 7) | all failures (of 33 rows) |
+|---|---|---|---|
+| premature STOP before the final tool call | first failure point Premature termination (all typed Premature abandonment) | 0 | 2, both BN (crm:74, md:149; the two empty responses, Unclear): 2 of 16 BN, 0 of 17 EN |
+| compound task partially completed | the Premature termination rows above, plus decision-tree S7 (completion verified) = fail | S7 = fail in 2 (email:41, crm:77) | S7 not recorded outside EN-pass/BN-fail |
+| changed budget or task constraint | first failure point Task constraint preservation | 1 (crm:77) | 8: 3 of 16 BN (crm:77, analytics:76, pm:64), 5 of 17 EN (crm:42, crm:74, pm:28, pm:64, md:130) |
+| internal ID used as a natural-language name | searched in the label evidence | 0 | 0 |
+| wrong or early user-simulator termination | N/A: WorkBench has no user simulator | N/A | N/A |
+
+Neither S7 = fail case begins at Premature termination: email:41 BN stopped and asked the user after a grounding error, without forwarding, and crm:77 BN kept a wrong write. The constraint-change item is more common among English failures (5 of 17) than Bangla failures (3 of 16), and only 1 of the 7 EN-pass/BN-fail cases.
 
 ---
 
@@ -320,14 +334,14 @@ Each finding follows Observation → Evidence → Root cause → Boundary. "Filt
 
 ### Finding 1: most Bangla-only failures are reasoning errors the model also makes in English
 
-> We find that **general model weaknesses that also occur in English** account for **3 of 7 (42.9%)** EN-pass/BN-fail cases. Manual trajectory analysis shows that these failures usually begin at **tool-argument construction** (2 of 3: date arithmetic and free-slot computation); the third begins at task constraint preservation (a misapplied 6-week threshold). After filtering translation, user-simulator and tool/environment confounds, **6 of 7** cases remain, and 3 of those 6 (50%) are still General. This suggests that about half of the Bangla-only failures are this model's ordinary reasoning errors that happened to land on the Bangla run, not a Bangla effect.
+> We find that **general model weaknesses that also occur in English** account for **3 of 7 (42.9%)** EN-pass/BN-fail cases. Manual trajectory analysis shows that these failures usually begin at **tool-argument construction** (2 of 3: date arithmetic and free-slot computation); the third begins at task constraint preservation (a misapplied 6-week threshold). After filtering translation, user-simulator and tool/environment confounds, **6 of 7** cases remain, and 3 of those 6 (50%) are still General. This suggests that about half of the remaining Bangla-only failures are labelled General: a matching C0 failure exists, so they are not attributable case by case to the Bangla input. An aggregate Bangla excess cannot be excluded and needs repeat runs.
 
 - **Evidence.**
   - multi_domain:84: BN called `create_event(… event_start="2023-12-01 15:00:00")` and said "আপনি দুপুর ৩টার পর ফ্রি আছেন" ("you are free after 3 pm"), although 13:00–13:30 was free. C0 multi_domain:102 EN chose the identical 15:00.
   - analytics:119: BN used `time_min="2023-10-26"` (35 days back) for "গত 4 সপ্তাহের" ("of the last 4 weeks"), while restating "৪ সপ্তাহ" ("4 weeks"). C0 crm:74 EN turned "6 weeks" into "since October 16th".
   - crm:77: BN kept `update_customer(00000147 → Lost)` for a customer last contacted on 2023-10-29 (32 days earlier; the 6-week cutoff is 2023-10-19). EN made the same wrong update at step 1 and reverted it.
 - **Root cause.** Language-neutral computation on correctly read values (convention C4). Each case has a cited C0 analogue.
-- **Boundary.** With one run per side, whether these errors land on the English or the Bangla run looks like chance. Among the 8 EN-fail/BN-pass pairs, the same mechanism classes appear in the other direction: slot errors in calendar:63, md:6 and md:102, and a gate error in pm:28.
+- **Boundary.** With one run per side, it cannot be told whether these errors land on the English or the Bangla run by chance. Among the 8 EN-fail/BN-pass pairs, the same mechanism classes appear in the other direction: slot errors in calendar:63, md:6 and md:102, and a gate error in pm:28.
 
 ### Finding 2: a small, fragile Bangla-linked signal around time phrases and one chart request
 
@@ -337,7 +351,7 @@ Each finding follows Observation → Evidence → Root cause → Boundary. "Filt
   - email:41: EN searched `date_min="2023-11-19", date_max="2023-11-26"` and forwarded both emails. BN searched `date_min="2023-11-23", date_max="2023-11-29"` and got `[]`. It then found both emails with an undated search, but still rejected them as "গত সপ্তাহের নয়" ("not from last week").
   - md:120: EN called `create_task(… due_date="2023-12-08")`; BN used `due_date="2023-12-01"` and wrote "আগামী শুক্রবার (১ ডিসেম্বর, ২০২৩)" ("next Friday (1 December 2023)").
   - analytics:20: EN used `plot_type="histogram"`; BN used `plot_type="line"` for both metrics.
-  - No C0 failure mis-grounds a relative week, "next Friday" or a plot type.
+  - No C0 failure mis-grounds a relative week, "next Friday" or a plot type. C0 does misread relative dates in other ways: calendar:79 EN grounded a bare relative weekday ("Wednesday") to the past day and is labelled Benchmark/task ambiguity, and analytics:69 EN used an exclusive "since" boundary (General).
 - **Root cause.**
   - email:41 and analytics:20: a Bangla phrase was read with a different referent, and the translation is faithful, so the label is Genuine.
   - md:120: the Bangla wording itself favours the "tomorrow" reading and the English source does not, so the cause is the translation (C5).
@@ -347,22 +361,25 @@ Each finding follows Observation → Evidence → Root cause → Boundary. "Filt
   - md:120: md:169 BN and md:200 BN read the same phrase as 12-08.
   - With one run per side, run-to-run variance cannot be ruled out for any of them.
 
-### Finding 3: no Bangla-induced tool-syntax or environment failures
+### Finding 3: no case labelled Tool/environment, but three Bangla-only call anomalies
 
-> We find that **tool execution / environment failures** account for **0 of 7 (0.0%)** EN-pass/BN-fail cases, and no case begins at tool execution. After filtering, **6 of 7** cases remain, none of them in this pattern. This suggests that the Bangla input did not break tool calling for this model.
+> We find that **tool/environment failures** account for **0 of 7 (0.0%)** EN-pass/BN-fail cases, and no case begins at tool execution. After filtering, **6 of 7** cases remain, none of them in this pattern. This suggests only that no case was labelled Tool/environment. It does not show that the Bangla input left tool calling unaffected, because three call anomalies occur on the Bangla side only (below).
 
 - **Evidence.**
   - 0 of 33 label rows are Tool/environment.
-  - The one unrecognised tool call (crm:77 BN, `customer_relationship_manager_update_task`) followed a General threshold error. The tool descriptions are in English in C6.
-  - `trace_notes.md` records no Bangla-script value in a tool argument.
-- **Root cause.** Not applicable: there is no instance.
-- **Boundary.** Two Bangla failures are empty model responses, with no content and no tool call: crm:74 BN and md:149 BN. Both are EN-fail/BN-fail pairs labelled Unclear (`labels_final.csv`), so they do not enter the EN-pass/BN-fail counts. `trace_notes.md` notes that C0 has no empty responses. The difference cannot be attributed to the provider or to Bangla.
+  - **Bangla-script tool arguments: 0.** Checked in the raw traces: none of the 285 C6 tool calls and none of the 356 C0 tool calls (Final Answer steps excluded) has a Bangla-script character in its arguments.
+  - **One hallucinated tool name, Bangla only.** crm:77 BN called the nonexistent `customer_relationship_manager_update_task`: 1 of 90 C6 runs vs 0 of 90 C0 runs have an unrecognised call (`task_table.csv`). It followed a General threshold error, and per its label it kept BN from reverting the update as EN did. The tool descriptions are in English in C6, so there is no visible Bangla link.
+  - **Two empty model responses, Bangla only.** crm:74 BN (an empty first response, no tool call) and md:149 BN (empty after two read calls): 2 of 90 C6 runs vs 0 of 90 C0 runs. Both are EN-fail/BN-fail pairs labelled Premature termination / Premature abandonment / Unclear (`labels_final.csv`), so they do not enter the EN-pass/BN-fail counts.
+- **Root cause.** Not established. No error was recorded for the empty responses, so they cannot be attributed to the provider or to Bangla. The invalid tool name has no C0 analogue but no visible Bangla link either.
+- **Boundary.** These are 3 events in 90 Bangla runs against 0 in 90 English runs, with one run per side: too few to separate from chance. Repeat runs should count empty responses and unrecognised tool calls per condition.
 
-### Finding 4: the overall gap is null, within wide bounds
+### Finding 4: the overall gap is not detectable, within wide bounds
+
+> We find that **EN-pass/BN-fail cases** account for **7 of 90 pairs (7.8%)**, against **8 of 90 (8.9%)** EN-fail/BN-pass pairs. Manual trajectory analysis shows that these failures begin at varied points (entity or slot grounding and tool-argument construction, 2 of 7 each; §10.2). After filtering translation, user-simulator and tool/environment confounds, **6 of 7** EN-pass/BN-fail cases remain (6 vs 8 discordant pairs over 89 pairs), suggesting no detectable overall gap, within bounds too wide to exclude a gap of about 8–10 points.
 
 - **Observation.** The Bangla and English success rates are almost the same: 74/90 vs 73/90.
 - **Evidence.** Gap −1.1 pp (−10.0, +7.8), MELR −1.4% (−12.5, +8.6), OR 0.875 (0.270–2.761), McNemar p = 1.0, Holm 1.0. Every sensitivity row keeps the CI around 0.
-- **Root cause.** The discordant pairs are balanced: 7 EN-pass/BN-fail vs 8 EN-fail/BN-pass.
+- **Root cause.** The discordant pairs are balanced: 7 EN-pass/BN-fail vs 8 EN-fail/BN-pass (6 vs 8 after the translation filter).
 - **Boundary.** n = 90, one run per side, and the two sides ran on different days. Gaps smaller than about 8–10 points can be neither detected nor ruled out.
 
 ---
@@ -502,7 +519,7 @@ The figures are from [`agreement.json`](agreement.json). **κ was measured BEFOR
 - **Sample and runs.** n = 90 (15 per domain), with one run per side and no repeats, so run-to-run noise is unmeasured. Some labels have counter-examples within the same run (analytics:20, md:120).
 - **Model annotators.** A1, A2 and ADJ are all Claude models, and no human has checked the labels. An owner review of a subset is recommended (§14).
 - **Translations not yet reviewed.** The owner's native-speaker review of the Bangla templates is still pending. Every Translation and Genuine judgment is provisional, especially "গত সপ্তাহে" (email:41) and "আগামী শুক্রবার" (md:120). If the wording changes, C6 must be re-run.
-- **Different days and resumed runs.** gemma C0 ran on 2026-10-04 and C6 on 2026-10-05, so provider drift is possible. For gpt-oss:20b, C0 ran on 2026-10-05 and C6 on 2026-10-05/06 and 2026-10-07, and both runs were resumed.
+- **Different days and resumed runs.** gemma C0 ran on 2026-10-04 and C6 on 2026-10-05, so provider drift is possible. Neither gemma run was resumed (`num_resumed_from_prior_run` = 0 in both run metas), so no gemma outcome comes from a re-run. For gpt-oss:20b, C0 ran on 2026-10-05 and C6 on 2026-10-05/06 and 2026-10-07, and both runs were resumed. Its comparison report's S2 sensitivity counts every recovered re-run as a failure (2 per side): both rates fall by 2.2 pp, and the gap (5.6 pp), McNemar p (0.4244) and discordant counts (15/10) are unchanged ([`failure_analysis.md`](../../comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/failure_analysis.md), S2).
 - **Lost traces (gpt-oss:20b).** Errored gpt-oss rows have 0 recorded steps. Their labels rest on the error string, `function_calls` and the per-task call count in the log (C12). This affects the model-wise comparison in §10.9, not gemma's own labels.
 - **Specific weak labels:**
   - **gemma analytics:98 BN, Benchmark/task ambiguity.** General model weakness is equally defensible. English "passed" only by giving up after 24 looping read calls.
@@ -515,6 +532,7 @@ The figures are from [`agreement.json`](agreement.json). **κ was measured BEFOR
 - **Group mechanisms by first failure point, not by type.** The "due today counted as overdue" mechanism appears in pm:64 EN and BN and pm:28 EN here, and in pm:60 BN and pm:28 EN for gpt-oss. All share the first failure point Task constraint preservation, but under the C1 sub-rule the type splits between Understanding failure and Wrong tool/action. Aggregate this mechanism by first failure point.
 - **Scorer strictness.** WorkBench compares full tables. md:6 EN fails only because a self-corrected event shifted the auto-incremented ID. It is kept as a real failure (C6 does not count real side effects as Benchmark), but the paper should state this strictness.
 - **Small-n statistics.** The domain figures are descriptive only. The odds-ratio CI is wide because only 15 pairs are discordant.
+- **The C1 tie-break ties the first failure point to the final answer's wording.** A filter missing from the first search is Tool-argument construction when the agent's own words restate the constraint, and Task constraint preservation when there are no words or the words also drop it. The rule applies to both models. For example, in gpt-oss:20b the same omission is Task constraint preservation in crm:42 EN (status='Lead' missing; empty final answer) but Tool-argument construction in crm:77 BN and md:182 EN (status missing) and crm:60 EN (owner missing), whose answers restate the constraint. The counts of these two first failure points therefore partly reflect what the answer text says.
 
 ---
 

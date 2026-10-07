@@ -16,11 +16,12 @@ This report applies the owner's pipeline ([`instructions/failure_analysis_pipeli
 - **Lost traces:** 13 label rows (11 tasks) belong to runs that ended on an exception. The harness kept 0 steps for these. Their labels rest on the CSV error string, `function_calls` and the per-task call count in the log (convention C12).
 
 **Headline.**
-- English 73.3%? No: English 53/90 = 58.9%, Bangla 48/90 = 53.3%.
+- English 53/90 = 58.9%, Bangla 48/90 = 53.3%.
 - Gap +5.6 pp (95% CI −5.6 to +16.7); MELR +9.4% (−9.8% to +25.9%).
 - McNemar exact p = 0.4244 (Holm 0.8487); paired OR b/c = 15/10 = 1.5 (0.630–3.734).
 - Bangla is 5.6 points lower, but the interval includes 0 and also allows a moderate drop.
-- Of the 15 EN-pass/BN-fail cases, 14 are general model weaknesses that also occur in English. 11 of the 15 begin at tool-argument construction, 6 of those with invented `<name>@example.com` addresses. 1 case is Genuine Bangla-related (fragile). 0 are translation or tool/environment.
+- Of the 15 EN-pass/BN-fail cases, 14 are labelled General: a matching C0 failure exists, so none of them is attributable case by case to the Bangla input. An aggregate Bangla excess cannot be excluded and needs repeat runs.
+- 11 of the 15 begin at tool-argument construction (wrong tool arguments). 8 of those 11 are fabricated or malformed values: 6 invented `<name>@example.com` addresses and 2 corrupted keywords. 1 case is Genuine Bangla-related (fragile). 0 are translation or tool/environment.
 
 ---
 
@@ -59,7 +60,7 @@ This report applies the owner's pipeline ([`instructions/failure_analysis_pipeli
 | multi_domain | 15 | 4/15 = 26.7% (10.9–52.0) | 4/15 = 26.7% (10.9–52.0) | +0.0 pp | 0.0% | 4 | **0** | 0 | 11 |
 | **overall** | 90 | 53/90 = 58.9% | 48/90 = 53.3% | +5.6 pp | +9.4% | 38 | **15** | 10 | 27 |
 
-Analytics has the largest one-way split: 4 EN-pass/BN-fail against 0 EN-fail/BN-pass. Its 4 cases have three different first failure points and two different confounds (§10.10). Multi_domain fails in both languages for 11 of 15 pairs. At n = 15 these figures are descriptive only.
+Analytics has the largest one-way split: 4 EN-pass/BN-fail against 0 EN-fail/BN-pass. Its 4 cases have four different first failure points and two different confounds (§10.10). Multi_domain fails in both languages for 11 of 15 pairs. At n = 15 these figures are descriptive only.
 
 ---
 
@@ -161,7 +162,7 @@ The evidence column shows what the 11 Tool-argument-construction cases have in c
 - invented `<name>@example.com` addresses: 6 (email:51, :66, :69, :74, pm:2, pm:72);
 - malformed keyword arguments that crashed the run: 2 (crm:53 `'new?'`, analytics:43 `'field'`; both lost traces);
 - unrequested empty-string optional fields: 1 (crm:22);
-- a zero-width search window that was never widened: 1 (calendar:20);
+- a zero-width search window that was never widened: 1 (calendar:20). Grouping calendar:20 here rather than under invented addresses is a judgment call: after the zero-width search it also queried the invented `kofi@example.com` (C8). Grouped that way, invented addresses would be 7 of 15;
 - a missing status filter in the first search: 1 (crm:77).
 
 ### 10.1 Failure type distribution (denominator 15)
@@ -267,7 +268,7 @@ WorkBench is the only dataset: 90 pairs and 15 cases. The distributions are the 
 | General model weakness | 14 (93.3%) | 3 (42.9%) |
 | User simulator / Tool/environment / Unclear | 0 / 0 / 0 | 0 / 0 / 0 |
 
-gpt-oss has twice as many EN-pass/BN-fail cases as gemma (15 vs 7), and they are concentrated at tool-argument construction. gemma's few cases are spread over reading and reasoning points, and more of them are Bangla-linked.
+gpt-oss has twice as many EN-pass/BN-fail cases as gemma (15 vs 7), and they are concentrated at tool-argument construction. gemma's few cases are spread over reading and reasoning points, and a larger share of them carry a Bangla-linked label (Genuine or Translation: 3 of 7 for gemma vs 1 of 15 here). With n = 7 and n = 15 and provisional labels, this difference is descriptive only.
 
 ### 10.10 Domain-wise distribution (EN-pass/BN-fail cases per domain)
 
@@ -322,12 +323,25 @@ What these tables show:
   - Genuine email:41 BN: "গত সপ্তাহে" read as the rolling 11-23..29 window, the same mechanism as gemma email:41.
   - The two Translation rows.
   - All three are both-fail, so they do not change b or c.
-- **Group the due-today/today-boundary mechanism by first failure point, not by type:**
-  - project_management:60 BN: a task due today was moved as overdue.
-  - project_management:28 EN: inferred from a lost trace.
-  - calendar:63 EN and BN: a meeting later today was counted as already held.
+- **Group the "due today counted as overdue" mechanism by first failure point, not by type:**
+  - project_management:60 BN: a task due today (00000246, due 2023-11-30) was moved as overdue.
+  - project_management:28 EN: the same gate error, inferred from a lost trace (C10).
 
-  All four share the first failure point Task constraint preservation. Their types split under the C1 sub-rule: Wrong tool/action for pm:60 and pm:28, Understanding failure for calendar:63. None of them is EN-pass/BN-fail.
+  Both have the first failure point Task constraint preservation and the type Wrong tool/action. gemma4:31b shows the same mechanism in pm:64 EN and BN and pm:28 EN, where the type splits under the C1 sub-rule (Understanding failure on pm:64, Wrong tool/action on pm:28). calendar:63 EN and BN here (a meeting later today counted as already held; Task constraint preservation / Understanding failure) is a related today-boundary error, kept separate from "due today counted as overdue". None of these is EN-pass/BN-fail.
+
+### 10.12 §6 watch items in WorkBench
+
+Pipeline §6 lists five items to watch. They were written for τ²-bench; WorkBench is single-turn, so they map as below. Counts are from `labels_final.csv`: "EN-pass/BN-fail" is the 15 BN rows, and "all failures" is all 79 label rows (42 BN, 37 EN). The decision tree (S1–S7) exists only for EN-pass/BN-fail.
+
+| §6 watch item | WorkBench mapping | EN-pass/BN-fail (of 15) | all failures (of 79 rows) |
+|---|---|---|---|
+| premature STOP before the final tool call | first failure point Premature termination (all typed Premature abandonment) | 1 (analytics:105) | 4: 2 of 42 BN (analytics:69, analytics:105), 2 of 37 EN (crm:57, md:6) |
+| compound task partially completed | the Premature termination rows above, plus decision-tree S7 (completion verified) = fail | S7 = fail in 6 (calendar:20, crm:53, analytics:43, analytics:105, pm:2, pm:72) | S7 not recorded outside EN-pass/BN-fail |
+| changed budget or task constraint | first failure point Task constraint preservation | 1 (analytics:54) | 14: 7 of 42 BN, 7 of 37 EN |
+| internal ID used as a natural-language name | searched in the label evidence | 0 | 0. The nearest pattern is the reverse: the agent asked the user for an internal ID instead of finding it (calendar:20 BN, email:41 BN, pm:60 EN) |
+| wrong or early user-simulator termination | N/A: WorkBench has no user simulator | N/A | N/A |
+
+Of the 6 S7 = fail cases, only analytics:105 begins at Premature termination. The other 5 stop or crash after an earlier tool-argument error, so under C2 their first failure point is Tool-argument construction. The constraint-change item is equally common on both sides of all failures (7 of 42 BN rows, 7 of 37 EN rows).
 
 ---
 
@@ -364,6 +378,7 @@ Each row is a filtered paired analysis. The p-values are raw McNemar p; Holm app
 - **"User simulator removed" is identical to "all" by construction.** WorkBench has no user simulator, so 0 pairs are removed.
 - **"Translation removed" drops two EN-fail/BN-fail pairs,** so b and c are unchanged. Only the rates and the gap shift slightly.
 - **"Tool/environment removed" drops 5 pairs: 4 EN-fail/BN-fail and 1 EN-fail/BN-pass (pm:64).** c falls from 10 to 9 while b stays 15, so the gap widens to +7.1 pp and p falls to 0.3075. The CI still includes 0, and no conclusion changes.
+- **Two CIs exist for this 85-pair analysis.** Here (`stats.json`) the gap is +7.1 pp (−3.5, +17.7). The existing comparison report gives the same analysis as S1 in [`failure_analysis.md`](../../comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/failure_analysis.md): −7.1 pp (−17.6, +4.7) in its BN − EN sign, which is +7.1 pp (−4.7, +17.6) in this report's EN − BN sign. The point estimate, p and OR agree. The CIs differ because the seeded bootstrap resamples row positions, so its result depends on row order: `paired.csv` order there, `task_table.csv` order here. Re-computing with other row orders moves the bounds by about 1 pp (up to 1.2 pp); this is the order and Monte-Carlo error at 10,000 resamples. Both CIs include 0. Follow-up: issue #22 (make the bootstrap order-invariant by sorting on `task_uid`).
 - In every row, 0 bootstrap resamples had EN = 0.
 
 ---
@@ -372,20 +387,20 @@ Each row is a filtered paired analysis. The p-values are raw McNemar p; Holm app
 
 Each finding follows Observation → Evidence → Root cause → Boundary. "Filtering" means removing the translation, user-simulator and tool/environment confounds (§10.4); for this model's EN-pass/BN-fail set it removes nothing. With 15 cases and one run per side, every finding describes this pilot only.
 
-### Finding 1: Bangla-only failures are dominated by fabricated or malformed tool arguments, which the model also produces in English
+### Finding 1: Bangla-only failures are dominated by wrong tool arguments, a mechanism the model also shows in English
 
-> We find that **fabricated or malformed tool arguments** account for **11 of 15 (73.3%)** EN-pass/BN-fail cases. Invented `<name>@example.com` addresses alone account for **6 of 15 (40.0%)**. Manual trajectory analysis shows that these failures usually begin at **tool-argument construction**, at the first lookup or search call. After filtering translation, user-simulator and tool/environment confounds, **15 of 15** cases remain. All 11 in this pattern are General with a cited C0 analogue. This suggests that these Bangla-only failures are the model's general argument unreliability landing on the Bangla run, not a Bangla effect.
+> We find that **wrong tool arguments (tool-argument construction)** account for **11 of 15 (73.3%)** EN-pass/BN-fail cases. 8 of these 11 are fabricated or malformed values: 6 invented `<name>@example.com` addresses (**6 of 15, 40.0%**) and 2 corrupted keywords. The other 3 are neither: unrequested empty-string fields (crm:22), a zero-width search window (calendar:20) and a missing status filter (crm:77). Manual trajectory analysis shows that these failures begin at **tool-argument construction**. After filtering translation, user-simulator and tool/environment confounds, **15 of 15** cases remain. All 11 in this pattern are labelled General, with a matching C0 failure cited for each; for crm:53 and analytics:43 the cited analogues (pm:28 EN, md:200 EN) are themselves lost-trace labels. This suggests that none of these 11 cases is attributable, case by case, to the Bangla input. An aggregate Bangla excess cannot be excluded and needs repeat runs (Boundary).
 
 - **Evidence.**
   - email:51: EN called `find_email_address(name="Santiago")` and forwarded to `santiago.martinez@atlas.com`. BN skipped the lookup and forwarded to `recipient="santiago@example.com"`. The C0 analogues are email:21 and email:75.
   - project_management:2: BN searched with `assigned_to_email="yuki@example.com"`. It looked up "yuki" and got `yuki.tanaka@atlas.com`, but kept searching with the invented address and concluded there were no tasks. The C0 analogues are pm:30, :42 and :60.
-  - crm:53 and analytics:43: crashes on invented keywords (`'new?'`, `'field'`). The C0 analogues are pm:28 and md:200.
+  - crm:53 and analytics:43: crashes on invented keywords (`'new?'`, `'field'`). The C0 analogues are pm:28 and md:200; all four are lost traces (C12).
   - **The mirror image:** 4 of the 10 EN-fail/BN-pass cases are English invented addresses where Bangla did the lookup (email:21, email:75, calendar:105, pm:42).
-- **Root cause.** Lookups are skipped, or their results ignored, and values are invented instead (C8). Keyword names are corrupted. Recipient and assignee names are Latin-script and identical in both tasks, and the translations are faithful.
+- **Root cause.** In 8 of the 11, lookups are skipped or their results ignored and values are invented instead (C8), or keyword names are corrupted. In the other 3, a correctly read request is built into a wrong argument (empty strings, a zero-width window, a missing filter). Recipient and assignee names are Latin-script and identical in both tasks, and the translations are faithful.
 - **Boundary.**
   - The share of tool-argument construction is higher among Bangla-only failures (11/15, 73.3%) than among all English failures (19/37, 51.4%).
   - The crm:53 evidence records malformed-keyword errors on 8 C6 tasks against 3 C0 tasks, including first attempts.
-  - Each single case has a C0 analogue, so none is labelled Bangla-related. But an aggregate excess like this cannot be tested with labels. It needs repeated runs.
+  - Each single case has a C0 analogue, so each is labelled General: not attributable case by case to the Bangla input. The label does not show that the cases are independent of language. An aggregate Bangla excess, which the two figures above hint at, cannot be excluded with labels and needs repeat runs.
 
 ### Finding 2: one fragile Bangla-linked case, a range phrase read as a single day
 
@@ -400,7 +415,7 @@ Each finding follows Observation → Evidence → Root cause → Boundary. "Filt
 
 ### Finding 3: the remaining Bangla-only failures are gate, termination and tool-name errors with English analogues
 
-> We find that **gate, termination and tool-name errors** account for **3 of 15 (20.0%)** EN-pass/BN-fail cases. Each begins at a different first failure point: analytics:54 at task constraint preservation, analytics:105 at premature termination, crm:38 at tool selection. After filtering, **15 of 15** remain, and all 3 are General. This suggests that they reflect general control-flow weaknesses rather than Bangla input.
+> We find that **gate, termination and tool-name errors** account for **3 of 15 (20.0%)** EN-pass/BN-fail cases. Each begins at a different first failure point: analytics:54 at task constraint preservation, analytics:105 at premature termination, crm:38 at tool selection. After filtering, **15 of 15** remain, and all 3 are labelled General (a matching C0 failure exists). This suggests that none of the 3 is attributable, case by case, to the Bangla input; an aggregate excess cannot be excluded and needs repeat runs.
 
 - **Evidence.**
   - **analytics:54.** BN wrote "কখনও ৩‑এর নিচে ছিল না" ("it was never below 3") and still called `create_plot` "as requested". The C0 analogue is analytics:98 EN.
@@ -411,12 +426,14 @@ Each finding follows Observation → Evidence → Root cause → Boundary. "Filt
 
 ### Finding 4: the overall gap is not detectable, and removing tool/environment pairs does not change that
 
+> We find that **EN-pass/BN-fail cases** account for **15 of 90 pairs (16.7%)**, against **10 of 90 (11.1%)** EN-fail/BN-pass pairs. Manual trajectory analysis shows that these failures usually begin at **tool-argument construction** (11 of 15; §10.2). After filtering translation, user-simulator and tool/environment confounds, **15 of 15** EN-pass/BN-fail cases remain and the discordant split becomes 15 vs 9 (85 pairs), suggesting a possible small Bangla deficit that this pilot can neither detect nor rule out.
+
 - **Observation.** Bangla is 5.6 points lower: 48/90 vs 53/90.
 - **Evidence.**
   - Gap +5.6 pp (−5.6, +16.7); MELR +9.4% (−9.8, +25.9).
   - OR 1.5 (0.630–3.734); McNemar p = 0.4244, Holm 0.8487.
   - Removing the 5 tool/environment pairs: +7.1 pp (−3.5, +17.7), p = 0.3075, OR 1.667 (0.683–4.319).
-- **Root cause.** The discordant pairs favour English 15 to 10. By the confound labels, 14 of the 15 Bangla-only failures are general weaknesses (Finding 1).
+- **Root cause.** The discordant pairs are near-balanced: 15 EN-pass/BN-fail vs 10 EN-fail/BN-pass (15 vs 9 after the tool/environment filter). With 25 discordant pairs, a 15:10 split is compatible with no difference (McNemar p = 0.4244). The confound labels do not settle the gap: 14 of the 15 are labelled General, which means a matching C0 failure exists, not that the Bangla input played no part (Finding 1).
 - **Boundary.** n = 90, one run per side, different run days, and resumed runs. The CI allows anything from a small Bangla advantage to a moderate drop.
 
 ---
@@ -556,11 +573,11 @@ From [`agreement.json`](agreement.json). **κ was measured BEFORE adjudication**
 
 ## Limitations
 
-- **Sample and runs.** n = 90 (15 per domain), one run per side and no repeats, so run-to-run noise is unmeasured. The 4 invented-address mirror cases in EN-fail/BN-pass show how much this model varies between runs.
+- **Sample and runs.** n = 90 (15 per domain), one run per side and no repeats, so run-to-run noise is unmeasured. The 4 invented-address mirror cases in EN-fail/BN-pass (English invented the address, Bangla looked it up) show that this mechanism is unstable across the two runs. Because the two runs also differ in language, they do not measure run-to-run variance on their own.
 - **Model annotators.** A1, A2 and ADJ are all Claude models. No human has checked the labels. An owner review of a subset is recommended (§14).
 - **Native-speaker review still pending.** The owner has not yet reviewed the Bangla templates, so every Translation and Genuine judgment is provisional. This applies especially to "থেকে" (analytics:42), "প্রপোজালে" (crm:77), "ডেডলাইন পেরিয়ে গেছে" (md:76), "আগামী শুক্রবার" (md:120, :169, :200) and "গত সপ্তাহে" (email:41 BN). If the wording changes, C6 must be re-run.
 - **Lost traces.** 13 label rows across 11 tasks ended on an exception and kept 0 steps (C12): crm:46 BN, crm:53 BN, crm:57 BN, analytics:43 BN, pm:28 EN, pm:30 BN, pm:35 EN and BN, pm:64 EN, md:84 BN, md:130 EN and BN, and md:200 EN. Their labels rest on the error string, `function_calls` and the log call count. Two of them are EN-pass/BN-fail cases (crm:53, analytics:43); crm:53 keeps S3 = `na`.
-- **Different days and resumed runs.** C0 ran on 2026-10-05. C6 ran on 2026-10-05/06 and was resumed on 2026-10-07. Both runs were resumed, and errored rows were re-run on resume, so some pass/fail outcomes are from a recorded re-run (for example analytics:105 EN). By contrast, gemma C0 ran on 2026-10-04 and C6 on 2026-10-05.
+- **Different days and resumed runs.** C0 ran on 2026-10-05. C6 ran on 2026-10-05/06 and was resumed on 2026-10-07. Both runs were resumed, and errored rows were re-run on resume, so some pass/fail outcomes are from a recorded re-run (for example analytics:105 EN). The existing comparison report's S2 sensitivity counts every recovered re-run as a failure (C0: email:5, analytics:105; C6: pm:28, pm:49): both rates fall by 2.2 pp (English 51/90 = 56.7%, Bangla 46/90 = 51.1%), and the gap (5.6 pp), McNemar p (0.4244) and discordant counts (15/10) are unchanged ([`failure_analysis.md`](../../comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/failure_analysis.md), S2). By contrast, gemma C0 ran on 2026-10-04 and C6 on 2026-10-05, and neither gemma run was resumed.
 - **Specific weak labels:**
   - gemma analytics:98 BN, Benchmark/task ambiguity: General is equally defensible.
   - **gpt-oss analytics:42 BN, Genuine:** reading "থেকে" as a single day needs a native-speaker check. The same model read it as an open range in analytics:0 and :32.
@@ -576,10 +593,12 @@ From [`agreement.json`](agreement.json). **κ was measured BEFORE adjudication**
   - gemma's English run read 12-08 and passed, so for gemma the Bangla reading caused the failure.
 
   The task is the same; the English runs differed.
-- **Group mechanisms by first failure point, not type.** The due-today/today-boundary mechanism appears in pm:60 BN, pm:28 EN and calendar:63 EN/BN here, and in pm:64 EN/BN and pm:28 EN for gemma. All of these share Task constraint preservation, but under the C1 sub-rule their type splits between Wrong tool/action and Understanding failure.
+- **Group mechanisms by first failure point, not type.** "Due today counted as overdue" appears in pm:60 BN and pm:28 EN (inferred from a lost trace) here, and in pm:64 EN/BN and pm:28 EN for gemma. All of these share Task constraint preservation, but under the C1 sub-rule their type splits between Wrong tool/action and Understanding failure. calendar:63 EN/BN here (a meeting later today counted as already held) is a related today-boundary error and is kept separate.
 - **Scorer strictness.** WorkBench fails a run on any unrecognised tool call (crm:38 BN, crm:74 EN) and compares full tables, so empty strings differ from nulls (crm:22 BN). Under the C2 amendment, a validation-error string returned by a tool does not fail the run: analytics:42 EN and analytics:105 EN passed despite "Value to plot must be one of …". These cases are model errors under C2 and C6, but the paper should state the scoring properties.
 - **Aggregate signal not captured per case.** Malformed-keyword errors occur on more C6 tasks than C0 tasks (8 vs 3, including first attempts; crm:53 evidence). Every single case has a C0 analogue and is labelled General, so this excess appears only in aggregate and needs repeated runs.
 - **Small-n statistics.** Domain figures are descriptive. The odds-ratio CI is wide because only 25 pairs are discordant.
+- **Bootstrap CIs depend on row order.** The 85-pair tool/environment-removed analysis has two published CIs: +7.1 pp (−3.5, +17.7) here and +7.1 pp (−4.7, +17.6) as S1 in the comparison report (stated there as −7.1 pp, −17.6 to +4.7, in BN − EN sign). The seeded bootstrap resamples row positions, and the two files order the rows differently (`task_table.csv` vs `paired.csv`), which gives about 1 pp of order and Monte-Carlo error (§11). No conclusion changes. Follow-up: issue #22.
+- **The C1 tie-break ties the first failure point to the final answer's wording.** A filter missing from the first search is Tool-argument construction when the agent's own words restate the constraint, and Task constraint preservation when there are no words or the words also drop it. So the same omission is Task constraint preservation in crm:42 EN (status='Lead' missing; empty final answer) but Tool-argument construction in crm:77 BN and md:182 EN (status missing) and crm:60 EN (owner missing), whose answers restate the constraint. The counts of these two first failure points therefore partly reflect what the answer text says.
 
 ---
 
