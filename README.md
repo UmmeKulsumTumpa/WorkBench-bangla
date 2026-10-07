@@ -49,13 +49,13 @@ README.md            ← you are here
 progress.md          ← source of truth: status, current step, decisions log, request budget
 env.sh               ← `source env.sh` before every command (keeps all tooling inside this folder)
 docs/                ← all documentation, by topic (index: docs/README.md)
-instructions/        ← owner instructions, incl. the failure-analysis pipeline (failure_analysis_pipeline.md)
   design/              research spec, pilot design
   conditions/          C0–C6 definitions, assets, Bangla review sheet
   runbook/             how to run, compare, report, reproduce, switch conditions
   data/                result file formats (shared schema)
   translation/         translation policy, task-template review
   harness/             WorkBench internals, provider notes
+instructions/        ← owner instructions, incl. the failure-analysis pipeline (failure_analysis_pipeline.md)
 data_bn/             ← Bangla task data: templates, glossary, translated task files, subsets
   pilot/               90-task pilot (EN + BN task files, index)
   smoke10/             10-task smoke subset
