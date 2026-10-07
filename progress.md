@@ -16,9 +16,9 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 
 ## Current step
 
-**PAUSED (#36): the Ollama free-tier monthly limit was reached during the gpt-oss:20b c6 pilot run.** There is no C7; the scope is c0 vs c6 (owner, 2026-10-05). Plan `docs/design/plans/2026-10-06-gpt-oss-20b-run.md`, branch `run/gpt-oss-20b` (not merged), issue #13 open.
-- Done: Task 1 (#35, PR #15), Task 2 (smoke10 gate passed: c0 8/10, c6 7/10), c0 pilot 90/90.
-- **Resume after the monthly limit resets:** `source env.sh && PYTHONUNBUFFERED=1 uv run --project WorkBench --frozen python scripts/run_condition.py --condition c6 --subset pilot --model ollama-gpt-oss-20b`. It continues the c6 run at 76/90 and also re-runs c6's errored rows (as the c0 resume did). Then plan Tasks 4–5. Stop rules: #36.
+**gpt-oss:20b c0 and c6 pilots are finished (#37).** There is no C7; the scope is c0 vs c6 (owner, 2026-10-05). Plan `docs/design/plans/2026-10-06-gpt-oss-20b-run.md`, branch `run/gpt-oss-20b` (not merged), issue #13 open.
+- Done: Task 1 (#35, PR #15), Task 2 (smoke10 gate passed: c0 8/10, c6 7/10), Task 3 (c0 90/90 with 6 errored rows, c6 90/90 with 8 errored rows).
+- **Next: plan Task 4** (comparison and failure analysis, `scripts/compare_conditions.py --ref c0 --treat c6 --model ollama-gpt-oss-20b --subset pilot`), **then Task 5** (report, HTML, README, tags, a new artifact). Task 4 requirements are in `.claude/HANDOFF.md` §4.
 - Handoff: `.claude/HANDOFF.md`.
 
 **Done (#35, issue #12):** raw results and run logs are now per model (`WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/<model>/`, `results/logs/<subset>/<model>/`). The gemma runs were moved there and the gemma comparisons regenerated; metrics are byte-identical.
@@ -119,6 +119,19 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
     - Owner decision: commit c0 and the partial c6, pause, and resume c6 after the monthly reset. No paid credits.
   - **Provider attempts in the 4 pilot logs:** HTTP 200: 735; 5xx: 34; 429: 1; timeouts: 56. The free monthly credits ran out at about 1,900 successful requests this month (gemma and gpt-oss together).
 
+- 2026-10-07 #37 — **gpt-oss:20b c6 pilot finished (resume); corrections to #36.** The owner supplied a new Ollama API key (same free tier, same model). The probe returned chat 200 and tool call 200 (`results/probe/ollama_cloud_2026-10-07.json`).
+  - **Owner decision:** resume c6 instead of re-running it in full. Reasons: cost, and a cross-day gap with c0 exists anyway (c0 ran on 2026-10-05, c6 spans 2026-10-05 and 2026-10-07).
+  - **Run:** c6 resumed 2026-10-07 05:53:19 and finished 06:14:05, 90/90, 8 errored rows (5xx: 38, 67, 81; model errors, bad tool kwarg: 39, 40, 51, 66, 85). Watchdog (stop on 402/429/quota or 3 consecutive tasks ending in a 5xx) never fired.
+  - **Resume log:** 105 HTTP 200, 37 5xx, 0 429, 0 timeouts. 3 rows ended in a 5xx after the harness retries (38, 67, 81), never 3 in a row.
+  - **c6 re-runs (9 rows dropped and re-run, as in c0):** 65, 69 and 71 recovered; 38, 39, 40, 51, 66 and 67 are still errored. The 14 new rows (76-89) added 81 (5xx) and 85 (bad kwarg) as errors.
+  - **Final requests (#32, distinct `llm_input`):** c0 381, c6 346. Provider attempts across all 5 pilot logs: HTTP 200 840, 5xx 71, 429 1, timeout retry lines 54.
+  - **`run_log.csv`** has a row only for each run's finishing invocation: c0 2026-10-05 22:53 (n_run 26) and c6 2026-10-07 05:53 (n_run 23). The earlier invocations (c0 21:50 and 22:49; c6 2026-10-05 23:57) have no row.
+  - **Corrections to #36 (it is not edited):**
+    - Timeouts: the figure 56 came from a plain grep, which also counts traceback lines. Retry lines are 54 (55 with c0 idx 72's terminal timeout). Smoke10's 33 counted retry lines only.
+    - c0 row 72 is a timeout (`APITimeoutError: Request timed out.`), not a "connection" error. The c0 error mix is 2 × 5xx, 1 time limit, 1 timeout, 2 bad kwarg.
+    - "About 1,900 successful requests" is an observed total when the 429 appeared, not a published cap. The 03:52 time comes from the log file's mtime; the log has no timestamps.
+    - c6 stalled between about 00:28 and 03:52 for an unknown reason (possibly machine sleep). Do not use those times as a run duration.
+
 ## Blockers / needs-human
 
 - ~~B1: OLLAMA_API_KEY empty~~ — resolved 2026-10-04 (owner pasted the key).
@@ -137,4 +150,4 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; **monthly limit reached 2026-10-06 ~03:52 (HTTP 429)** after about 1,900 successful requests this month; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (gemma c6 pilot); 2026-10-05/06 gpt-oss:20b: smoke10 64 HTTP 200 (54 distinct `llm_input`), probe 2, pilot logs 735 HTTP 200 + 34 5xx + 56 timeouts | **Next: after the monthly reset, finish gpt-oss c6 (14 tasks + re-run of its errored rows; about 25–90 provider attempts).** gemma rep2 runs still need owner approval. |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; **monthly limit hit 2026-10-06 ~03:52 (HTTP 429, time from the log mtime)**, observed after about 1,900 successful requests this month (not a published cap); no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (gemma c6 pilot); 2026-10-05/06 gpt-oss:20b: smoke10 64 HTTP 200 (54 distinct `llm_input`), probe 2, pilot logs 735 HTTP 200 + 34 5xx + timeout retry lines (see #37 for the corrected count); 2026-10-07 (new key): probe 2, c6 resume 105 HTTP 200 + 37 5xx + 0 429 | **No run is pending.** gpt-oss pilot final: c0 381, c6 346 distinct `llm_input` (#37). Tasks 4–5 make no model calls. gemma rep2 runs still need owner approval. |
