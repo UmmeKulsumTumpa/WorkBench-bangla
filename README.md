@@ -35,6 +35,13 @@ Full table: [`results/summary.csv`](results/summary.csv). Each row is one compar
 
 **Reading (C6, gpt-oss:20b):** gpt-oss:20b completes fewer tasks than gemma4:31b did (58.9% vs 81.1% in English; different days), but there is again no detectable gap between languages: Bangla is 5.6 points lower, the interval includes 0 and also allows a moderate drop (S1 without infrastructure errors: −7.1 pp, p = 0.31), and 0 of 42 Bangla failures were labelled primarily multilingual (single model annotator). The two runs ran on different days and were resumed, there is no repeat run, and the Bangla prompt is unreviewed ([report](results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/failure_analysis.md)).
 
+## Failure analysis (pipeline)
+
+Applies the owner's failure-analysis pipeline ([`instructions/failure_analysis_pipeline.md`](instructions/failure_analysis_pipeline.md), issue #20) to both pilot models, English (C0) vs Bangla (C6). Labels come from Claude model annotators (blind double annotation plus adjudication), not humans, and the Bangla-linked labels are few and provisional. Gap = English minus Bangla.
+
+- **gemma4:31b** ([report](results/failure_pipeline/pilot_ollama-gemma4-31b_c6_vs_c0/report.md)): no detectable gap (English 81.1%, Bangla 82.2%, gap −1.1 pp, 95% CI −10.0 to +7.8, p = 1.0); of the 7 English-pass/Bangla-fail cases, 3 are general model weaknesses that also occur in English and 2 are Bangla-linked (both fragile).
+- **gpt-oss:20b** ([report](results/failure_pipeline/pilot_ollama-gpt-oss-20b_c6_vs_c0/report.md)): no detectable gap (English 58.9%, Bangla 53.3%, gap +5.6 pp, 95% CI −5.6 to +16.7, p = 0.4244); 14 of the 15 English-pass/Bangla-fail cases are general model weaknesses that also occur in English, and 1 is Bangla-linked (fragile).
+
 ## Where things are
 
 ```

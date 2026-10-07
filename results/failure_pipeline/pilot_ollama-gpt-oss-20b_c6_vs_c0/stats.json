@@ -1,0 +1,1742 @@
+{
+  "model": "ollama-gpt-oss-20b",
+  "dataset": "WorkBench",
+  "comparison": "c6_vs_c0",
+  "en_condition": "c0",
+  "bn_condition": "c6",
+  "n_pairs": 90,
+  "labels_provided": true,
+  "labels_file": "labels_final.csv",
+  "overall": {
+    "n": 90,
+    "en_pass": 53,
+    "bn_pass": 48,
+    "en_rate": 0.5888888888888889,
+    "en_rate_ci95_wilson": [
+      0.48563237347145555,
+      0.684867959761553
+    ],
+    "bn_rate": 0.5333333333333333,
+    "bn_rate_ci95_wilson": [
+      0.4310218745393534,
+      0.6329157504230247
+    ],
+    "gap": 0.05555555555555558,
+    "risk_difference": 0.05555555555555558,
+    "melr": 0.09433962264150947,
+    "melr_note": null,
+    "pair_counts": {
+      "en_pass_bn_pass": 38,
+      "en_pass_bn_fail": 15,
+      "en_fail_bn_pass": 10,
+      "en_fail_bn_fail": 27
+    },
+    "gap_ci95_paired_bootstrap": [
+      -0.05555555555555555,
+      0.16666666666666666
+    ],
+    "melr_ci95_paired_bootstrap": [
+      -0.09803921568627455,
+      0.25862068965517243
+    ],
+    "melr_undefined_resamples": 0,
+    "n_boot": 10000,
+    "bootstrap_seed": 20261004,
+    "mcnemar_exact_p": 0.42435622215270996,
+    "paired_odds_ratio": {
+      "b": 15,
+      "c": 10,
+      "point": 1.5,
+      "point_is_infinite": false,
+      "ci95_low": 0.6303997722285077,
+      "ci95_high": 3.73362010897018,
+      "ci95_high_is_infinite": false,
+      "method": "exact conditional (Clopper-Pearson on b/(b+c), OR = p/(1-p))"
+    },
+    "mcnemar_p_holm": 0.8487124443054199
+  },
+  "holm": {
+    "family": [
+      "ollama-gemma4-31b",
+      "ollama-gpt-oss-20b"
+    ],
+    "p_raw": 0.42435622215270996,
+    "p_holm": 0.8487124443054199,
+    "family_p_raw": {
+      "ollama-gemma4-31b": 1.0,
+      "ollama-gpt-oss-20b": 0.42435622215270996
+    },
+    "family_p_holm": {
+      "ollama-gpt-oss-20b": 0.8487124443054199,
+      "ollama-gemma4-31b": 1.0
+    },
+    "method": "Holm-Bonferroni across the McNemar p-values of the model comparisons"
+  },
+  "domains": {
+    "email": {
+      "n": 15,
+      "en_pass": 11,
+      "bn_pass": 10,
+      "en_rate": 0.7333333333333333,
+      "en_rate_ci95_wilson": [
+        0.4804956594401943,
+        0.8910254667430761
+      ],
+      "bn_rate": 0.6666666666666666,
+      "bn_rate_ci95_wilson": [
+        0.41713547738519774,
+        0.8482367556028526
+      ],
+      "gap": 0.06666666666666665,
+      "risk_difference": 0.06666666666666665,
+      "melr": 0.0909090909090909,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 7,
+        "en_pass_bn_fail": 4,
+        "en_fail_bn_pass": 3,
+        "en_fail_bn_fail": 1
+      }
+    },
+    "calendar": {
+      "n": 15,
+      "en_pass": 10,
+      "bn_pass": 11,
+      "en_rate": 0.6666666666666666,
+      "en_rate_ci95_wilson": [
+        0.41713547738519774,
+        0.8482367556028526
+      ],
+      "bn_rate": 0.7333333333333333,
+      "bn_rate_ci95_wilson": [
+        0.4804956594401943,
+        0.8910254667430761
+      ],
+      "gap": -0.06666666666666665,
+      "risk_difference": -0.06666666666666665,
+      "melr": -0.09999999999999998,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 9,
+        "en_pass_bn_fail": 1,
+        "en_fail_bn_pass": 2,
+        "en_fail_bn_fail": 3
+      }
+    },
+    "analytics": {
+      "n": 15,
+      "en_pass": 11,
+      "bn_pass": 7,
+      "en_rate": 0.7333333333333333,
+      "en_rate_ci95_wilson": [
+        0.4804956594401943,
+        0.8910254667430761
+      ],
+      "bn_rate": 0.4666666666666667,
+      "bn_rate_ci95_wilson": [
+        0.24809535365737387,
+        0.698830199745016
+      ],
+      "gap": 0.2666666666666666,
+      "risk_difference": 0.2666666666666666,
+      "melr": 0.3636363636363636,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 7,
+        "en_pass_bn_fail": 4,
+        "en_fail_bn_pass": 0,
+        "en_fail_bn_fail": 4
+      }
+    },
+    "project_management": {
+      "n": 15,
+      "en_pass": 8,
+      "bn_pass": 9,
+      "en_rate": 0.5333333333333333,
+      "en_rate_ci95_wilson": [
+        0.30116980025498397,
+        0.7519046463426261
+      ],
+      "bn_rate": 0.6,
+      "bn_rate_ci95_wilson": [
+        0.357468301206246,
+        0.8017550385865841
+      ],
+      "gap": -0.06666666666666665,
+      "risk_difference": -0.06666666666666665,
+      "melr": -0.12499999999999997,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 6,
+        "en_pass_bn_fail": 2,
+        "en_fail_bn_pass": 3,
+        "en_fail_bn_fail": 4
+      }
+    },
+    "customer_relationship_manager": {
+      "n": 15,
+      "en_pass": 9,
+      "bn_pass": 7,
+      "en_rate": 0.6,
+      "en_rate_ci95_wilson": [
+        0.357468301206246,
+        0.8017550385865841
+      ],
+      "bn_rate": 0.4666666666666667,
+      "bn_rate_ci95_wilson": [
+        0.24809535365737387,
+        0.698830199745016
+      ],
+      "gap": 0.1333333333333333,
+      "risk_difference": 0.1333333333333333,
+      "melr": 0.22222222222222218,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 5,
+        "en_pass_bn_fail": 4,
+        "en_fail_bn_pass": 2,
+        "en_fail_bn_fail": 4
+      }
+    },
+    "multi_domain": {
+      "n": 15,
+      "en_pass": 4,
+      "bn_pass": 4,
+      "en_rate": 0.26666666666666666,
+      "en_rate_ci95_wilson": [
+        0.10897453325692374,
+        0.5195043405598057
+      ],
+      "bn_rate": 0.26666666666666666,
+      "bn_rate_ci95_wilson": [
+        0.10897453325692374,
+        0.5195043405598057
+      ],
+      "gap": 0.0,
+      "risk_difference": 0.0,
+      "melr": 0.0,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 4,
+        "en_pass_bn_fail": 0,
+        "en_fail_bn_pass": 0,
+        "en_fail_bn_fail": 11
+      }
+    }
+  },
+  "domains_note": "descriptive only (n = 15 per domain): no p-values or intervals",
+  "sensitivity": {
+    "all": {
+      "description": "all pairs",
+      "n": 90,
+      "en_pass": 53,
+      "bn_pass": 48,
+      "en_rate": 0.5888888888888889,
+      "en_rate_ci95_wilson": [
+        0.48563237347145555,
+        0.684867959761553
+      ],
+      "bn_rate": 0.5333333333333333,
+      "bn_rate_ci95_wilson": [
+        0.4310218745393534,
+        0.6329157504230247
+      ],
+      "gap": 0.05555555555555558,
+      "risk_difference": 0.05555555555555558,
+      "melr": 0.09433962264150947,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 38,
+        "en_pass_bn_fail": 15,
+        "en_fail_bn_pass": 10,
+        "en_fail_bn_fail": 27
+      },
+      "gap_ci95_paired_bootstrap": [
+        -0.05555555555555555,
+        0.16666666666666666
+      ],
+      "melr_ci95_paired_bootstrap": [
+        -0.09803921568627455,
+        0.25862068965517243
+      ],
+      "melr_undefined_resamples": 0,
+      "n_boot": 10000,
+      "bootstrap_seed": 20261004,
+      "mcnemar_exact_p": 0.42435622215270996,
+      "paired_odds_ratio": {
+        "b": 15,
+        "c": 10,
+        "point": 1.5,
+        "point_is_infinite": false,
+        "ci95_low": 0.6303997722285077,
+        "ci95_high": 3.73362010897018,
+        "ci95_high_is_infinite": false,
+        "method": "exact conditional (Clopper-Pearson on b/(b+c), OR = p/(1-p))"
+      }
+    },
+    "no_translation": {
+      "description": "pairs with a labelled failure confounded by translation removed",
+      "confound": "Translation/localization error",
+      "n_removed": 2,
+      "removed_task_uids": [
+        "workbench:multi_domain:200",
+        "workbench:multi_domain:76"
+      ],
+      "n": 88,
+      "en_pass": 53,
+      "bn_pass": 48,
+      "en_rate": 0.6022727272727273,
+      "en_rate_ci95_wilson": [
+        0.49780730042864657,
+        0.6981826177535346
+      ],
+      "bn_rate": 0.5454545454545454,
+      "bn_rate_ci95_wilson": [
+        0.44170066774534067,
+        0.6454059625578509
+      ],
+      "gap": 0.05681818181818188,
+      "risk_difference": 0.05681818181818188,
+      "melr": 0.09433962264150954,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 38,
+        "en_pass_bn_fail": 15,
+        "en_fail_bn_pass": 10,
+        "en_fail_bn_fail": 25
+      },
+      "gap_ci95_paired_bootstrap": [
+        -0.045454545454545456,
+        0.17045454545454544
+      ],
+      "melr_ci95_paired_bootstrap": [
+        -0.09433962264150934,
+        0.26231665228645357
+      ],
+      "melr_undefined_resamples": 0,
+      "n_boot": 10000,
+      "bootstrap_seed": 20261004,
+      "mcnemar_exact_p": 0.42435622215270996,
+      "paired_odds_ratio": {
+        "b": 15,
+        "c": 10,
+        "point": 1.5,
+        "point_is_infinite": false,
+        "ci95_low": 0.6303997722285077,
+        "ci95_high": 3.73362010897018,
+        "ci95_high_is_infinite": false,
+        "method": "exact conditional (Clopper-Pearson on b/(b+c), OR = p/(1-p))"
+      }
+    },
+    "no_user_simulator": {
+      "description": "pairs with a user-simulator confound removed; identical to 'all' (WorkBench has no user simulator)",
+      "confound": "Bangla user-simulator error",
+      "n_removed": 0,
+      "removed_task_uids": [],
+      "n": 90,
+      "en_pass": 53,
+      "bn_pass": 48,
+      "en_rate": 0.5888888888888889,
+      "en_rate_ci95_wilson": [
+        0.48563237347145555,
+        0.684867959761553
+      ],
+      "bn_rate": 0.5333333333333333,
+      "bn_rate_ci95_wilson": [
+        0.4310218745393534,
+        0.6329157504230247
+      ],
+      "gap": 0.05555555555555558,
+      "risk_difference": 0.05555555555555558,
+      "melr": 0.09433962264150947,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 38,
+        "en_pass_bn_fail": 15,
+        "en_fail_bn_pass": 10,
+        "en_fail_bn_fail": 27
+      },
+      "gap_ci95_paired_bootstrap": [
+        -0.05555555555555555,
+        0.16666666666666666
+      ],
+      "melr_ci95_paired_bootstrap": [
+        -0.09803921568627455,
+        0.25862068965517243
+      ],
+      "melr_undefined_resamples": 0,
+      "n_boot": 10000,
+      "bootstrap_seed": 20261004,
+      "mcnemar_exact_p": 0.42435622215270996,
+      "paired_odds_ratio": {
+        "b": 15,
+        "c": 10,
+        "point": 1.5,
+        "point_is_infinite": false,
+        "ci95_low": 0.6303997722285077,
+        "ci95_high": 3.73362010897018,
+        "ci95_high_is_infinite": false,
+        "method": "exact conditional (Clopper-Pearson on b/(b+c), OR = p/(1-p))"
+      }
+    },
+    "no_tool_environment": {
+      "description": "pairs with a labelled tool/environment failure removed",
+      "confound": "Tool/environment failure",
+      "n_removed": 5,
+      "removed_task_uids": [
+        "workbench:customer_relationship_manager:46",
+        "workbench:multi_domain:130",
+        "workbench:multi_domain:84",
+        "workbench:project_management:35",
+        "workbench:project_management:64"
+      ],
+      "n": 85,
+      "en_pass": 53,
+      "bn_pass": 47,
+      "en_rate": 0.6235294117647059,
+      "en_rate_ci95_wilson": [
+        0.5172990783621897,
+        0.7190770491661035
+      ],
+      "bn_rate": 0.5529411764705883,
+      "bn_rate_ci95_wilson": [
+        0.44724061157197614,
+        0.6540634430830067
+      ],
+      "gap": 0.07058823529411762,
+      "risk_difference": 0.07058823529411762,
+      "melr": 0.11320754716981127,
+      "melr_note": null,
+      "pair_counts": {
+        "en_pass_bn_pass": 38,
+        "en_pass_bn_fail": 15,
+        "en_fail_bn_pass": 9,
+        "en_fail_bn_fail": 23
+      },
+      "gap_ci95_paired_bootstrap": [
+        -0.03529411764705882,
+        0.17676470588234866
+      ],
+      "melr_ci95_paired_bootstrap": [
+        -0.06818181818181815,
+        0.27419354838709675
+      ],
+      "melr_undefined_resamples": 0,
+      "n_boot": 10000,
+      "bootstrap_seed": 20261004,
+      "mcnemar_exact_p": 0.30745625495910645,
+      "paired_odds_ratio": {
+        "b": 15,
+        "c": 9,
+        "point": 1.6666666666666667,
+        "point_is_infinite": false,
+        "ci95_low": 0.6833214037692762,
+        "ci95_high": 4.319349028690036,
+        "ci95_high_is_infinite": false,
+        "method": "exact conditional (Clopper-Pearson on b/(b+c), OR = p/(1-p))"
+      }
+    }
+  },
+  "counts": {
+    "population": "EN-pass/BN-fail pairs, BN-side labels",
+    "n_pairs": 90,
+    "n_cases": 15,
+    "item_1_failure_type": {
+      "denominator": 15,
+      "counts": {
+        "Understanding failure": {
+          "n": 1,
+          "share": 0.06666666666666667
+        },
+        "Planning failure": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Wrong tool/action": {
+          "n": 2,
+          "share": 0.13333333333333333
+        },
+        "Wrong tool argument": {
+          "n": 11,
+          "share": 0.7333333333333333
+        },
+        "Execution/environment failure": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Verification failure": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Premature abandonment": {
+          "n": 1,
+          "share": 0.06666666666666667
+        },
+        "Dialogue-state failure": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Unclear": {
+          "n": 0,
+          "share": 0.0
+        }
+      }
+    },
+    "item_2_first_failure_point": {
+      "denominator": 15,
+      "counts": {
+        "Instruction understanding": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Entity or slot grounding": {
+          "n": 1,
+          "share": 0.06666666666666667
+        },
+        "Task constraint preservation": {
+          "n": 1,
+          "share": 0.06666666666666667
+        },
+        "Planning": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Tool selection": {
+          "n": 1,
+          "share": 0.06666666666666667
+        },
+        "Tool-argument construction": {
+          "n": 11,
+          "share": 0.7333333333333333
+        },
+        "Tool execution": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Result verification": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Premature termination": {
+          "n": 1,
+          "share": 0.06666666666666667
+        },
+        "Final response only": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Unclear": {
+          "n": 0,
+          "share": 0.0
+        }
+      }
+    },
+    "item_3_confound": {
+      "denominator": 15,
+      "counts": {
+        "Genuine Bangla-related agent failure": {
+          "n": 1,
+          "share": 0.06666666666666667
+        },
+        "Bangla user-simulator error": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Translation/localization error": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Tool/environment failure": {
+          "n": 0,
+          "share": 0.0
+        },
+        "Benchmark/task ambiguity": {
+          "n": 0,
+          "share": 0.0
+        },
+        "General model weakness present in both English and Bangla": {
+          "n": 14,
+          "share": 0.9333333333333333
+        },
+        "Unclear": {
+          "n": 0,
+          "share": 0.0
+        }
+      }
+    },
+    "item_4_genuine_after_filtering": {
+      "n_cases": 15,
+      "filter_removes": [
+        "Bangla user-simulator error",
+        "Translation/localization error",
+        "Tool/environment failure"
+      ],
+      "n_removed_by_filter": 0,
+      "n_remaining": 15,
+      "n_genuine_bangla_related": 1,
+      "genuine_share_of_remaining": 0.06666666666666667,
+      "genuine_share_of_cases": 0.06666666666666667
+    },
+    "item_5_user_simulator_caused": {
+      "n": 0,
+      "n_cases": 15
+    },
+    "item_6_translation_caused": {
+      "n": 0,
+      "n_cases": 15
+    },
+    "item_7_tool_environment_caused": {
+      "n": 0,
+      "n_cases": 15
+    },
+    "item_8_dataset_wise": {
+      "WorkBench": {
+        "n_pairs": 90,
+        "n_cases": 15,
+        "failure_type": {
+          "denominator": 15,
+          "counts": {
+            "Understanding failure": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool/action": {
+              "n": 2,
+              "share": 0.13333333333333333
+            },
+            "Wrong tool argument": {
+              "n": 11,
+              "share": 0.7333333333333333
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 15,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Entity or slot grounding": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Task constraint preservation": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Planning": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool selection": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Tool-argument construction": {
+              "n": 11,
+              "share": 0.7333333333333333
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 15,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": 0.0
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 14,
+              "share": 0.9333333333333333
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      }
+    },
+    "item_10_domain_wise": {
+      "email": {
+        "n_pairs": 15,
+        "n_cases": 4,
+        "failure_type": {
+          "denominator": 4,
+          "counts": {
+            "Understanding failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool/action": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool argument": {
+              "n": 4,
+              "share": 1.0
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 4,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Entity or slot grounding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Task constraint preservation": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool selection": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool-argument construction": {
+              "n": 4,
+              "share": 1.0
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 4,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": 0.0
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 4,
+              "share": 1.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      },
+      "calendar": {
+        "n_pairs": 15,
+        "n_cases": 1,
+        "failure_type": {
+          "denominator": 1,
+          "counts": {
+            "Understanding failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool/action": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool argument": {
+              "n": 1,
+              "share": 1.0
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 1,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Entity or slot grounding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Task constraint preservation": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool selection": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool-argument construction": {
+              "n": 1,
+              "share": 1.0
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 1,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": 0.0
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 1,
+              "share": 1.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      },
+      "analytics": {
+        "n_pairs": 15,
+        "n_cases": 4,
+        "failure_type": {
+          "denominator": 4,
+          "counts": {
+            "Understanding failure": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool/action": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Wrong tool argument": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 4,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Entity or slot grounding": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Task constraint preservation": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Planning": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool selection": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool-argument construction": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 4,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": 0.0
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 3,
+              "share": 0.75
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      },
+      "project_management": {
+        "n_pairs": 15,
+        "n_cases": 2,
+        "failure_type": {
+          "denominator": 2,
+          "counts": {
+            "Understanding failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool/action": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool argument": {
+              "n": 2,
+              "share": 1.0
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 2,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Entity or slot grounding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Task constraint preservation": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool selection": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool-argument construction": {
+              "n": 2,
+              "share": 1.0
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 2,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": 0.0
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 2,
+              "share": 1.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      },
+      "customer_relationship_manager": {
+        "n_pairs": 15,
+        "n_cases": 4,
+        "failure_type": {
+          "denominator": 4,
+          "counts": {
+            "Understanding failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool/action": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Wrong tool argument": {
+              "n": 3,
+              "share": 0.75
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 4,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Entity or slot grounding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Task constraint preservation": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Planning": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool selection": {
+              "n": 1,
+              "share": 0.25
+            },
+            "Tool-argument construction": {
+              "n": 3,
+              "share": 0.75
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 4,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": 0.0
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 4,
+              "share": 1.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      },
+      "multi_domain": {
+        "n_pairs": 15,
+        "n_cases": 0,
+        "failure_type": {
+          "denominator": 0,
+          "counts": {
+            "Understanding failure": {
+              "n": 0,
+              "share": null
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": null
+            },
+            "Wrong tool/action": {
+              "n": 0,
+              "share": null
+            },
+            "Wrong tool argument": {
+              "n": 0,
+              "share": null
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": null
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": null
+            },
+            "Premature abandonment": {
+              "n": 0,
+              "share": null
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": null
+            },
+            "Unclear": {
+              "n": 0,
+              "share": null
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 0,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": null
+            },
+            "Entity or slot grounding": {
+              "n": 0,
+              "share": null
+            },
+            "Task constraint preservation": {
+              "n": 0,
+              "share": null
+            },
+            "Planning": {
+              "n": 0,
+              "share": null
+            },
+            "Tool selection": {
+              "n": 0,
+              "share": null
+            },
+            "Tool-argument construction": {
+              "n": 0,
+              "share": null
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": null
+            },
+            "Result verification": {
+              "n": 0,
+              "share": null
+            },
+            "Premature termination": {
+              "n": 0,
+              "share": null
+            },
+            "Final response only": {
+              "n": 0,
+              "share": null
+            },
+            "Unclear": {
+              "n": 0,
+              "share": null
+            }
+          }
+        },
+        "confound": {
+          "denominator": 0,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 0,
+              "share": null
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": null
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": null
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": null
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": null
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 0,
+              "share": null
+            },
+            "Unclear": {
+              "n": 0,
+              "share": null
+            }
+          }
+        }
+      }
+    },
+    "item_9_model_wise": {
+      "ollama-gemma4-31b": {
+        "n_pairs": 90,
+        "n_cases": 7,
+        "failure_type": {
+          "denominator": 7,
+          "counts": {
+            "Understanding failure": {
+              "n": 3,
+              "share": 0.42857142857142855
+            },
+            "Planning failure": {
+              "n": 1,
+              "share": 0.14285714285714285
+            },
+            "Wrong tool/action": {
+              "n": 1,
+              "share": 0.14285714285714285
+            },
+            "Wrong tool argument": {
+              "n": 2,
+              "share": 0.2857142857142857
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 7,
+          "counts": {
+            "Instruction understanding": {
+              "n": 1,
+              "share": 0.14285714285714285
+            },
+            "Entity or slot grounding": {
+              "n": 2,
+              "share": 0.2857142857142857
+            },
+            "Task constraint preservation": {
+              "n": 1,
+              "share": 0.14285714285714285
+            },
+            "Planning": {
+              "n": 1,
+              "share": 0.14285714285714285
+            },
+            "Tool selection": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool-argument construction": {
+              "n": 2,
+              "share": 0.2857142857142857
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 7,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 2,
+              "share": 0.2857142857142857
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 1,
+              "share": 0.14285714285714285
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 1,
+              "share": 0.14285714285714285
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 3,
+              "share": 0.42857142857142855
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      },
+      "ollama-gpt-oss-20b": {
+        "n_pairs": 90,
+        "n_cases": 15,
+        "failure_type": {
+          "denominator": 15,
+          "counts": {
+            "Understanding failure": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Planning failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Wrong tool/action": {
+              "n": 2,
+              "share": 0.13333333333333333
+            },
+            "Wrong tool argument": {
+              "n": 11,
+              "share": 0.7333333333333333
+            },
+            "Execution/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Verification failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature abandonment": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Dialogue-state failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "first_failure_point": {
+          "denominator": 15,
+          "counts": {
+            "Instruction understanding": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Entity or slot grounding": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Task constraint preservation": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Planning": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool selection": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Tool-argument construction": {
+              "n": 11,
+              "share": 0.7333333333333333
+            },
+            "Tool execution": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Result verification": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Premature termination": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Final response only": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        },
+        "confound": {
+          "denominator": 15,
+          "counts": {
+            "Genuine Bangla-related agent failure": {
+              "n": 1,
+              "share": 0.06666666666666667
+            },
+            "Bangla user-simulator error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Translation/localization error": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Tool/environment failure": {
+              "n": 0,
+              "share": 0.0
+            },
+            "Benchmark/task ambiguity": {
+              "n": 0,
+              "share": 0.0
+            },
+            "General model weakness present in both English and Bangla": {
+              "n": 14,
+              "share": 0.9333333333333333
+            },
+            "Unclear": {
+              "n": 0,
+              "share": 0.0
+            }
+          }
+        }
+      }
+    }
+  }
+}

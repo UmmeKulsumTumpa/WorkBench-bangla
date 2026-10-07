@@ -95,3 +95,5 @@ Follow `annotation_rules.md`. Write `trace_notes.md` (one §4 note per EN-pass/B
 3. Update `README.md` (link), `progress.md` (Current step, entry #39), `.claude/HANDOFF.md`. Commit and open the PR.
 
 Final whole-branch review on the most capable model, then merge.
+
+Implementation notes: the tool also has a `validate` subcommand (not in the plan), and the final-state classification has an `unrecognised` bucket for calls that are not dispatched.
