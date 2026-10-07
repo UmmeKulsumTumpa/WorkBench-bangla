@@ -1,0 +1,39 @@
+{
+  "benchmark": "workbench",
+  "run_id": "workbench_pilot_c6_ollama-gpt-oss-20b",
+  "model_key": "ollama-gpt-oss-20b",
+  "model_id": "gpt-oss:20b",
+  "provider": "ollama_cloud",
+  "base_url": "https://ollama.com/v1",
+  "temperature": 0,
+  "language": "bn",
+  "condition": "c6",
+  "run_label": null,
+  "condition_spec": {
+    "id": "c6",
+    "description": "Bangla task and system prompt; English tool descriptions; replies forced to Bangla",
+    "task_lang": "bn",
+    "system_lang": "bn",
+    "tool_desc_lang": "en",
+    "output_lang": "bn",
+    "reference": "c0"
+  },
+  "condition_assets": {
+    "data/conditions/bn/system_prompt.json": "3d7643edb91a2d8025842c4f631912a47fa2e728e93fda50df83dbecbd6cecdf"
+  },
+  "system_prompt_sent": "আজকের তারিখ বৃহস্পতিবার, 2023-11-30 এবং এখন সময় 00:00:00। কাজ করার সময় বর্তমান তারিখ আর সময় মনে রেখো। মিটিং সকাল 9টার আগে শুরু হতে পারবে না, আর সন্ধ্যা 6টার পরে শেষ হতে পারবে না। কোনো অ্যাকশন নেওয়ার আগে কনফার্মেশন চেয়ো না। অ্যাকশনগুলো সঙ্গে সঙ্গে নাও এবং পুরো টাস্ক শেষ না হওয়া পর্যন্ত চালিয়ে যাও। কোনো সার্চ বা খোঁজার ধাপের পরে থেমে যেও না। টাস্ক যে ভাষাতেই লেখা হোক না কেন, ইউজারকে সবসময় বাংলায় উত্তর দিও।",
+  "subset": "pilot",
+  "n_tasks": 90,
+  "tasks_file": "data_bn/pilot/pilot_bn_tasks_and_outcomes.csv",
+  "tasks_file_sha256": "2bb7146d9743890cd5d447e095490b985415b09ec53d2519570081b899822d07",
+  "results_file": "WorkBench/data/results/c6/pilot_bn/ollama-gpt-oss-20b/ollama-gpt-oss-20b_all_2026-10-05_23-57-38.csv",
+  "tool_selection": "all",
+  "structured_outputs": true,
+  "act_without_confirmation": true,
+  "harness_commit": "a8447a3c4dfec598a298ebe177cc53c81f540cf3",
+  "harness_dirty": false,
+  "started_at": "2026-10-07T05:53:20.268528",
+  "finished_at": "2026-10-07T06:14:05.758397",
+  "total_llm_requests": 346,
+  "notes": ""
+}
