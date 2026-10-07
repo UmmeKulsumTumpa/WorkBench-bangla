@@ -1,0 +1,73 @@
+{
+  "model": "ollama-gpt-oss-20b",
+  "rows": "EN-pass/BN-fail (ref_only), BN side",
+  "stage": "A1 (labels.csv) vs A2 (second_review.csv), before adjudication",
+  "formula": "kappa = (po - pe) / (1 - pe); pe = sum_k pA1(k) pA2(k); null if pe = 1",
+  "fields": {
+    "first_failure_point": {
+      "n": 15,
+      "agree": 14,
+      "raw_agreement_pct": 93.3,
+      "expected_agreement": 0.2667,
+      "cohen_kappa": 0.909,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:42",
+          "A1": "Instruction understanding",
+          "A2": "Entity or slot grounding"
+        }
+      ]
+    },
+    "failure_type": {
+      "n": 15,
+      "agree": 13,
+      "raw_agreement_pct": 86.7,
+      "expected_agreement": 0.44,
+      "cohen_kappa": 0.762,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:54",
+          "A1": "Wrong tool/action",
+          "A2": "Understanding failure"
+        },
+        {
+          "task_uid": "workbench:customer_relationship_manager:77",
+          "A1": "Wrong tool argument",
+          "A2": "Understanding failure"
+        }
+      ]
+    },
+    "confound": {
+      "n": 15,
+      "agree": 14,
+      "raw_agreement_pct": 93.3,
+      "expected_agreement": 0.7067,
+      "cohen_kappa": 0.773,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:54",
+          "A1": "General model weakness present in both English and Bangla",
+          "A2": "Genuine Bangla-related agent failure"
+        }
+      ]
+    },
+    "tree_first_fail_step": {
+      "n": 15,
+      "agree": 14,
+      "raw_agreement_pct": 93.3,
+      "expected_agreement": 0.4,
+      "cohen_kappa": 0.889,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:54",
+          "A1": "S4",
+          "A2": "S3"
+        }
+      ]
+    }
+  }
+}

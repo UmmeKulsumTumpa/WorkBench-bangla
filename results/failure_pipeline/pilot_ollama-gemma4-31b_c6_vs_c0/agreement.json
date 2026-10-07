@@ -1,0 +1,93 @@
+{
+  "model": "ollama-gemma4-31b",
+  "rows": "EN-pass/BN-fail (ref_only), BN side",
+  "stage": "A1 (labels.csv) vs A2 (second_review.csv), before adjudication",
+  "formula": "kappa = (po - pe) / (1 - pe); pe = sum_k pA1(k) pA2(k); null if pe = 1",
+  "fields": {
+    "first_failure_point": {
+      "n": 7,
+      "agree": 4,
+      "raw_agreement_pct": 57.1,
+      "expected_agreement": 0.2245,
+      "cohen_kappa": 0.447,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:119",
+          "A1": "Entity or slot grounding",
+          "A2": "Tool-argument construction"
+        },
+        {
+          "task_uid": "workbench:analytics:20",
+          "A1": "Instruction understanding",
+          "A2": "Tool-argument construction"
+        },
+        {
+          "task_uid": "workbench:analytics:98",
+          "A1": "Planning",
+          "A2": "Task constraint preservation"
+        }
+      ]
+    },
+    "failure_type": {
+      "n": 7,
+      "agree": 5,
+      "raw_agreement_pct": 71.4,
+      "expected_agreement": 0.449,
+      "cohen_kappa": 0.481,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:98",
+          "A1": "Planning failure",
+          "A2": "Wrong tool/action"
+        },
+        {
+          "task_uid": "workbench:email:41",
+          "A1": "Wrong tool argument",
+          "A2": "Understanding failure"
+        }
+      ]
+    },
+    "confound": {
+      "n": 7,
+      "agree": 5,
+      "raw_agreement_pct": 71.4,
+      "expected_agreement": 0.3061,
+      "cohen_kappa": 0.588,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:119",
+          "A1": "Genuine Bangla-related agent failure",
+          "A2": "General model weakness present in both English and Bangla"
+        },
+        {
+          "task_uid": "workbench:analytics:98",
+          "A1": "Benchmark/task ambiguity",
+          "A2": "General model weakness present in both English and Bangla"
+        }
+      ]
+    },
+    "tree_first_fail_step": {
+      "n": 7,
+      "agree": 5,
+      "raw_agreement_pct": 71.4,
+      "expected_agreement": 0.2245,
+      "cohen_kappa": 0.632,
+      "kappa_note": null,
+      "disagreements": [
+        {
+          "task_uid": "workbench:analytics:119",
+          "A1": "S3",
+          "A2": "S5"
+        },
+        {
+          "task_uid": "workbench:analytics:20",
+          "A1": "S3",
+          "A2": "S5"
+        }
+      ]
+    }
+  }
+}

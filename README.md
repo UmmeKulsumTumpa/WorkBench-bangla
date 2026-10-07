@@ -35,6 +35,13 @@ Full table: [`results/summary.csv`](results/summary.csv). Each row is one compar
 
 **Reading (C6, gpt-oss:20b):** gpt-oss:20b completes fewer tasks than gemma4:31b did (58.9% vs 81.1% in English; different days), but there is again no detectable gap between languages: Bangla is 5.6 points lower, the interval includes 0 and also allows a moderate drop (S1 without infrastructure errors: −7.1 pp, p = 0.31), and 0 of 42 Bangla failures were labelled primarily multilingual (single model annotator). The two runs ran on different days and were resumed, there is no repeat run, and the Bangla prompt is unreviewed ([report](results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/report.md), [failure analysis](results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/failure_analysis.md)).
 
+## Failure analysis (pipeline)
+
+Applies the owner's failure-analysis pipeline ([`instructions/failure_analysis_pipeline.md`](instructions/failure_analysis_pipeline.md), issue #20) to both pilot models, English (C0) vs Bangla (C6). Labels come from Claude model annotators (blind double annotation plus adjudication), not humans, and the Bangla-linked labels are few and provisional. Gap = English minus Bangla.
+
+- **gemma4:31b** ([report](results/failure_pipeline/pilot_ollama-gemma4-31b_c6_vs_c0/report.md)): no detectable gap (English 81.1%, Bangla 82.2%, gap −1.1 pp, 95% CI −10.0 to +7.8, p = 1.0); of the 7 English-pass/Bangla-fail cases, 3 are general model weaknesses that also occur in English, 2 are Genuine Bangla-related (fragile) and 1 is a translation error.
+- **gpt-oss:20b** ([report](results/failure_pipeline/pilot_ollama-gpt-oss-20b_c6_vs_c0/report.md)): no detectable gap (English 58.9%, Bangla 53.3%, gap +5.6 pp, 95% CI −5.6 to +16.7, p = 0.4244); 14 of the 15 English-pass/Bangla-fail cases are general model weaknesses that also occur in English, and 1 is Bangla-linked (fragile).
+
 ## Where things are
 
 ```
@@ -48,15 +55,18 @@ docs/                ← all documentation, by topic (index: docs/README.md)
   data/                result file formats (shared schema)
   translation/         translation policy, task-template review
   harness/             WorkBench internals, provider notes
+instructions/        ← owner instructions, incl. the failure-analysis pipeline (failure_analysis_pipeline.md)
 data_bn/             ← Bangla task data: templates, glossary, translated task files, subsets
   pilot/               90-task pilot (EN + BN task files, index)
   smoke10/             10-task smoke subset
 WorkBench/           ← the agent harness (upstream WorkBench + our changes: providers, --condition)
   data/conditions/bn/  Bangla system prompt + tool descriptions
   data/results/        RAW run outputs: <condition>[-<label>]/<subset>_<lang>/<model>/<model>_all_<ts>.csv (+ _meta.json)
-scripts/             ← run_condition.py, compare_conditions.py, build_report_html.py, data/translation builders
+scripts/             ← run_condition.py, compare_conditions.py, build_report_html.py, failure_pipeline.py, data/translation builders
 tests/               ← tests for the project scripts (WorkBench has its own tests/)
 results/             ← ANALYSED outputs
+  comparisons/         one folder per comparison (paired metrics, reports)
+  failure_pipeline/    failure-analysis pipeline: annotation_rules.md + one folder per model (labels, stats, report.md)
 ```
 
 ### Output folders
@@ -65,6 +75,7 @@ results/             ← ANALYSED outputs
 |---|---|---|
 | `WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/<model>/` | raw run (one folder per model): `<model>_all_<ts>.csv` (one row per task), `_meta.json` (condition, exact prompt, asset hashes, git commit), `_traces.json` (full trajectories, git-ignored) | `run_condition.py` |
 | `results/comparisons/<subset>_<model>_<treat>_vs_<ref>/` | one comparison: `paired.csv`, `metrics.csv`, `per_task_{ref,treat}.csv`, `run_meta_{ref,treat}.json`; optional `failure_labels.csv`, `report.md`, `report.html` | `compare_conditions.py`, `build_report_html.py` |
+| `results/failure_pipeline/pilot_<model>_c6_vs_c0/` | failure-analysis pipeline per model: `task_table.csv`, `trace_notes.md`, `labels.csv` (A1), `second_review.csv` (A2), `adjudication.csv`, `labels_final.csv`, `agreement.json`, `stats.json`, `report.md`; shared rules in `results/failure_pipeline/annotation_rules.md` | `failure_pipeline.py` (table, validate, stats, counts); labels and reports by the annotators |
 | `results/summary.csv` | one row per comparison (completion, Δ, CI, p, side effects) | `compare_conditions.py` (rebuilt each time) |
 | `results/logs/` | `run_log.csv` (every run: time, condition, model, commit, exit code) and the console log of each run in `<subset>/<model>/<cond>[-<label>]_<timestamp>.log` | `run_condition.py` |
 | `results/probe/` | provider probe results | `probe_provider.py` |
