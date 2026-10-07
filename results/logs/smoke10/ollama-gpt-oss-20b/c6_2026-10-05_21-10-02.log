@@ -1,0 +1,295 @@
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: কার নামে সবচেয়ে কম টাস্ক অ্যাসাইন করা আছে খুঁজে বের করে, CRM-এ Jamie Davis-কে নতুন lead হিসেবে তার নামে অ্যাসাইন করে দিতে পারবে?
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/.tools/python/cpython-3.12.15-macos-aarch64-none/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1037, in request
+    response = self._send_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_client.py", line 440, in _send_request
+    return self._send_with_auth_retry(request, stream=stream, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_client.py", line 418, in _send_with_auth_retry
+    response = super()._send_request(request, stream=stream, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 964, in _send_request
+    return self._client.send(request, stream=stream, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/.tools/python/cpython-3.12.15-macos-aarch64-none/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 634, in run_agent_structured
+    response = _call_llm_structured_with_retry(route, system_prompt, messages, tools_schema, temperature)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 331, in wrapped_f
+    return copy(f, *args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/.tools/python/cpython-3.12.15-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/.tools/python/cpython-3.12.15-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 458, in _call_llm_structured_with_retry
+    return _call_llm_structured(route, system_prompt, messages, tools_schema, temperature)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 291, in _call_llm_structured
+    response = _create_with_deadline(client, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 179, in _create_with_deadline
+    return client.chat.completions.create(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1055, in request
+    raise APITimeoutError(request=request) from err
+openai.APITimeoutError: Request timed out.
+Routing 'ollama-gpt-oss-20b' to ollama_cloud (https://ollama.com/v1) as model id 'gpt-oss:20b'
+Retryable error (attempt 1), retrying in 1.5s: APITimeoutError('Request timed out.')
+Retryable error (attempt 2), retrying in 1.3s: APITimeoutError('Request timed out.')
+Retryable error (attempt 3), retrying in 2.9s: APITimeoutError('Request timed out.')
+Retryable error (attempt 4), retrying in 4.1s: APITimeoutError('Request timed out.')
+Retryable error (attempt 5), retrying in 17.3s: APITimeoutError('Request timed out.')
+Retryable error (attempt 6), retrying in 3.1s: APITimeoutError('Request timed out.')
+Retryable error (attempt 7), retrying in 71.6s: APITimeoutError('Request timed out.')
+Retryable error (attempt 8), retrying in 83.3s: APITimeoutError('Request timed out.')
+Retryable error (attempt 9), retrying in 81.6s: APITimeoutError('Request timed out.')
+### Task: leila-এর কাছ থেকে আসা আমার শেষ ইমেইলটা ডিলিট করতে হবে। তুমি কি এটা করে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="Leila", date_min="2023-01-01", date_max="2023-12-31")']
+### Steps: 1 | Time: 814.3s | Error: Agent stopped due to iteration limit or time limit.
+Progress: 1/10
+### Task: chenwei-এর পাঠানো আমার শেষ ইমেইলটা ডিলিট করো
+### Outcome: ['email.search_emails.func(query="chenwei", date_min="2023-01-01", date_max="2023-12-31")', 'email.delete_email.func(email_id="00000211")']
+### Steps: 3 | Time: 8.3s | Error: none
+Progress: 2/10
+### Task: 18 ডিসেম্বর তারিখের আমার প্রথম মিটিংটা ডিলিট করো
+### Outcome: ['calendar.search_events.func(query="", time_min="2023-12-18 00:00:00", time_max="2023-12-18 23:59:59")', 'calendar.delete_event.func(event_id="00000047")']
+### Steps: 3 | Time: 10.5s | Error: none
+Progress: 3/10
+### Task: 12 ডিসেম্বর তারিখের শেষ ইভেন্টটার নাম বদলে Machine Learning Chat করো
+### Outcome: ['calendar.search_events.func(query="", time_min="2023-12-12 00:00:00", time_max="2023-12-12 23:59:59")', 'calendar.update_event.func(event_id="00000208", field="event_name", new_value="Machine Learning Chat")']
+### Steps: 3 | Time: 11.6s | Error: none
+Progress: 4/10
+### Task: CRM-এ Jessie Thomas-এর স্ট্যাটাস won-এ আপডেট করো
+### Outcome: ['customer_relationship_manager.search_customers.func(customer_name="Jessie Thomas")', 'customer_relationship_manager.update_customer.func(customer_id="00000149", field="status", new_value="Won")']
+### Steps: 3 | Time: 6.2s | Error: none
+Progress: 5/10
+### Task: 21 নভেম্বর থেকে মোট ভিজিট দেখিয়ে একটা bar চার্ট বানাতে পারবে?
+### Outcome: ['analytics.create_plot.func(time_min="2023-11-21", time_max="2023-11-30", value_to_plot="total_visits", plot_type="bar")']
+### Steps: 2 | Time: 8.0s | Error: none
+Progress: 6/10
+### Task: প্লিজ 11 সেপ্টেম্বর তারিখের গড় সেশনের সময়কাল মেট্রিকটার ডিস্ট্রিবিউশন চার্টে দেখাও
+### Outcome: ['analytics.create_plot.func(time_min="2023-09-11", time_max="2023-09-11", value_to_plot="average_session_duration", plot_type="histogram")', 'analytics.create_plot.func(plot_type="histogram", time_max="2023-09-11", time_min="2023-09-11", value_to_plot="session_duration_seconds")']
+### Steps: 3 | Time: 11.8s | Error: none
+Progress: 7/10
+### Task: yuki-এর যেসব টাস্ক in progress-এ আছে, সবগুলো in review-এ সরিয়ে দাও
+### Outcome: ['company_directory.find_email_address.func(name="yuki")', 'project_management.search_tasks.func(assigned_to_email="yuki.tanaka@atlas.com", board="", due_date="", list_name="In Progress", task_name="")', 'project_management.update_task.func(task_id="00000091", field="list_name", new_value="In Review")', 'project_management.search_tasks.func(assigned_to_email="yuki.tanaka@atlas.com", board="", due_date="", list_name="In Progress", task_name="")']
+### Steps: 5 | Time: 17.0s | Error: none
+Progress: 8/10
+### Task: গত দুই সপ্তাহে যদি Jamie Anderson-এর সাথে আমাদের কথা না হয়ে থাকে, তাহলে যাকে ওই কাস্টমারের দায়িত্ব দেওয়া আছে, তার সাথে আগামীকাল আমার প্রথম ফাঁকা সময়ে 'Update on Jamie Anderson' নামে একটা 30 মিনিটের মিটিং বুক করো
+### Outcome: ['email.search_emails.func(query="Jamie Anderson", date_min="2023-11-16", date_max="2023-11-30")', 'customer_relationship_manager.search_customers.func(customer_name="Jamie Anderson")', 'calendar.search_events.func(query="nadia.moreau@atlas.com", time_min="2023-12-01 00:00:00", time_max="2023-12-01 23:59:59")', 'calendar.create_event.func(event_name="Update on Jamie Anderson", participant_email="nadia.moreau@atlas.com", event_start="2023-12-01 09:00:00", duration="30")']
+### Steps: 5 | Time: 32.1s | Error: none
+Progress: 9/10
+Retryable error (attempt 1), retrying in 0.6s: APITimeoutError('Request timed out.')
+Retryable error (attempt 2), retrying in 2.4s: APITimeoutError('Request timed out.')
+Retryable error (attempt 3), retrying in 7.2s: APITimeoutError('Request timed out.')
+Retryable error (attempt 4), retrying in 5.4s: APITimeoutError('Request timed out.')
+Retryable error (attempt 5), retrying in 13.3s: APITimeoutError('Request timed out.')
+Retryable error (attempt 6), retrying in 11.0s: APITimeoutError('Request timed out.')
+Retryable error (attempt 1), retrying in 0.4s: APITimeoutError('Request timed out.')
+Retryable error (attempt 2), retrying in 3.6s: APITimeoutError('Request timed out.')
+Retryable error (attempt 3), retrying in 7.3s: APITimeoutError('Request timed out.')
+Retryable error (attempt 4), retrying in 13.7s: APITimeoutError('Request timed out.')
+Retryable error (attempt 5), retrying in 3.4s: APITimeoutError('Request timed out.')
+Retryable error (attempt 6), retrying in 14.2s: APITimeoutError('Request timed out.')
+Retryable error (attempt 7), retrying in 6.9s: APITimeoutError('Request timed out.')
+Retryable error (attempt 8), retrying in 12.4s: APITimeoutError('Request timed out.')
+Retryable error (attempt 9), retrying in 81.3s: APITimeoutError('Request timed out.')
+### Task: কার নামে সবচেয়ে কম টাস্ক অ্যাসাইন করা আছে খুঁজে বের করে, CRM-এ Jamie Davis-কে নতুন lead হিসেবে তার নামে অ্যাসাইন করে দিতে পারবে?
+### Outcome: []
+### Steps: 0 | Time: 1192.1s | Error: Request timed out.
+Progress: 10/10
+Traces saved to data/results/c6/smoke10_bn/ollama-gpt-oss-20b/ollama-gpt-oss-20b_all_2026-10-05_21-10-03_traces.json
+--------------------------------------------
+--------------------------------------------
+ERRORS without unwanted side effects:
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
+Task:
+    leila-এর কাছ থেকে আসা আমার শেষ ইমেইলটা ডিলিট করতে হবে। তুমি কি এটা করে দিতে পারবে?
+
+Prediction:
+    email.search_emails.func(query="Leila", date_min="2023-01-01", date_max="2023-12-31")
+
+Ground truth:
+    email.delete_email.func(email_id="00000052")
+
+Unwanted side effects: False
+
+Error: Agent stopped due to iteration limit or time limit.
+
+Output:
+    Agent stopped due to iteration limit or time limit.
+--------------------------------------------
+--------------------------------------------
+ERRORS with unwanted side effects:
+--------------------------------------------
+--------------------------------------------
+Accuracy: 70.0% (7 out of 10)
+Errors without unwanted side effects: 20.0% (2 out of 10)
+Errors with unwanted side effects: 10.0% (1 out of 10)
+Wrong email, no side effects: 0.0% (0 out of 10)
+Didn't follow REACT framework, no side effects: 10.0% (1 out of 10)
+Meeting start time error, no side effects: 0.0% (0 out of 10)
+Wrong email, with side effects: 0.0% (0 out of 10)
+End date minor error, with side effects: 0.0% (0 out of 10)
+Meeting start time error, with side effects: 10.0% (1 out of 10)
+--------------------------------------------
+--------------------------------------------
+Correct but not exact match:
+--------------------------------------------
+--------------------------------------------
+--------------------------------------------
+Task:
+    21 নভেম্বর থেকে মোট ভিজিট দেখিয়ে একটা bar চার্ট বানাতে পারবে?
+
+Prediction:
+    analytics.create_plot.func(time_min="2023-11-21", time_max="2023-11-30", value_to_plot="total_visits", plot_type="bar")
+
+Ground truth:
+    analytics.create_plot.func(time_min="2023-11-21", time_max="2023-11-29", value_to_plot="total_visits", plot_type="bar")
+
+Unwanted side effects: False
+
+Error: 
+
+Output:
+    অবশ্যই! নিচে ২১ নভেম্বর থেকে ৩০ নভেম্বর পর্যন্ত মোট ভিজিটের একটি বার চার্ট দেওয়া হলো।  \n\n**ফাইলের অবস্থান**: `plots/2023-11-21_2023-11-30_total_visits_bar.png`  \n\nচার্টটি দেখতে আপনি এই ফাইলটি খুলে দেখতে পারেন। যদি আরও কোনো বিশ্লেষণ বা ভিন্ন ভিজুয়ালাইজেশন দরকার হয়, জানাবেন!
+--------------------------------------------
+Task:
+    প্লিজ 11 সেপ্টেম্বর তারিখের গড় সেশনের সময়কাল মেট্রিকটার ডিস্ট্রিবিউশন চার্টে দেখাও
+
+Prediction:
+    analytics.create_plot.func(time_min="2023-09-11", time_max="2023-09-11", value_to_plot="average_session_duration", plot_type="histogram")
+    analytics.create_plot.func(plot_type="histogram", time_max="2023-09-11", time_min="2023-09-11", value_to_plot="session_duration_seconds")
+
+Ground truth:
+    analytics.create_plot.func(time_min="2023-09-11", time_max="2023-09-11", value_to_plot="session_duration_seconds", plot_type="histogram")
+
+Unwanted side effects: False
+
+Error: 
+
+Output:
+    নিচে ২০২৩‑০৯‑১১ তারিখের সেশন সময়ের (সেকেন্ডে) ডিস্ট্রিবিউশন চার্টটি দেওয়া হলো:\n\n**প্লট ফাইল:** `plots/2023-09-11_2023-09-11_session_duration_seconds_histogram.png`\n\nএই ফাইলটি খুলে আপনি সেই দিনের সেশন সময়ের বণ্টন দেখতে পারবেন।

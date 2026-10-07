@@ -1,6 +1,8 @@
 # Shared result formats (EN↔BN agent evaluation)
 
-Version 2.0 — 2026-10-05. Used by WorkBench (this repo), OfficeBench and τ²-bench collaborators, so results can be concatenated with no conversion step.
+Version 2.1 — 2026-10-07. Used by WorkBench (this repo), OfficeBench and τ²-bench collaborators, so results can be concatenated with no conversion step.
+
+**Changes from 2.0** (2026-10-07): additive. `failure_label` gains `infrastructure` (the event that ended the run came from the provider; see section 4). Existing v2 files stay valid and need no change.
 
 **Changes from 1.0** (2026-10-04):
 - A comparison is now *reference* vs *treatment*, not EN vs BN. Columns and metrics use `_ref`/`_treat` instead of `_en`/`_bn`. Reason: c5 has an English task on both sides, and repeat runs compare one condition with itself.
@@ -25,7 +27,7 @@ General rules
 | `language` | `en`, `bn` |
 | `condition` | `c0` … `c6`, defined in `docs/conditions/README.md`; a repeated run appends `-<label>`, e.g. `c0-rep2` (in `run_id`, `ref_condition`/`condition` of metrics) |
 | `provider` | as registered in the run, e.g. `ollama_cloud`, `ollama_local`, `groq`, `openrouter`, `google` |
-| `failure_label` | `outcome`, `reasoning`, `planning`, `tool_use`, `control_flow`, `memory`, `multilingual` |
+| `failure_label` | `outcome`, `reasoning`, `planning`, `tool_use`, `control_flow`, `memory`, `multilingual`, `infrastructure` |
 | `multilingual_subtype` (only when `failure_label=multilingual`) | `wrong_language_output`, `language_mixing`, `numeral_script_error`, `language_induced_tool_misuse` |
 | `pair_class` | `both_correct`, `ref_only`, `treat_only`, `both_wrong` |
 
@@ -86,7 +88,7 @@ Each row labels one failed run of one task (usually: tasks whose outcome differs
 | annotator | `model:<model_id>` or `human:<initials>` |
 | notes | free text |
 
-Label definitions (adapted from BabelArena; written fully in `results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/failure_analysis.md`): **outcome** — right process, wrong final state (wrong value written); **reasoning** — wrong inference about the task or data; **planning** — missing or extra steps, wrong order; **tool_use** — wrong tool, wrong or malformed arguments; **control_flow** — stopped early, looped, hit the step limit, asked for confirmation; **memory** — lost information obtained earlier in the trace; **multilingual** — the failure is attributable to the language of the instruction (subtypes above).
+Label definitions (adapted from BabelArena; written fully in `results/comparisons/pilot_ollama-gemma4-31b_c1_vs_c0/failure_analysis.md`): **outcome** — right process, wrong final state (wrong value written); **reasoning** — wrong inference about the task or data; **planning** — missing or extra steps, wrong order; **tool_use** — wrong tool, wrong or malformed arguments; **control_flow** — stopped early, looped, hit the step limit, asked for confirmation; **memory** — lost information obtained earlier in the trace; **multilingual** — the failure is attributable to the language of the instruction (subtypes above); **infrastructure** — the event that ended the run came from the provider (HTTP 5xx after retries, read timeout, or a time/iteration-limit stall). It says who ended the run, not that the model made no mistake: an errored run has no trace, so a model fault before the error cannot be ruled out.
 
 ## 5. Run metadata — `results/comparisons/<comparison_id>/run_meta_{ref,treat}.json`
 

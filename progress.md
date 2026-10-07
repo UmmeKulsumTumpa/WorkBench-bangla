@@ -10,13 +10,17 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 | 0 Bootstrap | ✅ | progress.md, .gitignore, spec, project-local toolchain (`env.sh`, `.tools/`) |
 | 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
 | 2 Bangla translation | 🛑 | **STOP (a): waiting for owner review.** 204 variants translated + 2 independent review cycles (cycle 1: 99 rows, cycle 2: 42 rows); 690 BN tasks rendered, all checks pass |
-| 3 Pilot run | ✅ | gemma4:31b: EN 81.1% vs BN 82.2% (p=1.0); failure analysis + pilot_report.md + HTML report (artifact) done |
-| 3b Conditions C2–C6 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). **C6 pilot run + report: ✅** (gemma4:31b, 74/90 vs C0 73/90, p=1.0). Other runs (c2–c5, repeats): ⬜ waiting for owner review of the BN prompt + budget approval |
+| 3 Pilot run | ✅ | gemma4:31b: EN 81.1% vs BN 82.2% (p=1.0); gpt-oss:20b c0 vs c6: 58.9% vs 53.3% (p=0.4244, PR open); failure analyses, reports and HTML done |
+| 3b Conditions C2–C6 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). **C6 pilot run + report: ✅** (gemma4:31b, 74/90 vs C0 73/90, p=1.0; gpt-oss:20b, 53.3% vs C0 58.9%, p=0.4244, #38; PR open). Other runs (c2–c5, repeats): ⬜ waiting for owner review of the BN prompt + budget approval |
 | 4 Extensions | ⬜ | owner instruction only (300 tasks only if the 90-task runs show a finding) |
 
 ## Current step
 
-**Next (approved, #34):** execute `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` (gpt-oss:20b c0 and c6: a smoke10 gate, then 90 tasks). Start by confirming "C7 = C6" with the owner. Handoff: `.claude/HANDOFF.md`.
+**gpt-oss:20b c0 vs c6 pilot: analysis and report are done (#38); the PR for issue #13 is open and not merged.** There is no C7; the scope is c0 vs c6 (owner, 2026-10-05). Plan `docs/design/plans/2026-10-06-gpt-oss-20b-run.md`, branch `run/gpt-oss-20b`.
+- Done: Tasks 1-5 (Task 5: `report.md`, `report_notes.json`, HTML in `results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/`, README, tags `run/pilot-c0-gpt-oss-20b` and `run/pilot-c6-gpt-oss-20b`). Result: c0 58.9% vs c6 53.3%, Δ −5.6 pp, CI includes 0 (#38).
+- **Next:** final review of the branch, merge the PR (`Closes #13`), publish `report_fragment.html` as a **new** private artifact (icon `chart`) and record its URL here through a small PR. Follow-up: issue #16 (`run_date` of resumed runs).
+- Then the owner's open options (not approved, each needs a request estimate first): gemma C0-rep2 (noise floor, about 342 requests), 300 tasks, C3, and the native-speaker review of `docs/conditions/translation_review.md` and the task templates.
+- Handoff: `.claude/HANDOFF.md`.
 
 **Done (#35, issue #12):** raw results and run logs are now per model (`WorkBench/data/results/<cond>[-<label>]/<subset>_<lang>/<model>/`, `results/logs/<subset>/<model>/`). The gemma runs were moved there and the gemma comparisons regenerated; metrics are byte-identical.
 
@@ -104,6 +108,39 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
   - `scripts/run_condition.py` and `scripts/compare_conditions.py` (`latest_results`) follow the new layout. Comparison folders are unchanged (they were already per model).
   - Moved the gemma4:31b runs of c0 (pilot, smoke10), c1 (pilot, smoke10) and c6 (pilot) and the three gemma pilot logs. The `run_log_2026-10-04.txt` files stay where they were. Older log entries above keep their original paths as history.
   - All three gemma comparisons were regenerated (no API calls) and both HTML reports rebuilt. `metrics.csv`, `paired.csv`, `per_task_*.csv` and `results/summary.csv` are byte-identical to before; only the `results_file` path in `run_meta_*.json` and the log paths quoted in `failure_analysis.md` changed. `harness_commit` and `harness_dirty` in `run_meta_*.json` were restored to their previous values (known issue #9: `compare_conditions.py` rewrites them to the comparison-time commit for pre-flag runs).
+- 2026-10-06 #36 — **gpt-oss:20b runs: smoke10 gate passed; c0 pilot done; c6 paused by the free-tier monthly limit.** The owner confirmed on 2026-10-05 that there is no C7: the scope is c0 vs c6.
+  - Smoke10 (2026-10-05 20:52–21:45): c0 8/10, c6 7/10; 9/10 c0 runs made a valid tool call; no quota signal. The one discordant pair (email:5) is a c6 provider stall. Requests: 54 distinct `llm_input` (#32), but 64 HTTP 200 plus 33 timed-out attempts at the provider.
+  - **Request metric:** #32's distinct `llm_input` stays the reported number. For gpt-oss, provider attempts (HTTP 200, 5xx and timeouts) are much higher, so both numbers are recorded.
+  - **c0 pilot (2026-10-05 21:50–23:57; harness unchanged since c1dc549):** stopped twice by the plan's ">3 consecutive 5xx" rule. First at 65/90 (5×500, 22:16). Then 30 min later, after a probe returned 200, it hit 4×500 within a minute of resuming.
+    - The harness already retries 5xx (10 attempts, backoff ≤ 90 s), and the 500 bodies were lost to stdout buffering.
+    - **Owner decision:** let the harness retry, stop only on 402/429/quota or on 3 consecutive tasks that end with a 5xx, and log unbuffered (`PYTHONUNBUFFERED=1`). The 500 bodies are generic: `Internal Server Error (ref: …)`.
+    - It finished 90/90 with 6 errored rows (2 × 5xx, 1 time limit, 1 connection, 2 other).
+    - **Resume caveat:** resuming an unfinished run drops its errored rows and re-runs them. Two c0 tasks that failed in the first attempt (time limit; bad kwarg `traffic_source?`) got a second try. The analysis adds a sensitivity line counting them as failures.
+  - **c6 pilot (started 2026-10-05 23:57):** 76/90 rows saved (last at 00:28). At about 03:52 the provider returned `HTTP 429 … reached your monthly usage limit, upgrade for higher limits … or add usage credits`, and the watchdog stopped the run.
+    - Owner decision: commit c0 and the partial c6, pause, and resume c6 after the monthly reset. No paid credits.
+  - **Provider attempts in the 4 pilot logs:** HTTP 200: 735; 5xx: 34; 429: 1; timeouts: 56. The free monthly credits ran out at about 1,900 successful requests this month (gemma and gpt-oss together).
+
+- 2026-10-07 #37 — **gpt-oss:20b c6 pilot finished (resume); corrections to #36.** The owner supplied a new Ollama API key (same free tier, same model). The probe returned chat 200 and tool call 200 (`results/probe/ollama_cloud_2026-10-07.json`).
+  - **Owner decision:** resume c6 instead of re-running it in full. Reasons: cost, and a cross-day gap with c0 exists anyway (c0 ran on 2026-10-05, c6 spans 2026-10-05 and 2026-10-07).
+  - **Run:** c6 resumed 2026-10-07 05:53:19 and finished 06:14:05, 90/90, 8 errored rows (5xx: 38, 67, 81; model errors, bad tool kwarg: 39, 40, 51, 66, 85). Watchdog (stop on 402/429/quota or 3 consecutive tasks ending in a 5xx) never fired.
+  - **Resume log:** 105 HTTP 200, 37 5xx, 0 429, 0 timeouts. 3 rows ended in a 5xx after the harness retries (38, 67, 81), never 3 in a row.
+  - **c6 re-runs (9 rows dropped and re-run, as in c0):** 65, 69 and 71 recovered; 38, 39, 40, 51, 66 and 67 are still errored. The 14 new rows (76-89) added 81 (5xx) and 85 (bad kwarg) as errors.
+  - **Final requests (#32, distinct `llm_input`):** c0 381, c6 346. Provider attempts across all 5 pilot logs: HTTP 200 840, 5xx 71, 429 1, timeout retry lines 54.
+  - **`run_log.csv`** has a row only for each run's finishing invocation: c0 2026-10-05 22:53 (n_run 26) and c6 2026-10-07 05:53 (n_run 23). The earlier invocations (c0 21:50 and 22:49; c6 2026-10-05 23:57) have no row.
+  - **Corrections to #36 (it is not edited):**
+    - Timeouts: the figure 56 came from a plain grep, which also counts traceback lines. Retry lines are 54 (55 with c0 idx 72's terminal timeout). Smoke10's 33 counted retry lines only.
+    - c0 row 72 is a timeout (`APITimeoutError: Request timed out.`), not a "connection" error. The c0 error mix is 2 × 5xx, 1 time limit, 1 timeout, 2 bad kwarg.
+    - "About 1,900 successful requests" is an observed total when the 429 appeared, not a published cap. The 03:52 time comes from the log file's mtime; the log has no timestamps.
+    - c6 stalled between about 00:28 and 03:52 for an unknown reason (possibly machine sleep). Do not use those times as a run duration.
+- 2026-10-07 #38 — **gpt-oss:20b c6 vs c0 pilot: no detectable completion gap (Task 5, issue #13).** Comparison `results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/` (report.md, report.html, failure_analysis.md, failure_labels.csv). No model calls were made in Tasks 4-5.
+  - **Result:** c0 53/90 = 58.9%, c6 48/90 = 53.3%, Δ −5.6 pp, 95% CI −16.7 to +5.6, McNemar p = 0.4244 (15 only c0, 10 only c6, 27 both wrong). Side effects 25.6% vs 24.4%. The CI includes 0 and also allows a moderate drop; at n = 90 a gap of 5-10 points can be neither detected nor ruled out.
+  - **Sensitivity:** S1 (the 85 pairs without an infrastructure error): 62.4% vs 55.3%, Δ −7.1 pp, CI −17.6 to +4.7, p = 0.3075. S2 (recovered re-runs counted as failures): 56.7% vs 51.1%, Δ −5.6 pp, CI and p unchanged.
+  - **Failures:** 0 of 42 c6 failures are primarily multilingual (single model annotator, not human-checked); 2 carry it as a weak secondary label (analytics:42, email:41). The c6-only failures are error types c0 also shows (invented `@example.com` addresses, corrupted tool kwargs, dropped filters). Bad kwargs on any attempt: 3 c0 tasks vs 8 c6 tasks, the one pattern to test with repeats (k >= 3).
+  - **Infrastructure label (caveat):** it says the provider ended the run, not that the model made no mistake. A run that ends on any exception has an empty trace (the harness records 0 steps), so the 1-7 model calls before each of the 13 errored rows (and any writes) are lost, and such a row scores no side effect. c6 crm:46 is the weakest infrastructure label (its first attempt failed on a model error). c0 pm:57 is a model loop, not infrastructure.
+  - **Requests:** distinct `llm_input` c0 381, c6 346 (727 in all; the plan projected about 684 for the pilot). Provider attempts across the 5 pilot logs: HTTP 200 840, 5xx 71, 429 1, timeout retry lines 54.
+  - **Compared with gemma4:31b (descriptive):** gemma 81.1% vs 82.2% (+1.1 pp, p = 1.0); gpt-oss 58.9% vs 53.3%. Both intervals include 0. gemma's failures are mostly reasoning; gpt-oss's split between reasoning and tool_use.
+  - **Threats:** the two sides ran on different days; the last 23 c6 tasks ran on 2026-10-07 with a new key; both runs were resumed; `per_task` `run_date` is the finishing invocation's date (all 90 c6 rows show 2026-10-07, although 67 ran on 2026-10-05/06; follow-up issue #16, no CSV was edited by hand); single LLM annotator; unreviewed Bangla prompt; n = 90; one run per side.
+  - **Tags:** `run/pilot-c0-gpt-oss-20b` at `dcb6c76` and `run/pilot-c6-gpt-oss-20b` at `a8447a3`, the harness commits recorded in the run metas.
 
 ## Blockers / needs-human
 
@@ -112,7 +149,7 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
 
 ## Verified facts about the repo
 
-- Our WorkBench changes (originally on the nested `bangla-eval` branch: fbfa4d3 providers, 8372c87 drop non-free models; since 2026-10-05 tracked in this repo, plus the condition flag). WorkBench tests: 283 pass; project tests: 19 pass. Free Ollama Cloud registry keys: `ollama-gpt-oss-20b`, `ollama-gpt-oss-120b`, `ollama-nemotron-3-nano-30b`, `ollama-gemma4-31b`; local: `ollama-local-qwen3-8b`.
+- Our WorkBench changes (originally on the nested `bangla-eval` branch: fbfa4d3 providers, 8372c87 drop non-free models; since 2026-10-05 tracked in this repo, plus the condition flag). WorkBench tests: 285 pass; project tests: 19 pass. Free Ollama Cloud registry keys: `ollama-gpt-oss-20b`, `ollama-gpt-oss-120b`, `ollama-nemotron-3-nano-30b`, `ollama-gemma4-31b`; local: `ollama-local-qwen3-8b`.
 - Upstream commit 49c7dfd (2026-08-18). `requires-python >=3.12`; uv 0.12.23; CPython 3.12.15. `uv sync --frozen` OK.
 - Console scripts (pyproject): `workbench-inference = src.cli:inference`, `workbench-evaluate = src.cli:evaluate`, `workbench-generate-data = src.cli:generate_data`.
 - Task CSV dirs: `data/processed/tasks_and_outcomes/` has the top-level files plus `v1/`, `v2026-05-17/`, `v2026-05-19/`. 690 rows: email 90, calendar 110, crm 80, analytics 120, pm 80, multi_domain 210. 69 base templates × 10 tasks each; no base appears in two files.
@@ -123,4 +160,4 @@ To regenerate the C6 report: `python3 scripts/build_report_html.py --comparison_
 
 | Provider | Observed cap | Used today | Projected next step |
 |---|---|---|---|
-| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; monthly-credit cap unpublished; no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (c6 pilot) | pilot: 682 req (3.8/task); no limit errors. **Next (optional): c0-rep2 + c6-rep2 on gemma4:31b, about 342 req each (cap 1,800 each). Needs owner approval.** |
+| ollama_cloud | free tier: only 'included' models (4 found); 1 concurrent; **monthly limit hit 2026-10-06 ~03:52 (HTTP 429, time from the log mtime)**, observed after about 1,900 successful requests this month (not a published cap); no rate-limit headers | 761 total on 2026-10-04 (probe 14 + smoke10 65 + pilot 682); 296 on 2026-10-05 (gemma c6 pilot); 2026-10-05/06 gpt-oss:20b: smoke10 64 HTTP 200 (54 distinct `llm_input`), probe 2, pilot logs 735 HTTP 200 + 34 5xx + timeout retry lines (see #37 for the corrected count); 2026-10-07 (new key): probe 2, c6 resume 105 HTTP 200 + 37 5xx + 0 429 | **No run is pending.** gpt-oss pilot final: c0 381, c6 346 distinct `llm_input` (727 in all, against about 684 projected); provider attempts HTTP 200 840, 5xx 71, 429 1 (#37, #38). Tasks 4–5 made no model calls. Any further run (gemma C0-rep2 about 342 requests, 300 tasks, C3) needs the owner's approval of the projected requests first. |

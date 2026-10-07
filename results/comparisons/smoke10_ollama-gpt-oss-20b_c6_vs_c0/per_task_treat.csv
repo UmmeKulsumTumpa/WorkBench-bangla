@@ -1,0 +1,11 @@
+benchmark,run_id,model_key,model_id,provider,language,condition,task_uid,domain,template_id,correct,side_effect,error,n_llm_requests,n_tool_calls,run_date
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:email:5,email,T01,0,0,Agent stopped due to iteration limit or time limit.,1,1,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:email:6,email,T01,1,0,,3,2,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:calendar:7,calendar,T10,1,0,,3,2,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:calendar:13,calendar,T11,1,0,,3,2,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:analytics:0,analytics,T29,1,0,,2,1,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:analytics:15,analytics,T30,1,0,,3,2,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:project_management:2,project_management,T41,1,0,,5,4,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:customer_relationship_manager:2,customer_relationship_manager,T21,1,0,,3,2,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:multi_domain:6,multi_domain,T49,0,1,,5,4,2026-10-05
+workbench,workbench_smoke10_c6_ollama-gpt-oss-20b,ollama-gpt-oss-20b,gpt-oss:20b,ollama_cloud,bn,c6,workbench:multi_domain:18,multi_domain,T50,0,0,Request timed out.,0,0,2026-10-05

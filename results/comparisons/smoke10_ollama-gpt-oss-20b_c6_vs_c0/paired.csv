@@ -1,0 +1,11 @@
+task_uid,domain,template_id,correct_ref,correct_treat,side_effect_ref,side_effect_treat,pair_class
+workbench:email:5,email,T01,1,0,0,0,ref_only
+workbench:email:6,email,T01,1,1,0,0,both_correct
+workbench:calendar:7,calendar,T10,1,1,0,0,both_correct
+workbench:calendar:13,calendar,T11,1,1,0,0,both_correct
+workbench:analytics:0,analytics,T29,1,1,0,0,both_correct
+workbench:analytics:15,analytics,T30,1,1,0,0,both_correct
+workbench:project_management:2,project_management,T41,1,1,0,0,both_correct
+workbench:customer_relationship_manager:2,customer_relationship_manager,T21,1,1,0,0,both_correct
+workbench:multi_domain:6,multi_domain,T49,0,0,1,1,both_wrong
+workbench:multi_domain:18,multi_domain,T50,0,0,0,0,both_wrong

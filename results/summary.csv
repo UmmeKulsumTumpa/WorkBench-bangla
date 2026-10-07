@@ -1,4 +1,6 @@
 comparison_id,model_key,ref_condition,condition,n,completion_rate_ref,completion_rate_treat,delta_completion,delta_completion_ci95_low,delta_completion_ci95_high,mcnemar_p,n_ref_only,n_treat_only,side_effect_rate_ref,side_effect_rate_treat,delta_side_effect
 pilot_ollama-gemma4-31b_c1_vs_c0,ollama-gemma4-31b,c0,c1,90,0.8111,0.8222,0.0111,-0.0667,0.0889,1.0000,6,7,0.1667,0.1222,-0.0444
 pilot_ollama-gemma4-31b_c6_vs_c0,ollama-gemma4-31b,c0,c6,90,0.8111,0.8222,0.0111,-0.0778,0.1000,1.0000,7,8,0.1667,0.0889,-0.0778
+pilot_ollama-gpt-oss-20b_c6_vs_c0,ollama-gpt-oss-20b,c0,c6,90,0.5889,0.5333,-0.0556,-0.1667,0.0556,0.4244,15,10,0.2556,0.2444,-0.0111
 smoke10_ollama-gemma4-31b_c1_vs_c0,ollama-gemma4-31b,c0,c1,10,0.8000,0.8000,0.0000,0.0000,0.0000,1.0000,0,0,0.2000,0.2000,0.0000
+smoke10_ollama-gpt-oss-20b_c6_vs_c0,ollama-gpt-oss-20b,c0,c6,10,0.8000,0.7000,-0.1000,-0.3000,0.0000,1.0000,1,0,0.1000,0.1000,0.0000

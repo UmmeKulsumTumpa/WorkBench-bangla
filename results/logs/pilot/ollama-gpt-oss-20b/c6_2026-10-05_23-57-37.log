@@ -1,0 +1,821 @@
+Routing 'ollama-gpt-oss-20b' to ollama_cloud (https://ollama.com/v1) as model id 'gpt-oss:20b'
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: leila-এর কাছ থেকে আসা আমার শেষ ইমেইলটা ডিলিট করতে হবে। তুমি কি এটা করে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="Leila", date_min="2023-01-01", date_max="2023-12-31")', 'email.delete_email.func(email_id="00000052")']
+### Steps: 3 | Time: 6.2s | Error: none
+Progress: 1/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: chenwei-এর পাঠানো আমার শেষ ইমেইলটা ডিলিট করো
+### Outcome: ['email.search_emails.func(query="chenwei", date_min="2023-01-01", date_max="2023-12-31")', 'email.delete_email.func(email_id="00000211")']
+### Steps: 3 | Time: 6.2s | Error: none
+Progress: 2/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: গত 2 দিনে nadia-এর কাছ থেকে আসা আমার সব ইমেইল সরিয়ে ফেলতে হবে। ওগুলো ডিলিট করে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="nadia", date_min="2023-11-28", date_max="2023-11-30")', 'email.delete_email.func(email_id="00000479")']
+### Steps: 3 | Time: 6.5s | Error: none
+Progress: 3/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: kofi-কে একটা ইমেইল পাঠানো দরকার, যেখানে লেখা থাকবে 'Hey kofi,
+
+I wanted to let you know that I've completed the tasks for the status briefing. Looking forward to your feedback.
+
+Cheers,
+
+Sam' আর সাবজেক্ট হবে 'Task Update on Improve UX of onboarding process'। তুমি কি এটা করে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="kofi")', 'email.send_email.func(recipient="kofi.mensah@atlas.com", subject="Task Update on Improve UX of onboarding process", body="Hey kofi,\\n\\nI wanted to let you know that I\'ve completed the tasks for the status briefing. Looking forward to your feedback.\\n\\nCheers,\\n\\nSam")']
+### Steps: 3 | Time: 6.4s | Error: none
+Progress: 4/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: প্লিজ jinsoo-কে একটা ইমেইল পাঠিয়ে দাও, তাতে লিখবে 'Hi jinsoo,
+
+Starting on 'Create wireframe for homepage' today. Any preliminary thoughts or resources you recommend before I dive in?
+
+Best,
+
+Sam' আর সাবজেক্ট রাখবে 'Task Update on Design logo for website'
+### Outcome: ['company_directory.find_email_address.func(name="jinsoo")', 'email.send_email.func(recipient="jinsoo.kim@atlas.com", subject="Task Update on Design logo for website", body="Hi jinsoo,\\n\\nStarting on \'Create wireframe for homepage\' today. Any preliminary thoughts or resources you recommend before I dive in?\\n\\nBest,\\n\\nSam")']
+### Steps: 3 | Time: 8.4s | Error: none
+Progress: 5/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 'Task Update on Design logo for website' নিয়ে nia-এর শেষ ইমেইলটায় 'Thanks for the update - I will get back to you tomorrow.' লিখে রিপ্লাই দাও
+### Outcome: ['email.search_emails.func(query="Task Update on Design logo for website", date_min="2023-01-01", date_max="2023-12-31")', 'email.reply_email.func(email_id="00000403", body="Thanks for the update - I will get back to you tomorrow.")']
+### Steps: 3 | Time: 7.9s | Error: none
+Progress: 6/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 'Update on Leadership Training Workshop' নিয়ে lena-এর শেষ ইমেইলটার জবাবে 'Thanks for the update - I will get back to you tomorrow.' লিখে পাঠাতে হবে। রিপ্লাইটা আমার হয়ে পাঠিয়ে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="Update on Leadership Training Workshop", date_min="2023-01-01", date_max="2023-12-31")', 'email.reply_email.func(email_id="00000048", body="Thanks for the update - I will get back to you tomorrow.")']
+### Steps: 3 | Time: 7.4s | Error: none
+Progress: 7/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: গত সপ্তাহে anaya 'Update on Board of Directors Conclave' নিয়ে যে ইমেইলগুলো পাঠিয়েছিল, সবগুলো nadia-কে ফরোয়ার্ড করে দিতে পারবে
+### Outcome: ['email.search_emails.func(query="Update on Board of Directors Conclave", date_min="2023-11-23", date_max="2023-11-29")', 'email.search_emails.func(date_max="2023-11-29", date_min="2023-11-23", query="anaya Update on Board of Directors Conclave")']
+### Steps: 3 | Time: 16.7s | Error: none
+Progress: 8/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 'Task Update on Add authentication for email notification' নিয়ে সর্বশেষ ইমেইলটা olga-কে ফরোয়ার্ড করো
+### Outcome: ['email.search_emails.func(query="Task Update on Add authentication for email notification", date_min="2023-01-01", date_max="2023-12-31")', 'company_directory.find_email_address.func(name="Olga")', 'email.forward_email.func(email_id="00000436", recipient="olga.petrova@atlas.com")']
+### Steps: 4 | Time: 7.9s | Error: none
+Progress: 9/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 'Update on Client Appreciation Gala' নিয়ে সর্বশেষ ইমেইলটা santiago-এর লাগবে। ওটা ফরোয়ার্ড করে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="Update on Client Appreciation Gala", date_min="2023-01-01", date_max="2023-12-31")', 'email.forward_email.func(email_id="00000206", recipient="santiago@example.com")']
+### Steps: 3 | Time: 6.0s | Error: none
+Progress: 10/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: leila-এর কাছ থেকে আসা আমার সবচেয়ে সাম্প্রতিক ইমেইলটা fatima-এর লাগবে। ওটা ফরোয়ার্ড করে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="leila", date_min="", date_max="")', 'email.forward_email.func(email_id="00000052", recipient="fatima@example.com")']
+### Steps: 3 | Time: 6.5s | Error: none
+Progress: 11/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: olga-এর পাঠানো আমার সবচেয়ে সাম্প্রতিক ইমেইলটা raj-কে ফরোয়ার্ড করে দিতে পারবে
+### Outcome: ['email.search_emails.func(query="olga", date_min="2023-01-01", date_max="2023-12-31")', 'email.forward_email.func(email_id="00000206", recipient="raj@example.com")']
+### Steps: 3 | Time: 6.1s | Error: none
+Progress: 12/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 'Update on Team Building Retreat' নিয়ে শেষ ইমেইলটা lena আর aisha-এর লাগবে। ওটা ফরোয়ার্ড করে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="Update on Team Building Retreat", date_min="2023-01-01", date_max="2023-12-31")', 'email.forward_email.func(email_id="00000262", recipient="lena@example.com")', 'email.forward_email.func(email_id="00000262", recipient="aisha@example.com")']
+### Steps: 4 | Time: 7.8s | Error: none
+Progress: 13/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 'Update on Board of Directors Conclave' নিয়ে শেষ ইমেইলটা akira আর yuki-কে ফরোয়ার্ড করো
+### Outcome: ['email.search_emails.func(query="Update on Board of Directors Conclave", date_min="2023-01-01", date_max="2023-12-31")', 'company_directory.find_email_address.func(name="akira")', 'company_directory.find_email_address.func(name="yuki")', 'email.forward_email.func(email_id="00000120", recipient="akira.sato@atlas.com")', 'email.forward_email.func(email_id="00000120", recipient="yuki.tanaka@atlas.com")']
+### Steps: 6 | Time: 10.7s | Error: none
+Progress: 14/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: santiago-এর কাছ থেকে আসা সর্বশেষ ইমেইলটায় 'Got it, thank you!' লিখে রিপ্লাই দাও
+### Outcome: ['email.search_emails.func(query="Santiago", date_min="", date_max="")', 'email.reply_email.func(email_id="00000348", body="Got it, thank you!")']
+### Steps: 3 | Time: 6.6s | Error: none
+Progress: 15/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 18 ডিসেম্বর তারিখের আমার প্রথম মিটিংটা ডিলিট করো
+### Outcome: ['calendar.search_events.func(query="", time_min="2023-12-18 00:00:00", time_max="2023-12-18 23:59:59")', 'calendar.delete_event.func(event_id="00000047")']
+### Steps: 3 | Time: 7.7s | Error: none
+Progress: 16/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 12 ডিসেম্বর তারিখের শেষ ইভেন্টটার নাম বদলে Machine Learning Chat করো
+### Outcome: ['calendar.search_events.func(query="", time_min="2023-12-12 00:00:00", time_max="2023-12-12 23:59:59")', 'calendar.update_event.func(event_id="00000208", field="event_name", new_value="Machine Learning Chat")']
+### Steps: 3 | Time: 6.6s | Error: none
+Progress: 17/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: প্লিজ 4 ডিসেম্বর তারিখে kofi-এর সাথে আমার প্রথম মিটিংটা 1.5 ঘণ্টা সরিয়ে দাও
+### Outcome: ['calendar.search_events.func(query="kofi", time_min="2023-12-04", time_max="2023-12-04")', 'calendar.search_events.func(query="kofi@example.com", time_max="2023-12-04", time_min="2023-12-04")']
+### Steps: 3 | Time: 16.3s | Error: none
+Progress: 18/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: পরের Quarterly Sales Review মিটিংটা বাতিল করো
+### Outcome: ['calendar.search_events.func(query="Quarterly Sales Review", time_max="", time_min="")', 'calendar.delete_event.func(event_id="00000121")']
+### Steps: 3 | Time: 8.2s | Error: none
+Progress: 19/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: পরের project checkpoint মিটিংটার নাম পাল্টে team orientation রেখে দিতে পারবে
+### Outcome: ['calendar.search_events.func(query="project checkpoint", time_min="2023-11-30 00:00:00", time_max="2024-12-31 23:59:59")', 'calendar.update_event.func(event_id="00000237", field="event_name", new_value="team orientation")']
+### Steps: 3 | Time: 10.8s | Error: none
+Progress: 20/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: fatima-এর সাথে আমার পরের মিটিংটা বাতিল করতে হবে। তুমি কি এটা করে দিতে পারবে, প্লিজ?
+### Outcome: ['calendar.search_events.func(query="Fatima", time_min="2023-11-30 00:00:00", time_max="2023-12-31 23:59:59")', 'calendar.delete_event.func(event_id="00000200")']
+### Steps: 3 | Time: 11.1s | Error: none
+Progress: 21/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: গত 9 দিনে যদি fatima-এর সাথে আমার দেখা না হয়ে থাকে, তাহলে আগামীকাল থেকে আমার প্রথম ফাঁকা স্লটে 'catch-up' নামে একটা 30 মিনিটের মিটিং শিডিউল করো
+### Outcome: ['calendar.search_events.func(query="Fatima", time_min="2023-11-22 00:00:00", time_max="2023-11-30 23:59:59")']
+### Steps: 2 | Time: 15.2s | Error: none
+Progress: 22/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: মনে হচ্ছে sofia-এর সাথে একবার কথা বলা দরকার। একটু দেখো তো, গত 8 দিনে ওর সাথে আমার দেখা হয়েছে কি না? না হয়ে থাকলে আগামীকাল থেকে আমার প্রথম ফাঁকা স্লটে একটা 30 মিনিটের মিটিং শিডিউল করো
+### Outcome: ['email.search_emails.func(query="Sofia", date_min="2023-11-22", date_max="2023-11-30")']
+### Steps: 2 | Time: 19.2s | Error: none
+Progress: 23/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: বুধবার 1:30টার পরে আমার যে মিটিংগুলো আছে, সেগুলো ডিলিট করো
+### Outcome: ['calendar.search_events.func(query="Wednesday", time_min="2023-11-29 13:30:00", time_max="2023-11-29 23:59:59")', 'calendar.search_events.func(query="", time_max="2023-11-29 23:59:59", time_min="2023-11-29 13:30:00")', 'calendar.delete_event.func(event_id="00000112")', 'calendar.delete_event.func(event_id="00000090")']
+### Steps: 5 | Time: 21.9s | Error: none
+Progress: 24/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: olga-এর সাথে সামনে যত মিটিং আছে, সবগুলো বাতিল করতে হবে। তুমি কি এটা করে দিতে পারবে, প্লিজ?
+### Outcome: ['calendar.search_events.func(query="Olga", time_min="2023-01-01", time_max="2024-12-31")', 'calendar.delete_event.func(event_id="00000274")', 'calendar.delete_event.func(event_id="00000144")', 'calendar.delete_event.func(event_id="00000061")', 'calendar.delete_event.func(event_id="00000290")', 'calendar.delete_event.func(event_id="00000156")']
+### Steps: 7 | Time: 13.8s | Error: none
+Progress: 25/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: kofi কোম্পানি ছেড়ে চলে যাচ্ছে। ওর সাথে ভবিষ্যতের সব মিটিং বাতিল করে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="Kofi")', 'calendar.search_events.func(query="kofi.mensah@atlas.com", time_min="2023-11-30 00:00:00", time_max="2024-12-31 23:59:59")', 'calendar.delete_event.func(event_id="00000253")', 'calendar.delete_event.func(event_id="00000109")', 'calendar.delete_event.func(event_id="00000086")']
+### Steps: 6 | Time: 16.6s | Error: none
+Progress: 26/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: ভবিষ্যতের সব board of directors conclave মিটিং ডিলিট করো
+### Outcome: ['calendar.search_events.func(query="board of directors conclave", time_min="2023-11-30 00:00:00", time_max="2024-12-31 23:59:59")', 'calendar.delete_event.func(event_id="00000170")', 'calendar.search_events.func(query="board of directors conclave", time_max="2025-12-31 23:59:59", time_min="2023-11-30 00:00:00")']
+### Steps: 4 | Time: 10.6s | Error: none
+Progress: 27/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: আমরা ঠিক করেছি, sync up মিটিং আর লাগবে না। সামনে যতগুলো আছে, সব বাতিল করে দিতে পারবে?
+### Outcome: ['calendar.search_events.func(query="sync up", time_min="2023-11-30", time_max="2024-12-31")', 'calendar.delete_event.func(event_id="00000016")', 'calendar.search_events.func(query="sync up", time_max="2024-12-31", time_min="2023-11-30")']
+### Steps: 4 | Time: 12.7s | Error: none
+Progress: 28/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: fatima-এর সাথে একটু বসা দরকার। 4 ডিসেম্বর 1:30টায় Board of Directors Conclave নামে একটা ইভেন্ট শিডিউল করে দিতে পারবে? ইভেন্টটা 2 ঘণ্টা ধরে চলবে।
+### Outcome: ['company_directory.find_email_address.func(name="Fatima")', 'calendar.create_event.func(event_name="Board of Directors Conclave", participant_email="fatima.khan@atlas.com", event_start="2023-12-04 13:30:00", duration="120")']
+### Steps: 3 | Time: 12.0s | Error: none
+Progress: 29/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: অনেকদিন yuki-এর সাথে দেখা হয়নি। 20 ডিসেম্বর 10টায় Digital Transformation Conference নামে 30 মিনিট সময়ের একটা ইভেন্ট শিডিউল করে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="yuki")', 'calendar.create_event.func(event_name="Digital Transformation Conference", participant_email="yuki.tanaka@atlas.com", event_start="2023-12-20 10:00:00", duration="30")']
+### Steps: 3 | Time: 9.2s | Error: none
+Progress: 30/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: CRM-এ Jessie Thomas-এর স্ট্যাটাস won-এ আপডেট করো
+### Outcome: ['customer_relationship_manager.search_customers.func(customer_name="Jessie Thomas", customer_email="", product_interest="", status="", assigned_to_email="", last_contact_date_min="", last_contact_date_max="", follow_up_by_min="", follow_up_by_max="")', 'customer_relationship_manager.update_customer.func(customer_id="00000149", field="status", new_value="Won")']
+### Steps: 3 | Time: 6.5s | Error: none
+Progress: 31/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Rahul Moore আর আমাদের কাস্টমার নেই। CRM থেকে তাকে ডিলিট করে দিতে পারবে?
+### Outcome: ['customer_relationship_manager.search_customers.func(customer_name="Rahul Moore")', 'customer_relationship_manager.delete_customer.func(customer_id="00000073")']
+### Steps: 3 | Time: 5.2s | Error: none
+Progress: 32/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: CRM থেকে Jaden White-কে ডিলিট করো
+### Outcome: ['customer_relationship_manager.search_customers.func(customer_name="Jaden White")', 'customer_relationship_manager.delete_customer.func(customer_id="00000052")']
+### Steps: 3 | Time: 5.0s | Error: none
+Progress: 33/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Morgan Wilson-কে কি CRM-এ যোগ করে দিতে পারবে? সে নতুন lead, তাকে Nadia-এর নামে অ্যাসাইন করতে হবে
+### Outcome: ['company_directory.find_email_address.func(name="Nadia")', 'customer_relationship_manager.add_customer.func(assigned_to_email="nadia.moreau@atlas.com", customer_email="", customer_name="Morgan Wilson", customer_phone="", follow_up_by="", last_contact_date="2023-11-30", notes="", product_interest="", status="Lead")']
+### Steps: 3 | Time: 9.0s | Error: none
+Progress: 34/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Jordan Moore নামে একজন নতুন lead এসেছে। তাকে CRM-এ যোগ করে Akira-এর নামে অ্যাসাইন করে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="Akira")', 'customer_relationship_manager.add_customer.func(customer_name="Jordan Moore", assigned_to_email="akira.sato@atlas.com", status="Lead", customer_email="", customer_phone="", last_contact_date="", product_interest="", notes="", follow_up_by="")']
+### Steps: 3 | Time: 11.6s | Error: none
+Progress: 35/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Alex Jackson-এর দায়িত্ব নিচ্ছে Raj। CRM-এ রিঅ্যাসাইন করে দিতে পারবে?
+### Outcome: ['email.search_emails.func(query="Alex Jackson", date_min="2023-01-01", date_max="2023-12-31")', 'customer_relationship_manager.search_customers.func(customer_name="Alex Jackson")', 'customer_relationship_manager.update_customer.func(customer_id="00000038", field="assigned_to_email", new_value="raj.patel@atlas.com")']
+### Steps: 4 | Time: 13.2s | Error: none
+Progress: 36/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Taylor Jackson-এর দায়িত্ব আমরা Raj-কে দিচ্ছি। CRM-এ এই পরিবর্তনটা করে দিতে পারবে?
+### Outcome: ['crm_search_customers.func(customer_name="Taylor Jackson")', 'customer_relationship_manager.search_customers.func(customer_name="Taylor Jackson")', 'company_directory.find_email_address.func(name="Raj")', 'customer_relationship_manager.update_customer.func(customer_id="00000189", field="assigned_to_email", new_value="raj.patel@atlas.com")']
+### Steps: 5 | Time: 14.4s | Error: none
+Progress: 37/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: CRM-এ Nadia-এর যেসব lead training-এ আগ্রহী, সবগুলো Lena-এর নামে রিঅ্যাসাইন করো।
+### Outcome: ['company_directory.find_email_address.func(name="Lena")', 'customer_relationship_manager.search_customers.func(product_interest="Training", status="Lead")', 'customer_relationship_manager.update_customer.func(customer_id="00000021", field="assigned_to_email", new_value="lena.schmidt@atlas.com")', 'customer_relationship_manager.update_customer.func(customer_id="00000194", field="assigned_to_email", new_value="lena.schmidt@atlas.com")', 'customer_relationship_manager.update_customer.func(customer_id="00000129", field="assigned_to_email", new_value="lena.schmidt@atlas.com")', 'customer_relationship_manager.update_customer.func(customer_id="00000062", field="assigned_to_email", new_value="lena.schmidt@atlas.com")', 'customer_relationship_manager.update_customer.func(customer_id="00000116", field="assigned_to_email", new_value="lena.schmidt@atlas.com")']
+### Steps: 8 | Time: 20.1s | Error: none
+Progress: 38/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: Lena-এর যেসব lead hardware-এ আগ্রহী, সবগুলোর দায়িত্ব নিচ্ছে Akira। CRM-এ ওগুলো রিঅ্যাসাইন করে দিতে পারবে?
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 676, in run_agent_structured
+    observation = str(t(**str_input))
+                      ^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/tools/tool.py", line 62, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: update_customer() got an unexpected keyword argument 'newvalue'
+### Task: Lena-এর যেসব lead hardware-এ আগ্রহী, সবগুলোর দায়িত্ব নিচ্ছে Akira। CRM-এ ওগুলো রিঅ্যাসাইন করে দিতে পারবে?
+### Outcome: []
+### Steps: 0 | Time: 22.7s | Error: update_customer() got an unexpected keyword argument 'newvalue'
+Progress: 39/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: Sofia-এর যেসব কাস্টমার training-এ আগ্রহী এবং qualified বা proposal পর্যায়ে আছে, তাদের সবাইকে Nadia-এর কাছে সরাতে হবে। CRM-এ এই পরিবর্তনটা করে দিতে পারবে?
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 676, in run_agent_structured
+    observation = str(t(**str_input))
+                      ^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/tools/tool.py", line 62, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: update_customer() got an unexpected keyword argument 'new?'
+### Task: Sofia-এর যেসব কাস্টমার training-এ আগ্রহী এবং qualified বা proposal পর্যায়ে আছে, তাদের সবাইকে Nadia-এর কাছে সরাতে হবে। CRM-এ এই পরিবর্তনটা করে দিতে পারবে?
+### Outcome: []
+### Steps: 0 | Time: 25.0s | Error: update_customer() got an unexpected keyword argument 'new?'
+Progress: 40/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: CRM-এ Nadia-এর যেসব কাস্টমার hardware-এ আগ্রহী এবং qualified বা proposal পর্যায়ে আছে, তাদের সবাইকে Akira-এর হাতে দিয়ে দাও
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 676, in run_agent_structured
+    observation = str(t(**str_input))
+                      ^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/tools/tool.py", line 62, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: update_customer() got an unexpected keyword argument 'newvalue'
+### Task: CRM-এ Nadia-এর যেসব কাস্টমার hardware-এ আগ্রহী এবং qualified বা proposal পর্যায়ে আছে, তাদের সবাইকে Akira-এর হাতে দিয়ে দাও
+### Outcome: []
+### Steps: 0 | Time: 11.4s | Error: update_customer() got an unexpected keyword argument 'newvalue'
+Progress: 41/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Sofia-এর যেসব কাস্টমার won স্টেজে আছে এবং services-এ আগ্রহী, তাদের কাউকেই আর রাখার দরকার নেই। CRM থেকে তাদের ডিলিট করে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="Sofia")', 'customer_relationship_manager.search_customers.func(assigned_to_email="sofia.santos@atlas.com", status="Won", product_interest="Services")', 'customer_relationship_manager.delete_customer.func(customer_id="00000048")', 'customer_relationship_manager.search_customers.func(assigned_to_email="sofia.santos@atlas.com", product_interest="Services", status="Won")']
+### Steps: 5 | Time: 14.1s | Error: none
+Progress: 42/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Nadia-এর যেসব কাস্টমার qualified স্টেজে আছে এবং training-এ আগ্রহী, তাদের সবাইকে CRM থেকে সরিয়ে ফেলতে হবে। এই পরিবর্তনটা করে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="Nadia")', 'customer_relationship_manager.search_customers.func(customer_name="", customer_email="", product_interest="Training", status="Qualified", assigned_to_email="nadia.moreau@atlas.com", follow_up_by_max="", follow_up_by_min="", last_contact_date_max="", last_contact_date_min="")', 'customer_relationship_manager.search_customers.func(assigned_to_email="nadia.moreau@atlas.com", product_interest="Training", status="Qualified")', 'customer_relationship_manager.search_customers.func(assigned_to_email="nadia.moreau@atlas.com")']
+### Steps: 5 | Time: 18.8s | Error: none
+Progress: 43/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: মনে হচ্ছে কয়েকজন কাস্টমার 6 সপ্তাহ ধরে hardware প্রোডাক্টের প্রপোজালে কোনো সাড়া দেয়নি। CRM-এ তাদের lost-এ সরিয়ে দিতে পারবে?
+### Outcome: ['customer_relationship_manager.search_customers.func(product_interest="Hardware", status="Proposal", last_contact_date_max="2023-10-19")', 'customer_relationship_manager.update_customer.func(customer_id="00000132", field="status", new_value="Lost")', 'customer_relationship_manager.update_customer.func(customer_id="00000088", field="status", new_value="Lost")']
+### Steps: 4 | Time: 8.9s | Error: none
+Progress: 44/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: software প্রোডাক্টের প্রপোজালে 6 সপ্তাহ ধরে সাড়া দেয়নি এমন সব কাস্টমারকে lost-এ সরাতে হবে। CRM আপডেট করে দিতে পারবে?
+### Outcome: ['customer_relationship_manager.search_customers.func(product_interest="Software", last_contact_date_max="2023-10-19")', 'customer_relationship_manager.update_customer.func(customer_id="00000068", field="status", new_value="Lost")', 'customer_relationship_manager.update_customer.func(customer_id="00000094", field="status", new_value="Lost")', 'customer_relationship_manager.update_customer.func(customer_id="00000006", field="status", new_value="Lost")', 'customer_relationship_manager.update_customer.func(customer_id="00000065", field="status", new_value="Lost")', 'customer_relationship_manager.update_customer.func(customer_id="00000151", field="status", new_value="Lost")']
+### Steps: 7 | Time: 14.0s | Error: none
+Progress: 45/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 21 নভেম্বর থেকে মোট ভিজিট দেখিয়ে একটা bar চার্ট বানাতে পারবে?
+### Outcome: ['analytics.create_plot.func(time_min="2023-11-21", time_max="2023-11-30", value_to_plot="total_visits", plot_type="bar")']
+### Steps: 2 | Time: 10.5s | Error: none
+Progress: 46/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: প্লিজ 11 সেপ্টেম্বর তারিখের গড় সেশনের সময়কাল মেট্রিকটার ডিস্ট্রিবিউশন চার্টে দেখাও
+### Outcome: ['analytics.create_plot.func(time_min="2023-09-11", time_max="2023-09-11", value_to_plot="average_session_duration", plot_type="histogram")', 'analytics.create_plot.func(plot_type="histogram", time_max="2023-09-11", time_min="2023-09-11", value_to_plot="session_duration_seconds")']
+### Steps: 3 | Time: 11.0s | Error: none
+Progress: 47/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: প্লিজ 5 নভেম্বর থেকে 21 নভেম্বর সময়ের মধ্যে এনগেজড ইউজার ও মোট ভিজিটের ডিস্ট্রিবিউশন আমাকে চার্টে দেখিয়ে দাও
+### Outcome: ['analytics.engaged_users_count.func(time_min="2023-11-05", time_max="2023-11-21")', 'analytics.total_visits_count.func(time_max="2023-11-21", time_min="2023-11-05")', 'analytics.create_plot.func(time_min="2023-11-05", time_max="2023-11-21", value_to_plot="engaged_users", plot_type="bar")', 'analytics.create_plot.func(plot_type="bar", time_max="2023-11-21", time_min="2023-11-05", value_to_plot="user_engaged")', 'analytics.create_plot.func(plot_type="bar", time_max="2023-11-21", time_min="2023-11-05", value_to_plot="total_visits")']
+### Steps: 6 | Time: 17.7s | Error: none
+Progress: 48/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 29 সেপ্টেম্বর আর 13 নভেম্বরের মধ্যে মোট ভিজিট আর গড় সেশনের সময়কালের একটা histogram লাগবে
+### Outcome: ['analytics.create_plot.func(time_min="2023-09-29", time_max="2023-11-13", value_to_plot="total_visits", plot_type="histogram")', 'analytics.create_plot.func(plot_type="histogram", time_max="2023-11-13", time_min="2023-09-29", value_to_plot="session_duration_seconds")']
+### Steps: 3 | Time: 8.1s | Error: none
+Progress: 49/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 28 অক্টোবর থেকে কোনো সময় কি মোট ভিজিট 3-এর চেয়ে বেশি ছিল? যদি তাই হয়, প্লিজ এটা line চার্ট আকারে দেখাও
+### Outcome: ['analytics.total_visits_count.func(time_min="2023-10-28", time_max="2023-11-30")', 'analytics.create_plot.func(time_min="2023-10-28", time_max="2023-11-29", value_to_plot="total_visits", plot_type="line")']
+### Steps: 3 | Time: 8.6s | Error: none
+Progress: 50/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 2023-11-10 থেকে মোট ভিজিট আর এনগেজড ইউজারের bar চার্ট লাগবে
+### Outcome: ['analytics.create_plot.func(time_min="2023-11-10", time_max="2023-11-10", value_to_plot="total_visits", plot_type="bar")', 'analytics.create_plot.func(plot_type="bar", time_max="2023-11-10", time_min="2023-11-10", value_to_plot="user_engaged")']
+### Steps: 3 | Time: 9.8s | Error: none
+Progress: 51/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: 2023-09-24 থেকে এনগেজড ইউজার আর গড় সেশনের সময়কাল দেখিয়ে bar চার্ট বানাও
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 676, in run_agent_structured
+    observation = str(t(**str_input))
+                      ^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/tools/tool.py", line 62, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: engaged_users_count() got an unexpected keyword argument 'traffic_source'
+### Task: 2023-09-24 থেকে এনগেজড ইউজার আর গড় সেশনের সময়কাল দেখিয়ে bar চার্ট বানাও
+### Outcome: []
+### Steps: 0 | Time: 3.5s | Error: engaged_users_count() got an unexpected keyword argument 'traffic_source'
+Progress: 52/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: গত 2 সপ্তাহ ধরে গড় সেশনের সময়কালের একটা line চার্ট বানাতে পারবে, যদি গত 2 সপ্তাহে কখনো এটা 2-এর চেয়ে বেশি হয়ে থাকে?
+### Outcome: ['analytics.get_average_session_duration.func(time_min="2023-11-16", time_max="2023-11-30")', 'analytics.create_plot.func(time_min="2023-11-16", time_max="2023-11-29", value_to_plot="average_session_duration", plot_type="line")', 'analytics.create_plot.func(plot_type="line", time_max="2023-11-29", time_min="2023-11-16", value_to_plot="session_duration_seconds")']
+### Steps: 4 | Time: 19.8s | Error: none
+Progress: 53/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: গত 1 সপ্তাহে কোনো সময় কি মোট ভিজিট 3-এর চেয়ে কম ছিল? যদি তাই হয়, প্লিজ এটার একটা line চার্ট বানাও
+### Outcome: ['analytics.total_visits_count.func(time_min="2023-11-23", time_max="2023-11-30")', 'analytics.create_plot.func(time_min="2023-11-23", time_max="2023-11-29", value_to_plot="total_visits", plot_type="line")']
+### Steps: 3 | Time: 9.8s | Error: none
+Progress: 54/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: যদি গড় সেশনের সময়কাল 4 অক্টোবর তারিখের তুলনায় কম হয় এবং পার্থক্যটা 3%-এর বেশি হয়, তাহলে তখন থেকে এটার একটা line চার্ট বানাও
+### Outcome: ['analytics.get_average_session_duration.func(time_min="2023-10-04", time_max="2023-11-30")']
+### Steps: 2 | Time: 37.1s | Error: none
+Progress: 55/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: এনগেজড ইউজার কি রবিবার যা ছিল তার চেয়ে কম, আর ফারাকটা কি 3%-এর বেশি? যদি তাই হয়, প্লিজ তখন থেকে এটা line চার্ট আকারে দেখাও
+### Outcome: ['analytics.engaged_users_count.func(time_min="2023-11-26", time_max="2023-11-30")']
+### Steps: 2 | Time: 11.5s | Error: none
+Progress: 56/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: শনিবারের গড় সেশনের সময়কাল যদি তার আগের শনিবারের চেয়ে বেশি হয়ে থাকে এবং পার্থক্যটা 3%-এর বেশি হয়, তাহলে ওই সময়টুকুর জন্য এটার একটা line চার্ট বানাও।
+### Outcome: ['analytics.get_average_session_duration.func(time_min="2023-11-18", time_max="2023-11-25")', 'analytics.create_plot.func(time_min="2023-11-18", time_max="2023-11-25", value_to_plot="session_duration_seconds", plot_type="line")']
+### Steps: 3 | Time: 21.0s | Error: none
+Progress: 57/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: বুধবার থেকে গড় সেশনের সময়কাল শতকরা কত বেড়েছে, একটু চেক করে দেখতে পারবে? যদি এটা মোট ভিজিটের চেয়ে বেশি বেড়ে থাকে, তাহলে তখন থেকে দুটোরই line চার্ট দেখাও
+### Outcome: ['analytics.get_average_session_duration.func(time_min="2023-11-29", time_max="2023-11-30")', 'analytics.get_average_session_duration.func(time_max="2023-11-30", time_min="2023-11-30")', 'analytics.total_visits_count.func(time_max="2023-11-30", time_min="2023-11-30")', 'analytics.total_visits_count.func(time_max="2023-11-29", time_min="2023-11-29")', 'analytics.create_plot.func(time_min="2023-11-29", time_max="2023-11-30", value_to_plot="total_visits", plot_type="bar")']
+### Steps: 6 | Time: 34.0s | Error: none
+Progress: 58/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: 24 নভেম্বর থেকে সবচেয়ে বেশি জনপ্রিয় ট্রাফিক সোর্সের একটা line চার্ট বানাতে পারবে?
+### Outcome: ['analytics.traffic_source_count.func(time_min="2023-11-24", time_max="2023-11-30", traffic_source="direct")', 'analytics.traffic_source_count.func(time_max="2023-11-30", time_min="2023-11-24", traffic_source="referral")']
+### Steps: 3 | Time: 9.1s | Error: none
+Progress: 59/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: গত 4 সপ্তাহের social media আর search engine-এর bar চার্ট বানাও, যদি social media থেকে search engine-এর চেয়ে বেশি ট্রাফিক এসে থাকে
+### Outcome: ['analytics.traffic_source_count.func(time_min="2023-10-30", time_max="2023-11-30", traffic_source="social media")', 'analytics.traffic_source_count.func(time_max="2023-11-30", time_min="2023-10-30", traffic_source="search engine")', 'analytics.create_plot.func(time_min="2023-10-30", time_max="2023-11-29", value_to_plot="visits_social_media", plot_type="bar")', 'analytics.create_plot.func(plot_type="bar", time_max="2023-11-29", time_min="2023-10-30", value_to_plot="visits_search_engine")']
+### Steps: 5 | Time: 39.5s | Error: none
+Progress: 60/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: yuki-এর যেসব টাস্ক in progress-এ আছে, সবগুলো in review-এ সরিয়ে দাও
+### Outcome: ['project_management.search_tasks.func(assigned_to_email="yuki@example.com", board="", due_date="", list_name="", task_name="")', 'company_directory.find_email_address.func(name="yuki")', 'project_management.search_tasks.func(assigned_to_email="yuki@example.com", board="", due_date="", list_name="In Progress", task_name="")', 'project_management.search_tasks.func(assigned_to_email="yuki@example.com", board="Back end", due_date="", list_name="In Progress", task_name="")', 'project_management.search_tasks.func(assigned_to_email="yuki@example.com", board="Front end", due_date="", list_name="In Progress", task_name="")']
+### Steps: 6 | Time: 26.5s | Error: none
+Progress: 61/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: kofi-এর in progress-এ থাকা সব টাস্ক in review-এ সরিয়ে দিতে পারবে?
+### Outcome: ['project_management.search_tasks.func(task_name="", assigned_to_email="", list_name="In Progress", due_date="", board="")', 'project_management.search_tasks.func(assigned_to_email="kofi", board="", due_date="", list_name="In Progress", task_name="")']
+### Steps: 3 | Time: 8.5s | Error: none
+Progress: 62/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Back end-এর backlog-এ Fix alignment issue in homepage নামে একটা নতুন টাস্ক যোগ করো, আর এটা anaya-কে অ্যাসাইন করো। এর ডেডলাইন 5 ডিসেম্বর।
+### Outcome: ['company_directory.find_email_address.func(name="anaya")', 'project_management.create_task.func(task_name="Fix alignment issue in homepage", assigned_to_email="anaya.patel@atlas.com", list_name="Backlog", due_date="2023-12-05", board="Back end")']
+### Steps: 3 | Time: 7.4s | Error: none
+Progress: 63/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: Design-এর backlog-এ Design UI for profile page নামে একটা নতুন টাস্ক যোগ করে carlos-কে অ্যাসাইন করতে হবে। ডেডলাইন 3 ডিসেম্বর। এটা করে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="Carlos")', 'project_management.create_task.func(task_name="Design UI for profile page", assigned_to_email="carlos.rodriguez@atlas.com", list_name="Backlog", due_date="2023-12-03", board="Design")']
+### Steps: 3 | Time: 8.4s | Error: none
+Progress: 64/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: aisha-এর যেসব টাস্ক backlog-এ পড়ে আছে আর ডেডলাইন পেরিয়ে গেছে, সবগুলো in progress-এ সরিয়ে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="aisha")', 'project_management.search_tasks.func(assigned_to_email="aisha.chen@atlas.com", board="Front end", due_date="2023-11-01", list_name="Backlog", task_name="")', 'project_management.search_tasks.func(assigned_to_email="aisha.chen@atlas.com", board="", due_date="", list_name="Backlog", task_name="")']
+### Steps: 4 | Time: 11.3s | Error: none
+Progress: 65/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: backlog-এ nia-এর যত টাস্কের ডেডলাইন পেরিয়ে গেছে, সবগুলো in progress-এ সরিয়ে দাও
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 676, in run_agent_structured
+    observation = str(t(**str_input))
+                      ^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/tools/tool.py", line 62, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: update_task() got an unexpected keyword argument 'new_task_name'
+### Task: backlog-এ nia-এর যত টাস্কের ডেডলাইন পেরিয়ে গেছে, সবগুলো in progress-এ সরিয়ে দাও
+### Outcome: []
+### Steps: 0 | Time: 19.6s | Error: update_task() got an unexpected keyword argument 'new_task_name'
+Progress: 66/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 1), retrying in 1.0s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: 207d68c1-7c44-465e-ac0c-41d4943c5a6c)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: luis-এর যে টাস্কগুলো in review-এ আছে, সেগুলো completed-এ মুভ করে দিতে পারবে?
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 676, in run_agent_structured
+    observation = str(t(**str_input))
+                      ^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/tools/tool.py", line 62, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: update_task() got an unexpected keyword argument 'new?'
+### Task: luis-এর যে টাস্কগুলো in review-এ আছে, সেগুলো completed-এ মুভ করে দিতে পারবে?
+### Outcome: []
+### Steps: 0 | Time: 14.2s | Error: update_task() got an unexpected keyword argument 'new?'
+Progress: 67/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 1), retrying in 1.1s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: b31b9e48-2e6c-4e63-a964-3ee92ff220ae)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 2), retrying in 0.6s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: 88f984b2-ea91-45d6-a3ef-e071ba9878c0)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 3), retrying in 2.3s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: a242d706-7a4c-4c13-86bc-1918a9e22d37)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 4), retrying in 3.9s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: be873b1f-50c6-4551-942f-f3d7a75c221c)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 5), retrying in 17.3s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: 443e6805-60f7-48d5-af58-28f87b6d9938)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 6), retrying in 43.6s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: a04cb118-7777-43ba-b90a-3b2895885d8f)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 7), retrying in 6.3s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: 887ac9fb-50e8-4b5d-95c4-cca631074090)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 8), retrying in 37.5s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: 6179430f-c6c9-436d-aed0-6407d2181635)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 9), retrying in 28.0s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: 721616fc-c7e1-494e-a7e3-c304d8976f34)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+ERROR: Unexpected error with task: আমি fatima-এর সব টাস্ক রিভিউ করে ফেলেছি। যেগুলো এখনো in review-এ আছে, সবগুলো completed-এ সরিয়ে দিতে পারবে?
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 634, in run_agent_structured
+    response = _call_llm_structured_with_retry(route, system_prompt, messages, tools_schema, temperature)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 331, in wrapped_f
+    return copy(f, *args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/.tools/python/cpython-3.12.15-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/.tools/python/cpython-3.12.15-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/tenacity/__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 458, in _call_llm_structured_with_retry
+    return _call_llm_structured(route, system_prompt, messages, tools_schema, temperature)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 291, in _call_llm_structured
+    response = _create_with_deadline(client, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 179, in _create_with_deadline
+    return client.chat.completions.create(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1239, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1332, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1105, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.InternalServerError: Error code: 500 - {'error': {'message': 'Internal Server Error (ref: c82f0f96-f7ca-46c0-a787-583b1d69833d)', 'type': 'api_error', 'param': None, 'code': None}}
+### Task: আমি fatima-এর সব টাস্ক রিভিউ করে ফেলেছি। যেগুলো এখনো in review-এ আছে, সবগুলো completed-এ সরিয়ে দিতে পারবে?
+### Outcome: []
+### Steps: 0 | Time: 161.6s | Error: Error code: 500 - {'error': {'message': 'Internal Server Error (ref: c82f0f96-f7ca-46c0-a787-583b1d69833d)', 'type': 'api_error', 'param': None, 'code': None}}
+Progress: 68/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: yuki অসুস্থ, তাই তার in progress-এ থাকা টাস্কগুলো carlos-কে রিঅ্যাসাইন করে দাও।
+### Outcome: ['project_management.search_tasks.func(task_name="", assigned_to_email="yuki@example.com", board="", due_date="", list_name="In Progress")', 'project_management.search_tasks.func(assigned_to_email="yuki", board="", due_date="", list_name="In Progress", task_name="")', 'project_management.update_task.func(field="assigned_to_email", new_value="carlos@example.com", task_id="00000091")', 'company_directory.find_email_address.func(name="Carlos")', 'project_management.update_task.func(field="assigned_to_email", new_value="carlos.rodriguez@atlas.com", task_id="00000091")']
+### Steps: 6 | Time: 20.3s | Error: none
+Progress: 69/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 1), retrying in 1.5s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: 67aff429-330a-4b05-ad5f-c1f3f96bf12f)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+ERROR: Unexpected error with task: anaya-এর in progress-এ থাকা সব টাস্ক leila-কে রিঅ্যাসাইন করতে হবে। করে দিতে পারবে?
+Traceback (most recent call last):
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/inference.py", line 117, in _run_single_task
+    result = agent_fn(
+             ^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/evals/agent.py", line 676, in run_agent_structured
+    observation = str(t(**str_input))
+                      ^^^^^^^^^^^^^^
+  File "/Users/cefalo/Desktop/academic/BARTA/workbench/WorkBench/src/tools/tool.py", line 62, in __call__
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: update_task() got an unexpected keyword argument 'new?'
+### Task: anaya-এর in progress-এ থাকা সব টাস্ক leila-কে রিঅ্যাসাইন করতে হবে। করে দিতে পারবে?
+### Outcome: []
+### Steps: 0 | Time: 20.4s | Error: update_task() got an unexpected keyword argument 'new?'
+Progress: 70/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: carlos এখন যেসব টাস্কে কাজ করছে, সবগুলো backlog-এ সরিয়ে দিতে পারবে?
+### Outcome: ['project_management.search_tasks.func(task_name="", assigned_to_email="carlos", list_name="", due_date="", board="")', 'project_management.update_task.func(task_id="00000037", field="list_name", new_value="Backlog")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000096")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000013")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000043")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000092")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000014")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000076")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000077")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000089")', 'project_management.update_task.func(field="list_name", new_value="Backlog", task_id="00000081")', 'projectmanagement_update_task.func(field="list_name", new_value="Backlog", task_id="00000083")']
+### Steps: 13 | Time: 44.8s | Error: none
+Progress: 71/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+Retryable error (attempt 1), retrying in 0.8s: APITimeoutError('Request timed out.')
+Retryable error (attempt 2), retrying in 0.6s: APITimeoutError('Request timed out.')
+Retryable error (attempt 3), retrying in 1.0s: APITimeoutError('Request timed out.')
+Retryable error (attempt 4), retrying in 2.3s: APITimeoutError('Request timed out.')
+Retryable error (attempt 5), retrying in 30.6s: APITimeoutError('Request timed out.')
+Retryable error (attempt 6), retrying in 23.0s: APITimeoutError('Request timed out.')
+Retryable error (attempt 7), retrying in 89.9s: APITimeoutError('Request timed out.')
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: jinsoo-এর ডেডলাইন পেরিয়ে যাওয়া যে টাস্কগুলো সে এখনো শুরু করেনি, সবগুলো aisha-কে দিয়ে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="jinsoo")', 'company_directory.find_email_address.func(name="aisha")', 'project_management.search_tasks.func(assigned_to_email="jinsoo.kim@atlas.com", board="", list_name="Backlog", due_date="2023-11-30", task_name="")', 'project_management.update_task.func(task_id="00000246", field="assigned_to_email", new_value="aisha.chen@atlas.com")', 'project_management.search_tasks.func(assigned_to_email="jinsoo.kim@atlas.com", board="", due_date="2023-11-29", list_name="Backlog", task_name="")', '_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________We.func(field="assigned_to_email", new_value="aisha.chen@atlas.com", task_id="00000257")', 'project_management.search_tasks.func(assigned_to_email="jinsoo.kim@atlas.com", board="", due_date="2023-11-28", list_name="Backlog", task_name="")']
+### Steps: 7 | Time: 602.3s | Error: Agent stopped due to iteration limit or time limit.
+Progress: 72/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: yuki-এর হাতে এখন কিছুটা সময় আছে, তাই ওকে carlos-এর ডেডলাইন পেরিয়ে যাওয়া যে টাস্কগুলো এখনো শুরু হয়নি, সবগুলো দিয়ে দিতে পারবে?
+### Outcome: ['company_directory.find_email_address.func(name="Yuki")', 'project_management.search_tasks.func(assigned_to_email="carlos@example.com", board="", due_date="", list_name="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="carlos@example.com", board="", due_date="", list_name="Backlog", task_name="")', 'project_management.search_tasks.func(assigned_to_email="carlos", board="", due_date="", list_name="", task_name="")']
+### Steps: 5 | Time: 47.7s | Error: none
+Progress: 73/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 500 Internal Server Error"
+Retryable error (attempt 1), retrying in 0.3s: InternalServerError("Error code: 500 - {'error': {'message': 'Internal Server Error (ref: ca1cfab7-2112-47d6-a592-ae0754f101eb)', 'type': 'api_error', 'param': None, 'code': None}}")
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: nia-এর সবচেয়ে জরুরি টাস্কটা নিয়ে olga-কে রিঅ্যাসাইন করে দাও।
+### Outcome: ['project_management.search_tasks.func(assigned_to_email="nia@example.com", board="", due_date="", list_name="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com", board="", due_date="", list_name="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com", board="", due_date="", list_name="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com", list_name="In Progress", board="", due_date="", task_name="")', 'project_______________________________________________________________________________________________________________________________________________________________________We.func(assigned_to_email="nia@example.com", board="", due_date="", list_name="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com")', 'project_management.search_tasks.func(assigned_to_email="nia@example.com")']
+### Steps: 13 | Time: 64.7s | Error: none
+Progress: 74/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: fatima-এর সবচেয়ে জরুরি টাস্কটা নিয়ে kofi-কে রিঅ্যাসাইন করে দিতে পারবে?
+### Outcome: ['project_management.search_tasks.func(assigned_to_email="fatima@example.com", board="", list_name="", due_date="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="", board="", due_date="", list_name="", task_name="urgent")', 'project_management.search_tasks.func(assigned_to_email="fatima@example.com", board="", due_date="", list_name="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="fatima@example.com")', 'project_management.search_tasks.func(assigned_to_email="", board="", due_date="", list_name="", task_name="")', 'project_management.search_tasks.func(assigned_to_email="fatima")', 'project_management.update_task.func(field="assigned_to_email", new_value="kofi@example.com", task_id="00000066")', 'company_directory.find_email_address.func(name="Kofi")', 'project_management.update_task.func(field="assigned_to_email", new_value="kofi.mensah@atlas.com", task_id="00000066")']
+### Steps: 10 | Time: 41.5s | Error: none
+Progress: 75/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+### Task: গত দুই সপ্তাহে যদি Jamie Anderson-এর সাথে আমাদের কথা না হয়ে থাকে, তাহলে যাকে ওই কাস্টমারের দায়িত্ব দেওয়া আছে, তার সাথে আগামীকাল আমার প্রথম ফাঁকা সময়ে 'Update on Jamie Anderson' নামে একটা 30 মিনিটের মিটিং বুক করো
+### Outcome: ['email.search_emails.func(query="Jamie Anderson", date_min="2023-11-16", date_max="2023-11-30")', 'customer_relationship_manager.search_customers.func(customer_name="Jamie Anderson")', 'calendar.create_event.func(event_name="Update on Jamie Anderson", participant_email="nadia.moreau@atlas.com", event_start="2023-12-01 09:00:00", duration="30")']
+### Steps: 4 | Time: 20.2s | Error: none
+Progress: 76/90
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 200 OK"
+Retryable error (attempt 1), retrying in 1.6s: APITimeoutError('Request timed out.')
+Retryable error (attempt 2), retrying in 1.5s: APITimeoutError('Request timed out.')
+Retryable error (attempt 3), retrying in 0.8s: APITimeoutError('Request timed out.')
+Retryable error (attempt 4), retrying in 14.2s: APITimeoutError('Request timed out.')
+Retryable error (attempt 5), retrying in 12.1s: APIConnectionError('Connection error.')
+Retryable error (attempt 6), retrying in 30.8s: APIConnectionError('Connection error.')
+Retryable error (attempt 7), retrying in 41.5s: APIConnectionError('Connection error.')
+INFO: HTTP Request: POST https://ollama.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+Retryable error (attempt 8), retrying in 36.4s: RateLimitError("Error code: 429 - {'error': {'message': 'you (arif2010621) have reached your monthly usage limit, upgrade for higher limits: https://ollama.com/upgrade or add usage credits: https://ollama.com/settings (ref: ae9f04b8-ef68-4805-a1e9-b19e13300e30)', 'type': 'api_error', 'param': None, 'code': None}}")

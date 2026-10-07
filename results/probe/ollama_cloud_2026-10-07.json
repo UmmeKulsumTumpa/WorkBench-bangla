@@ -1,0 +1,54 @@
+{
+  "runs": [
+    {
+      "started_at": "2026-10-07T05:52:10",
+      "results": [
+        {
+          "model_name": "ollama-gpt-oss-20b",
+          "registry_provider": "ollama_cloud",
+          "api_key_env": "OLLAMA_API_KEY",
+          "provider": "ollama_cloud",
+          "base_url": "https://ollama.com/v1",
+          "model_id": "gpt-oss:20b",
+          "supports_temperature": true,
+          "key_present": true,
+          "requests": [
+            {
+              "kind": "chat",
+              "latency_s": 3.93,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "stop",
+              "usage": {
+                "prompt_tokens": 74,
+                "completion_tokens": 32
+              },
+              "content": "OK",
+              "ok": true
+            },
+            {
+              "kind": "tool",
+              "latency_s": 2.03,
+              "http_status": 200,
+              "headers": {},
+              "finish_reason": "tool_calls",
+              "usage": {
+                "prompt_tokens": 138,
+                "completion_tokens": 39
+              },
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "get_weather",
+                  "arguments_raw": "{\"city\":\"Dhaka\"}",
+                  "arguments_valid_json": true
+                }
+              ],
+              "ok": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
