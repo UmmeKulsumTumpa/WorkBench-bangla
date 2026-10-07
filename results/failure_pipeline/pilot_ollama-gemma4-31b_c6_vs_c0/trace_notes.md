@@ -21,7 +21,7 @@ Decision-tree step key (pipeline §8): S1 translated task valid · S2 user simul
 ### 1. workbench:email:41 (email)
 - **Task goal:** forward every email that anaya sent last week with subject 'Update on Board of Directors Conclave' to nadia. Ground truth forwards 00000346 and 00000120, sent 11-20 and 11-21. The ground-truth logic uses the calendar week 2023-11-20..26.
 - **English:** looked up both addresses, then `search_emails(query=subject, date_min=2023-11-19, date_max=2023-11-26)` returned both emails. It forwarded both. Pass.
-- **Bangla:** "গত সপ্তাহে anaya '…' নিয়ে যে ইমেইলগুলো পাঠিয়েছিল, সবগুলো nadia-কে ফরোয়ার্ড করে দিতে পারবে". It looked up both addresses correctly, then searched `date_min=2023-11-23, date_max=2023-11-29` and got [] three times. An undated search (step 5) returned both target emails, but the agent rejected them as outside last week. Its final answer: "গত সপ্তাহে (২৩ নভেম্বর থেকে ২৯ নভেম্বর) … কোনো ইমেইল খুঁজে পাওয়া যায়নি … আপনি কি অন্য কোনো তারিখ … চেক করতে চান?"
+- **Bangla:** "গত সপ্তাহে anaya '…' নিয়ে যে ইমেইলগুলো পাঠিয়েছিল, সবগুলো nadia-কে ফরোয়ার্ড করে দিতে পারবে". It looked up both addresses correctly, then searched `date_min=2023-11-23, date_max=2023-11-29` and got [] twice (steps 2 and 3, subject queries); a third search in that window by anaya's address (step 4) returned only other emails (00000166, 00000456). An undated search (step 5) returned both target emails, but the agent rejected them as outside last week. Its final answer: "গত সপ্তাহে (২৩ নভেম্বর থেকে ২৯ নভেম্বর) … কোনো ইমেইল খুঁজে পাওয়া যায়নি … আপনি কি অন্য কোনো তারিখ … চেক করতে চান?"
 - **First divergence:** step 2. "গত সপ্তাহে" was grounded as the rolling 7 days 11-23..11-29, where English used the calendar week.
 - **Final failed/missing action:** the two `forward_email` calls were never made.
 - **Failure type:** Wrong tool argument (first failure point: Entity or slot grounding).
@@ -32,6 +32,7 @@ Decision-tree step key (pipeline §8): S1 translated task valid · S2 user simul
   - The owner has listed "গত সপ্তাহে" for the native-speaker review. If the review finds that it leans to "the past 7 days", this label becomes Translation/localization error.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 fail · S4 ok · S5 fail · S6 ok · S7 fail.
 - **Evidence (§9):** In email:41, English passed by calling `forward_email` for 00000120 and 00000346 after searching 11-19..11-26. In Bangla, the agent grounded "গত সপ্তাহে" as 11-23..11-29, found nothing, and refused the two emails its own undated search returned, so `forward_email` was never called. This is labelled an entity/slot-grounding failure of a Bangla date phrase: the translation is faithful and no C0 analogue exists.
+- **Adjudicated (ADJ, 2026-10-07):** the failure type is now **Understanding failure**, because the type follows the first failure point (convention C1). The first failure point (Entity or slot grounding), the confound (Genuine, provisional; decided together with md:120 under C5) and the tree are unchanged. Factual fix: the Bangla bullet originally said the windowed searches returned [] "three times"; the trace shows twice (steps 2 and 3), corrected above.
 
 ### 2. workbench:customer_relationship_manager:77 (CRM)
 - **Task goal:** move software-proposal customers who have not responded in 6 weeks to Lost. Ground truth: **no change**, because no candidate's last contact is before the 2023-10-19 cutoff.
@@ -62,6 +63,7 @@ Decision-tree step key (pipeline §8): S1 translated task valid · S2 user simul
   - Caveat: analytics:15 BN uses the same Bangla phrasing ("ডিস্ট্রিবিউশন চার্টে দেখাও") and correctly got histogram. With one run per side, run-to-run variance cannot be excluded.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 fail · S4 ok · S5 fail · S6 ok · S7 ok.
 - **Evidence (§9):** In analytics:20, English passed by calling `create_plot` with `plot_type="histogram"` for both metrics. In Bangla, the agent called `create_plot` with `plot_type="line"` for the same request, phrased "ডিস্ট্রিবিউশন … চার্টে দেখিয়ে দাও". This is labelled an instruction-understanding failure tied to the Bangla wording. It is not a general weakness (no C0 analogue), but the evidence is weak (analytics:15 BN succeeded).
+- **Adjudicated (ADJ, 2026-10-07):** the failure type is now **Understanding failure**, because the type follows the first failure point (C1). A2's Tool-argument construction was rejected: 'line' is what a loose reading of "distribution over Nov 5–21" gives, and the agent calls its line charts distribution charts. That is a different meaning, not a mis-mapping of an understood value (C4). The first failure point (Instruction understanding), the confound (Genuine, weak) and the tree are unchanged.
 
 ### 4. workbench:analytics:98 (analytics)
 - **Task goal:** "percent growth of average session duration since Wednesday; if it grew by more than total visits, plot both lines since then".
@@ -94,6 +96,10 @@ Decision-tree step key (pipeline §8): S1 translated task valid · S2 user simul
   - analytics:69 EN (an exclusive "since" boundary) was considered as an analogue and rejected as a different mechanism.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 fail · S4 ok · S5 fail · S6 ok · S7 ok.
 - **Evidence (§9):** In analytics:119, English passed by calling `create_plot(bar)` for both sources with `time_min=2023-11-02`. In Bangla, the agent grounded "গত 4 সপ্তাহের" to `time_min=2023-10-26`, so both plots cover 5 weeks. This is labelled a Bangla date/quantity grounding failure: the translation is faithful and no C0 analogue exists.
+- **Adjudicated (ADJ, 2026-10-07):** first failure point is now **Tool-argument construction**, the confound is **General model weakness present in both English and Bangla**, and the tree has S3 ok, so the first fail is S5. The failure type (Wrong tool argument) is unchanged. Reason (C4):
+  - 10-26 is exactly 35 days back, and no reading of "গত 4 সপ্তাহের" gives it.
+  - The agent restates "৪ সপ্তাহ", and analytics:51 BN computed "গত 2 সপ্তাহ" correctly. So this is date arithmetic on a correctly read value.
+  - C0 customer_relationship_manager:74 EN shows the same N-weeks-before-today arithmetic error: '6 weeks' became 'since October 16th'. That task is also the C0 analogue for crm:77.
 
 ### 6. workbench:multi_domain:84 (multi_domain)
 - **Task goal:** if olga has overdue tasks, book a 30-minute 'Catch up on overdue tasks' meeting with her at the earliest free time tomorrow. Ground truth: 2023-12-01 13:00.
@@ -125,6 +131,9 @@ Decision-tree step key (pipeline §8): S1 translated task valid · S2 user simul
   - The owner has this phrase on the native-speaker review list.
 - **Decision tree:** S1 fail · S2 N/A (no user simulator) · S3 fail · S4 ok · S5 fail · S6 ok · S7 ok.
 - **Evidence (§9):** In multi_domain:120, English passed by calling `create_task` with `due_date=2023-12-08`. In Bangla, the agent read "আগামী শুক্রবার" as 1 December and called `create_task` with `due_date=2023-12-01`. This is labelled a slot-grounding failure caused by a translation/localization ambiguity (provisional), not a general weakness, because no C0 analogue exists.
+- **Adjudicated (ADJ, 2026-10-07):** the failure type is now **Understanding failure**, because the type follows the first failure point (C1). Translation stays the confound. Decided together with email:41 under C5:
+  - Here the Bangla "আগামী শুক্রবার" adds the tomorrow reading, which the English source does not favour.
+  - In email:41, "গত সপ্তাহে" carries the same ambiguity as "last week", so that case is Genuine.
 
 ### EN-pass/BN-fail summary (A1)
 | task | first failure point | failure type | confound |
@@ -136,6 +145,12 @@ Decision-tree step key (pipeline §8): S1 translated task valid · S2 user simul
 | analytics:119 | Entity or slot grounding | Wrong tool argument | Genuine Bangla-related agent failure |
 | multi_domain:84 | Tool-argument construction | Wrong tool argument | General model weakness present in both English and Bangla |
 | multi_domain:120 | Entity or slot grounding | Wrong tool argument | Translation/localization error |
+
+- **Adjudicated (ADJ, 2026-10-07):** final labels are in `labels_final.csv`; the reasons are in `adjudication.csv`.
+  - email:41, analytics:20 and multi_domain:120: the failure type becomes Understanding failure.
+  - analytics:119 becomes Tool-argument construction / Wrong tool argument / General.
+  - Final confounds for the 7 cases: General 3, Genuine 2, Translation 1, Benchmark 1.
+  - The pattern line below now covers 2 of the 7, not 3: email:41 and multi_domain:120 are relative-date phrases resolved to another referent. analytics:119 is reclassified as date arithmetic.
 
 Pattern: 3 of the 7 cases (email:41, analytics:119, multi_domain:120) are mis-grounded **Bangla relative-date phrases**: "last week", "last 4 weeks" and "next Friday". In all 3 the tool syntax is fine. Bangla script never leaked into a tool argument.
 
@@ -187,3 +202,17 @@ Interesting? Yes. EN called `create_task` (step 3) before evaluating the conditi
 - **md:200:** both sides booked a conflicting slot: EN 11:00, BN 12:00.
 
 Empty model responses (no content and no tool call) occur in **2/90 C6 runs** (crm:74, md:149) and **0/90 C0 runs**. Both are both_wrong pairs, so they do not affect the EN-pass/BN-fail set. They are labelled Unclear: no error was recorded, so this cannot be attributed to the provider.
+
+---
+
+## Adjudication of the EN-fail rows (ADJ, 2026-10-07)
+The notes above do not state these labels, so they are left as written. Under convention C1 (in `annotation_rules.md`, applied to all 33 rows), the failure type changed on these rows:
+- calendar:79 EN/BN, analytics:69 EN/BN, project_management:64 EN/BN, customer_relationship_manager:46 EN and :57 EN → Understanding failure.
+- customer_relationship_manager:42 EN → Dialogue-state failure (status=Lead was applied at step 2 and dropped at step 3).
+
+No first failure point or confound changed on these rows. Rulings that kept a label:
+- multi_domain:6 EN stays General: the ID shift comes from a real created-then-deleted event, which C6 does not count as a benchmark artefact.
+- crm:42 EN and crm:46 EN stay Unclear: there is no C6 analogue. crm:46 EN never applied the Lead filter; it did not drop it after an empty result.
+- project_management:28 EN stays Wrong tool/action: it states 'No overdue tasks were found' and still moves the due-today task.
+
+See `adjudication.csv`.

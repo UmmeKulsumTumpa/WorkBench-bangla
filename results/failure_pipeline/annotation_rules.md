@@ -107,3 +107,73 @@ Columns, in this order (UTF-8, comma-separated, `csv` quoting): `task_uid, domai
   - removing "tool/environment".
 
 Domain-level numbers are descriptive only (n = 15).
+
+## Adjudication conventions (applied 2026-10-07, after blind double annotation)
+
+The adjudicator (ADJ) wrote these conventions to resolve the rule ambiguities that the second reviewer (A2) reported for gemma4:31b. They refine the rules above and do not replace any wording. They were applied to all 33 gemma4:31b label rows, not only the disputed ones, and they bind later adjudication. Decisions and reasons are in `pilot_<M>_c6_vs_c0/adjudication.csv`.
+
+**C1. First failure point, failure type and decision-tree step are one judgment.** Pipeline §6 says "after finding the first failure point, assign one failure type", and §5 says "do not label only the final visible error". So the type names the failure *at* the first failure point, not the later symptom. For EN-pass/BN-fail rows, the first agent-level `fail` among S3–S7 must be the step that matches both labels:
+
+| First failure point | Failure type | Tree step |
+|---|---|---|
+| Instruction understanding; Entity or slot grounding | Understanding failure | S3 |
+| Task constraint preservation | see the sub-rule below | S3, S4 or S5 |
+| Planning | Planning failure | S4 |
+| Tool selection | Wrong tool/action | S4 |
+| Tool-argument construction | Wrong tool argument | S5 |
+| Tool execution | Execution/environment failure | S6 |
+| Result verification | Verification failure | S7 |
+| Premature termination | Premature abandonment | S7 |
+| Unclear | Unclear | none |
+
+- **Which first failure point (including date errors).** Choose by the role of the value and the kind of error.
+  - Entity or slot grounding: a phrase is resolved to a different referent that is linguistically available ("last week" read as the past 7 days; "Wednesday" read as the past one; an exclusive "since").
+  - Task constraint preservation: a condition, threshold, filter or gate that decides *whether* to act, or *on which entities*, is misread, dropped, or evaluated wrongly. This holds even when the error is arithmetic (a 6-week threshold).
+  - Tool-argument construction: a value that was read correctly becomes a wrong argument through computation (date arithmetic, free-slot search, counting).
+  - Instruction understanding: the request's action or meaning is misread.
+  - Planning: the gate is applied correctly, but to inputs from a wrong plan of steps.
+- **Task constraint preservation sub-rule.**
+  - Understanding failure (S3): the agent's own words or first action give the constraint a wrong meaning.
+  - Dialogue-state failure (S3, the rule's own definition): the agent applied the constraint in an earlier tool call and dropped or contradicted it in a later one.
+  - Wrong tool/action (S4): the constraint was read correctly but not applied, or evaluated wrongly, at the write, and the write should not exist.
+  - Wrong tool argument (S5): as for Wrong tool/action, but a write was due and it landed on the wrong targets or values.
+- **Labels on English rows.** The type labels are used for English rows unchanged ("Understanding failure" = the request was misunderstood).
+- **Translation rows.** When S1 fails, the root cause is Translation. The agent-level labels and S3–S7 describe where the shifted value entered, judged against the intended (English/ground-truth) task.
+
+**C2. Reversible errors and "unreachable".** "The earliest upstream point after which the correct final state became unreachable" is judged on the trajectory the agent actually followed. A reversible error that the agent never corrected is the first failure point when it caused the failure; the point of no return is not moved to termination. The first failure point is Premature termination or Result verification only when everything before the stop was correct.
+
+An error the agent corrected is not the first failure point unless it left an irreversible trace in the scored state:
+- a call to a nonexistent tool, or any failed call (`is_correct` requires every call to execute);
+- a create/send/forward/reply/delete side effect, because IDs and sent items cannot be restored.
+
+**C3. Decision-tree steps after the first fail.** Each step is scored on its own §8 question as observed in the trace (§8 asks for an outcome for each step). This includes errors inherited from an earlier fail: a wrong date from S3 also fails S5's "correct date/time?". Only the first `fail` sets the root cause; later outcomes are descriptive. `na` is used only where a step has nothing to judge:
+- S2 is always `na`.
+- S5 is `na` when every write is one that should not exist and its arguments carry no error beyond that decision.
+- S7 is never `na`. It is `fail` when a required write is missing at termination (premature, partial or abandoned), or when the agent skipped a check of its own write that the paired English run made and that corrected the state. Otherwise it is `ok`.
+
+**C4. Genuine vs General when the Bangla value was read correctly but computed wrongly.** The test is the wrong value, not an echo of the phrase in the final answer.
+- **Reading error.** Some reading of the Bangla phrase yields the wrong value, so the error is in reading or acting on the Bangla input. The rows link to the Bangla input: the confound is Genuine if the translation is faithful, and Translation if the Bangla wording created that reading (C5).
+- **Computation error.** No reading yields it: the value was read correctly and then computed wrongly (arithmetic, comparison, or computation from observations). This step has "no plausible link to the Bangla input". The confound is General if a C0 failure shows the same computation class (cite the C0 uid), and Unclear otherwise.
+
+**C5. Translation needs a Bangla-introduced reading that this failure used.** Translation/localization error requires two things:
+1. The Bangla wording favours, or newly admits, a reading that its English source does not. The same ambiguity in both languages is not a translation error.
+2. The observed wrong value is exactly what that reading yields in this trajectory.
+
+It does not require the ambiguity to cause failure every time. If the same run reads the same phrase correctly elsewhere, confidence is lower and the case carries a caveat, but the label stays: labels describe this failure's cause, and there is one run per side. If (1) fails, a misreading of a faithful phrase is Genuine (C4). All translation judgments stay provisional until the owner's native-speaker review.
+
+**C6. Benchmark/task ambiguity (WorkBench definition).** The English source task or its WorkBench ground truth, not the translation and not the agent, puts the ground-truth state out of reach for a reasonable agent. Either:
+- (a) the English task admits two or more reasonable readings that lead to different final states, and the ground truth encodes one of them; or
+- (b) the ground truth comes from generator logic that is degenerate on the data, so the task as worded has no well-defined answer (for example, growth "since" the last data day).
+
+Two further conditions apply:
+- The agent's failing action must follow a reasonable reading or handling of that defect.
+- The defect must be present in English. If only the Bangla wording introduces it, the confound is Translation.
+
+The following are not Benchmark:
+- full-state comparison that counts a real side effect (an event created and then deleted shifts the ID sequence);
+- the rule that errored or iteration-limited runs fail;
+- the documented 5-result search cap.
+
+The §8 tree has no benchmark step: it records the agent-level failure, and §7 sets the confound.
+
+**C7. General on English rows.** "Present in both English and Bangla" applied to an English (C0) failure requires the same mechanism class in a C6 failure; the same task's BN side counts. Cite the C6 uid. BN rows cite a C0 failure. A mechanism shared only between English failures is not General: with no C6 analogue it is Unclear.
