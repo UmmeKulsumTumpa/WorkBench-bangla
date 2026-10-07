@@ -42,25 +42,21 @@ Read this file fully, then `progress.md` (source of truth) and `git log --onelin
     - more C6 failures change nothing in the database.
 - **gpt-oss reading:** no detectable gap (the CI includes 0 and also allows a moderate drop). 0 of 42 c6 failures are primarily multilingual (single model annotator). The model is weaker overall (c0 58.9% vs gemma 81.1%); its failures split between reasoning and tool_use (invented `@example.com` addresses, corrupted kwargs such as `new?`, which occur in English too). Bad kwargs on any attempt: 3 c0 tasks vs 8 c6 tasks, the one pattern worth repeats.
   - **Caveats:** the infrastructure label says who ended the run, not that the model was faultless; errored rows have lost traces (1-7 model calls before each). The runs were on different days and resumed; the last 23 c6 tasks ran on 2026-10-07 with a new key; `run_date` in the per-task files is the finishing invocation's date (issue #16).
-  - **Report:** `results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/` (`report.md`, `report.html`, `report_fragment.html`). Artifact: not published yet.
+  - **Report:** `results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/` (`report.md`, `report.html`, `report_fragment.html`). Artifact (private): https://claude.ai/artifact/83pZkGjNFZYgBg1WvrawMy.
 - **C6 HTML report:** https://claude.ai/artifact/RwtdFQ5pvZ4uVXdrQNuzGc (private). The C1 report is linked in `progress.md`.
 - **Harness:** conditions c0–c6 (`WorkBench/src/evals/conditions.py`), Bangla assets in `WorkBench/data/conditions/bn/`, runner `scripts/run_condition.py`, comparison `scripts/compare_conditions.py`, HTML `scripts/build_report_html.py`. Tests: WorkBench 285, project 19.
 - **Fixed:** request counts are distinct `llm_input` per task, not trace steps (#7/#8). The true rate is about 3.8 requests per task.
 - **Tags:** `run/pilot-c0c1-gemma4-31b`, `run/pilot-c6-gemma4-31b`, `run/pilot-c0-gpt-oss-20b` (dcb6c76), `run/pilot-c6-gpt-oss-20b` (a8447a3).
-- **Merged PRs:** #1–#3, #5, #8, #10, #11, #15. The PR for issue #13 (branch `run/gpt-oss-20b`, Tasks 2-5) is open, not merged.
+- **Merged PRs:** #1–#3, #5, #8, #10, #11, #15, #17 (gpt-oss:20b, closes #13).
 
-## 4. Next action (updated 2026-10-07: gpt-oss:20b pilot analysed and reported)
+## 4. Next action (updated 2026-10-07: gpt-oss:20b pilot done, merged and published)
 **There is no C7.** On 2026-10-05 the owner confirmed the scope is **C0 vs C6**. Do not ask again.
 
-**State:** branch `run/gpt-oss-20b`; Tasks 1-5 of `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` are done and the PR (`Closes #13`) is open, **not merged**. No run is pending and no model calls are needed.
+**State:** the plan `docs/design/plans/2026-10-06-gpt-oss-20b-run.md` is complete: PR #17 merged (closes #13), final review clean, report published. No run is pending and no model calls are needed.
 - Task 1 (PR #15) per-model folders; Task 2 smoke10 gate; Task 3 the c0 and c6 pilots (c6 resumed on 2026-10-07 with a new key); Task 4 comparison, failure analysis, S1 and S2 sensitivity, "compared with gemma"; Task 5 report, HTML, README, tags.
 - `progress.md` #36, #37 and #38 have the details. The controller ledger is `.superpowers/sdd/2026-10-06-gpt-oss-20b-run/progress.md` (git-ignored).
 
-**Next, in order:**
-1. **Final review** of the branch (most capable model; rulings in the ledger).
-2. **Merge the PR** with `gh pr merge --merge --delete-branch` once the review is clean.
-3. **Publish `report_fragment.html`** (`results/comparisons/pilot_ollama-gpt-oss-20b_c6_vs_c0/`) as a **new** private artifact (icon `chart`; load `artifact-design` first), then record its URL in `progress.md` and in §3 here through a small PR.
-4. **Follow-up:** issue #16 (`run_date` of resumed runs uses the finishing invocation's start), and issue #9.
+**Next:** no approved work is pending. Follow-ups: issue #16 (`run_date`, `started_at` and `harness_commit` of resumed runs), issue #18 (CRLF in `failure_labels.csv`), issue #9.
 
 **The owner's open options (not approved; each needs a request estimate and the owner's go first):**
 - gemma C0-rep2 (noise floor, about 342 requests); repeats of gpt-oss would also help with its bad-kwarg excess in c6;
