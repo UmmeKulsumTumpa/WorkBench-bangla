@@ -6,8 +6,8 @@ Date: 2026-10-07 · Interactive version: `results/comparisons/pilot_ollama-gpt-o
 - **Data:** WorkBench (v2 ground truth). The same 90-task stratified pilot as the gemma runs: 15 per task file, seed 20261004, 63/69 templates covered.
 - **Model:** gpt-oss:20b via the Ollama Cloud free tier, temperature 0.
 - **Settings:** native tool calling, act-without-confirmation, all 27 tools, 1 worker, max 20 steps.
-- **Reference C0:** all English (task, system prompt, tool descriptions). Ran 2026-10-05 (21:50 start; resumed 22:53); code: commit dcb6c76.
-- **Condition C6:** Bangla task text and Bangla system prompt; English tool descriptions; replies forced to Bangla (the collaborators' setup). Started 2026-10-05 23:57. The first 67 rows ran on 2026-10-05/06; the free-tier monthly limit (HTTP 429) stopped the run, and the last 23 rows ran on 2026-10-07 (05:53–06:14) with a new API key (same model and tier). Code: commit a8447a3.
+- **Reference C0:** all English (task, system prompt, tool descriptions). Ran 2026-10-05 (21:50 start; resumed 22:49:42, which stopped after 4 × 500 within a minute with no row completed; resumed again 22:53); code: commit dcb6c76.
+- **Condition C6:** Bangla task text and Bangla system prompt; English tool descriptions; replies forced to Bangla (the collaborators' setup). Started 2026-10-05 23:57. The first 67 rows ran on 2026-10-05/06; the free-tier monthly limit (HTTP 429) stopped the run, and the last 23 rows ran on 2026-10-07 (05:53–06:14) with a new API key (same model and tier). Code: commit a8447a3 (the first 67 rows ran at dcb6c76, an identical harness tree; a8447a3 is the commit that recorded their data).
 - **Requests** (two figures; see decision #32 and #37 in `progress.md`):
   - distinct `llm_input` per task, final attempts only: 381 C0 + 346 C6 = 727;
   - provider attempts across the 5 pilot logs: 840 HTTP 200, 71 HTTP 5xx, 1 HTTP 429 (the monthly-limit stop), 54 timeout retry lines.
@@ -46,7 +46,7 @@ Paired outcomes: 38 both correct, 27 both wrong, 15 only C0, 10 only C6. Exact M
 - Failure mix (C0 / C6, all failures): tool_use 14 / 16, reasoning 14 / 15, planning 3 / 4, control_flow 2 / 3, outcome 1 / 0, memory 0 / 1, infrastructure 3 / 3.
 - **tool_use is mostly invented addresses** (a recipient such as `yuki@example.com` made up instead of calling the directory: 10 C0 and 5 C6 tool_use failures) **and corrupted keyword arguments** (`new?`, `newvalue`; bad kwarg on any attempt: 3 tasks in C0, 8 in C6). Both occur in English as well and land on different tasks in each run, which looks like run-to-run variability, not a language effect. The bad-kwarg excess in C6 is the one pattern worth testing with k ≥ 3 repeats.
 - **Infrastructure label (caveat).** The label says the provider ended the run (HTTP 5xx after 10 harness retries, a read timeout, or a stall), not that the model made no mistake.
-  - **Lost traces:** when a run ends on any exception (a provider error or a bad kwarg), the harness records an empty trace. The model's earlier calls, and any writes they made, are lost. The run logs show 1–7 model calls before each of the 13 errored rows, so a model fault before the provider error cannot be ruled out.
+  - **Lost traces:** when a run ends on any exception (a provider error or a bad kwarg), the harness records an empty trace. The model's earlier calls, and any writes they made, are lost. The run logs show 1–7 model calls before each of the 13 rows that ended on an exception, so a model fault before the provider error cannot be ruled out.
   - Rows: C0 pm:35, pm:64, md:130; C6 pm:35, crm:46, md:84. These span 5 pairs (S1 drops them).
   - **crm:46 (C6) is the weakest label:** both attempts made 7 calls, and the first one failed on a model error (a bad kwarg). It stays infrastructure because the recorded re-run ended on a 500. It is a both-wrong pair, so S1 is not affected.
   - An errored run scores no side effect because its trace is lost (C0 5 rows, C6 8 rows). This can lower both side-effect rates, and C6 has more such rows.
@@ -72,7 +72,7 @@ Paired outcomes: 38 both correct, 27 both wrong, 15 only C0, 10 only C6. Exact M
 - **Different days.** C0 ran on 2026-10-05; C6 ran on 2026-10-05/06 (67 rows), was stopped by the monthly limit, and ran its last 23 tasks on 2026-10-07 with a new API key (same model and tier). Provider drift between and within runs cannot be excluded.
 - **Both runs were resumed** after interruptions. A resume re-runs errored rows, so some rows got a second attempt (C0 2, C6 9). S2 brackets this; the first attempts' requests are not in 381 and 346.
 - **`run_date` is the finishing invocation's date.** In `per_task_treat.csv` all 90 C6 rows show 2026-10-07, although 67 ran on 2026-10-05/06 (follow-up issue; the file is not edited by hand).
-- **Provider failures:** 6 rows labelled infrastructure (3 per side), and the traces of 13 errored rows are lost. S1 drops the rows; it does not bracket any effect on the rest.
+- **Provider failures:** 6 rows labelled infrastructure (3 per side), and the traces of 13 rows that ended on an exception are lost. S1 drops the rows; it does not bracket any effect on the rest.
 - **Single LLM annotator** (`model:claude-opus-5-5`), not yet human-checked. The label boundaries (tool_use vs planning for invented addresses; infrastructure vs model for stalls) are judgement calls.
 - **Unreviewed Bangla prompt and task translations.** If they change, the C6 side must be re-run.
 - **Small sample:** n = 90, 15 per domain. Per-domain differences are descriptive only.
