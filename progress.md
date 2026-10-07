@@ -11,7 +11,8 @@ Resume protocol: read this file → `git log --oneline -15` → continue from th
 | 1 Setup & reconnaissance | ✅ | smoke test reproduces 24/24 Revisited; provider patch + probe (4 free models); schema.md; pilot_design.md draft |
 | 2 Bangla translation | 🛑 | **STOP (a): waiting for owner review.** 204 variants translated + 2 independent review cycles (cycle 1: 99 rows, cycle 2: 42 rows); 690 BN tasks rendered, all checks pass |
 | 3 Pilot run | ✅ | gemma4:31b: EN 81.1% vs BN 82.2% (p=1.0); gpt-oss:20b c0 vs c6: 58.9% vs 53.3% (p=0.4244, PR #17 merged); failure analyses, reports and HTML done |
-| 3b Conditions C2–C6 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). **C6 pilot run + report: ✅** (gemma4:31b, 74/90 vs C0 73/90, p=1.0; gpt-oss:20b, 53.3% vs C0 58.9%, p=0.4244, #38; PR open). Other runs (c2–c5, repeats): ⬜ waiting for owner review of the BN prompt + budget approval |
+| 3b Conditions C2–C6 (owner, 2026-10-05) | 🔄 | `--condition` flag, BN assets, runner, generic comparison, docs: ✅ (PRs #1–#3). **C6 pilot run + report: ✅** (gemma4:31b, 74/90 vs C0 73/90, p=1.0; gpt-oss:20b, 53.3% vs C0 58.9%, p=0.4244, #38; PR #17 merged 2026-10-07). Other runs (c2–c5, repeats): ⬜ waiting for owner review of the BN prompt + budget approval |
+| 3c Failure-analysis pipeline (issue #20, owner spec `instructions/failure_analysis_pipeline.md`) | 🔄 | Both models labelled, adjudicated and reported (#39); `results/failure_pipeline/`. PR #21 open (branch `analysis/failure-pipeline`), not merged. No model calls |
 | 4 Extensions | ⬜ | owner instruction only (300 tasks only if the 90-task runs show a finding) |
 
 ## Current step

@@ -253,14 +253,14 @@ These are the adjudicated label changes on EN-fail/BN-fail and EN-fail/BN-pass r
   - email:41 BN: General → Genuine. 'গত সপ্তাহে' read as the rolling 11-23..29 window, as in gemma email:41.
   - calendar:79 EN/BN: General → Benchmark (C6(a), as in gemma calendar:79).
   - analytics:69 EN: Benchmark → Unclear; analytics:69 BN: Benchmark → General. The condition holds under every reading, so C6(a) does not apply.
-  - multi_domain:120/169/200 BN: Benchmark → Translation (C5, C11, as in gemma md:120 BN). The English rows of md:120 and md:169 stay Benchmark.
+  - multi_domain:120/169/200 BN: Benchmark → Translation (C5, C11, as in gemma md:120 BN). The English rows of md:120 and md:169 stay Benchmark. (superseded — see Adjudicated lines / labels_final.csv; applies to md:120 BN and md:169 BN, md:200 BN stays Translation)
 - **First failure point → Tool-argument construction (C8):**
   - invented addresses: email:21/41/75 EN, calendar:105 EN, CRM:20/46 EN, PM:30/42/60 EN, md:76/149 EN;
   - an uncounted assignee: md:18 EN;
   - a 09:00 slot booked without reading the calendar: md:6 BN, md:84 EN, md:102 BN.
 - **Type follows the first failure point (C1):**
   - Understanding failure: calendar:63 EN/BN (meeting later today counted as held → Task constraint preservation); calendar:79 EN/BN; analytics:20 EN/BN (→ Instruction understanding); md:120/169 EN/BN; md:200 BN.
-  - Understanding failure, because the filter is missing from the first search: calendar:84 BN, CRM:42 EN/BN, CRM:60 EN, PM:57 EN/BN, md:182 EN.
+  - Understanding failure, because the filter is missing from the first search: calendar:84 BN, CRM:42 EN/BN, CRM:60 EN, PM:57 EN/BN, md:182 EN. (superseded — see Adjudicated lines / labels_final.csv; applies to CRM:60 EN, PM:57 BN and md:182 EN, now Tool-argument construction / Wrong tool argument)
   - Wrong tool/action, because the gate was evaluated wrongly at a write that should not exist: PM:60 BN (Result verification → Task constraint preservation); PM:28 EN (C10: Tool-argument construction → Task constraint preservation).
   - md:76 BN: first failure point Instruction understanding → Task constraint preservation.
 - **Evidence only (C7):** C6 analogues were added to 15 EN General rows that cited only C0.

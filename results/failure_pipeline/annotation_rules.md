@@ -12,7 +12,7 @@ Binding for every annotator, second reviewer and adjudicator. It maps the owner'
 - **Errors:** the full error text of an errored row is in `en_error` / `bn_error`.
 - **Controlled-vocabulary values in `labels.csv`** are the label text of the numbered lists below, without the number, without the trailing period and, for the failure types, without the explanation after the colon (for example `Wrong tool argument`). `scripts/failure_pipeline.py validate` checks this.
 
-## Annotation rules (WorkBench mapping of the pipeline; Task 1 writes these into `annotation_rules.md` verbatim, then annotators follow them)
+## Annotation rules (WorkBench mapping of the pipeline)
 
 - **Unit:** a task pair (same `task_uid` in C0 and C6). Pass = WorkBench `correct` (final database state equals the ground truth). Dataset = WorkBench (single dataset); domain = `source_file`; run ID = run CSV stem.
 - **Final state:** summarised as the state-changing calls the run executed versus the ground-truth `outcome` calls (read-only calls listed separately). An errored row whose trace is lost: final state from the CSV `function_calls`, and "trace lost; N model calls preceded the failure (from the log)".
