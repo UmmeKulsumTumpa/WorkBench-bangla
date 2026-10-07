@@ -16,10 +16,33 @@ C6 prompt (`system_prompt_sent` in the C6 meta, identical to the gemma C6 run): 
 - *multilingual*: the failure is attributable to the instruction language. Subtypes: wrong_language_output, language_mixing, numeral_script_error, language_induced_tool_misuse.
 - *infrastructure* (new for this model; not in the gemma analyses): the provider caused the failure and the trace shows no model fault.
 
-**Infrastructure rule.** A run is labelled `infrastructure` only if it ended on an HTTP 5xx after the harness's 10 retries, on a read timeout (`APITimeoutError` after retries), or on the time/iteration limit while the trace shows no model fault (a stall). Everything else is a model failure:
-- A bad tool kwarg (`new?`, `newvalue`, `field`, `value_to_plot`) is a **model** error. The harness raises `TypeError` and ends the run at step 0, so the trace is empty and the evidence is the error text.
-- C0 project_management:57 hit the limit after 20 steps in 56.4 s, moving every Carlos task (including Completed ones) to Backlog. That is a model loop, so it is labelled `reasoning`, not infrastructure.
+**Lost traces.** When a run ends on any exception (a provider error or a bad kwarg), the harness records `Steps: 0` and an empty trace, so the model's earlier calls, and any writes they made, are lost. They did happen: counting the HTTP 200 lines in each task's segment of the run log (between the previous task's `### Steps` line and this task's), every one of the 13 errored rows made 1–7 model calls first. The notes in `failure_labels.csv` give the count for each row, and the per-row list is under "Errored rows" below.
+
+**Infrastructure rule.** A run is labelled `infrastructure` when the event that ended it came from the provider: an HTTP 5xx after the harness's 10 retries, a read timeout (`APITimeoutError` after retries), or the time/iteration limit reached while the trace shows no model fault (a stall). For the 5xx and timeout rows the earlier calls cannot be inspected because the trace is lost, so a model fault before the provider error cannot be ruled out. The label says who ended the run, not that the model made no mistake. Everything else is a model failure:
+- A bad tool kwarg (`new?`, `newvalue`, `field`, `value_to_plot`) is a **model** error. The harness raises `TypeError` and ends the run, the trace is lost, and the evidence is the error text. The last logged model call is the one that produced the bad kwarg.
+- C0 project_management:57 hit the limit after 20 steps in 56.4 s, moving every Carlos task (including Completed ones) to Backlog. Its trace is intact. That is a model loop, so it is labelled `reasoning`, not infrastructure.
 - Infrastructure rows: C0 3 (project_management:35 and multi_domain:130, HTTP 500; project_management:64, timeout after 880.7 s). C6 3 (project_management:35, customer_relationship_manager:46 and multi_domain:84, all HTTP 500). These 6 rows span 5 pairs.
+- **Weakest infrastructure label: C6 customer_relationship_manager:46.** The recorded re-run made 7 model calls and then hit a 500. The first attempt (at `a8447a3`) also made 7 calls and then failed on a bad kwarg (`newvalue`), a model error. The label is kept because the recorded run was ended by the provider, but this row is at least as likely a model failure. The pair is both_wrong, so S1 does not change Δ.
+
+**Errored rows: model calls before the failure** (HTTP 200 lines in the final attempt's log segment; command in the Task 4 report):
+
+| row | cause | calls | log |
+|---|---|---|---|
+| C0 project_management:28 | bad kwarg `new?` | 6 | c0_2026-10-05_22-53-07, line 38 |
+| C0 multi_domain:200 | bad kwarg `value_to_plot` | 1 | c0_2026-10-05_22-53-07, line 560 |
+| C0 project_management:35 | HTTP 500 ×10 | 3 | c0_2026-10-05_22-53-07, line 141 |
+| C0 project_management:64 | timeout ×9 retries, then terminal timeout | 2 | c0_2026-10-05_22-53-07, line 331 |
+| C0 multi_domain:130 | 9 timeouts, then HTTP 500 | 3 | c0_2026-10-05_22-53-07, line 512 |
+| C6 analytics:43 | bad kwarg `field` | 1 | c6_2026-10-07_05-53-19, line 145 |
+| C6 customer_relationship_manager:53 | bad kwarg `new?` | 4 (+2 retried 500s) | c6_2026-10-07_05-53-19, line 107 |
+| C6 customer_relationship_manager:57 | bad kwarg `newvalue` | 5 | c6_2026-10-07_05-53-19, line 128 |
+| C6 project_management:30 | bad kwarg `new?` | 5 | c6_2026-10-07_05-53-19, line 172 |
+| C6 multi_domain:130 | bad kwarg `value_to_plot` | 1 | c6_2026-10-07_05-53-19, line 442 |
+| C6 project_management:35 | HTTP 500 ×10 | 5 | c6_2026-10-07_05-53-19, line 252 |
+| C6 customer_relationship_manager:46 | HTTP 500 ×10 | 7 | c6_2026-10-07_05-53-19, line 83 |
+| C6 multi_domain:84 | HTTP 500 ×10 | 6 | c6_2026-10-07_05-53-19, line 401 |
+
+The line numbers point to each task's `### Steps` line.
 
 ## 0. Headline numbers and sensitivity
 
@@ -31,10 +54,10 @@ C6 prompt (`system_prompt_sent` in the C6 meta, identical to the gemma C6 run): 
 
 - Side effects: C0 25.6%, C6 24.4% (Δ −1.1 pp, 95% CI −11.1 to +8.9 pp). Domain-reweighted completion: C0 54.2%, C6 49.0%.
 - Main row: copied from `metrics.csv`. S1 and S2 were computed from `paired.csv` with the comparison script's own `mcnemar_exact` and `paired_bootstrap_ci` (same seed and 10,000 resamples); the same code reproduces the main row exactly.
-- **S1** drops the 5 pairs in which either side has an infrastructure row (project_management:35, project_management:64, multi_domain:130, customer_relationship_manager:46, multi_domain:84). Four are both_wrong; project_management:64 is treat_only (C0 timed out, C6 correct). Note: C6 customer_relationship_manager:46 failed on a bad kwarg on its first attempt, before the re-run ended in a 500.
+- **S1** drops the 5 pairs in which either side has an infrastructure row (project_management:35, project_management:64, multi_domain:130, customer_relationship_manager:46, multi_domain:84). Four are both_wrong; project_management:64 is treat_only (C0 timed out, C6 correct). C6 customer_relationship_manager:46 is the weakest infrastructure label (see above).
 - **S2** counts every re-run row that recovered on its second attempt as a failure in its condition. Resuming an unfinished run drops its errored rows and re-runs them, so these rows got a second try. Verified from the CSVs (C0 first attempts from `c0_2026-10-05_21-50-28.log`, C6 first attempts from the 76-row CSV at `a8447a3`):
   - C0 idx 0 = email:5 (first attempt: time/iteration limit after 1 step, 672 s) and idx 58 = analytics:105 (first attempt: kwarg `traffic_source?`). Both are now correct, so both flip.
-  - C6 idx 65 = project_management:28 and idx 69 = project_management:49 (first attempts: kwarg `new?`; now correct, so both flip). idx 71 = project_management:60 (first attempt: time/iteration limit) has no error now but is still wrong, so it does not change.
+  - C6 idx 65 = project_management:28 (first attempt: kwarg `new_task_name`) and idx 69 = project_management:49 (first attempt: kwarg `new?`). Both are now correct, so both flip. idx 71 = project_management:60 (first attempt: time/iteration limit) has no error now but is still wrong, so it does not change.
   - Two flips per side cancel: Δ, p and the discordant counts are unchanged; both rates fall by 2.2 pp.
 - **Requests:** distinct `llm_input` per task (decision #32): C0 381, C6 346 (`total_llm_requests` in the run metas; the per-task sums agree). These cover only each row's final attempt. **Provider attempts**, a separate figure from the 5 pilot logs: HTTP 200 840, HTTP 5xx 71, HTTP 429 1 (the monthly-limit stop on 2026-10-06), timeout retry lines 54.
 
@@ -50,23 +73,23 @@ C6 prompt (`system_prompt_sent` in the C6 meta, identical to the gemma C6 run): 
 | email:74 | forward 'Team Building Retreat' email to lena and aisha | **C6.** Invented lena@/aisha@example.com. | tool_use (planning) |
 | calendar:20 | move first meeting with kofi on Dec 4 by 1.5 h | **C6.** Zero-width window (12-04 to 12-04) returned nothing twice; asked the user for the event ID. C0 made the same first call, then retried with full-day times. | control_flow (tool_use) |
 | analytics:42 | bar charts "since 2023-11-10" / "2023-11-10 থেকে" | **C6.** Both plots for the single day 11-10. The same bare "থেকে" gave full ranges in analytics:0 and :32. | reasoning (multilingual) |
-| analytics:43 | bar charts since 2023-09-24 | **C6.** Bad kwarg `field` → run ended at step 0. | tool_use |
+| analytics:43 | bar charts since 2023-09-24 | **C6.** Bad kwarg `field` ended the run; trace lost (1 model call, from the log). | tool_use |
 | analytics:54 | line chart if visits < 3 in the last week (condition false) | **C6.** Said the condition was not met, then plotted anyway. | planning (reasoning) |
 | analytics:105 | line plot of the most popular traffic source | **C6.** Queried 2 of 4 sources, then an empty answer. | control_flow |
 | pm:2 | move yuki's In Progress tasks to In Review | **C6.** Looked up yuki.tanaka@atlas.com, then kept searching with yuki@example.com. | memory (tool_use) |
 | pm:72 | reassign nia's most urgent task to olga | **C6.** 11 searches with invented nia@example.com; asked the user. | tool_use (control_flow) |
 | crm:22 | add lead Jordan Moore for Akira | **C6.** Passed every optional field as "", so the row differs from GT. C0 passed only the 3 GT arguments. Close to a scoring artefact. | tool_use |
 | crm:38 | move Taylor Jackson to Raj | **C6.** Correct update, but step 0 called the non-existent `crm_search_customers`; the scorer rejects disallowed tool names. | tool_use |
-| crm:53 | move Sofia's Training Qualified/Proposal customers to Nadia | **C6.** Bad kwarg `new?` → step 0. | tool_use |
+| crm:53 | move Sofia's Training Qualified/Proposal customers to Nadia | **C6.** Bad kwarg `new?` ended the run; trace lost (4 model calls before it, from the log). | tool_use |
 | crm:77 | software proposals with no reply for 6 weeks → Lost (none qualify) | **C6.** No status=Proposal filter; moved 5 customers (some Won) to Lost. | reasoning |
 | email:21 | send email to jinsoo | **C0.** Invented jinsoo@example.com. | tool_use (planning) |
 | email:36 | reply to lena with '…tomorrow. Can you send the reply for me? | **C0.** The body also carries "Can you send the reply for me?" (the task's quote is never closed). | outcome |
 | email:75 | forward last 'Board of Directors Conclave' email to akira and yuki | **C0.** Invented akira@/yuki@example.com. | tool_use (planning) |
 | calendar:38 | cancel the next Quarterly Sales Review | **C0.** Deleted the right event and also a past one (2023-08-03). | planning |
 | calendar:105 | 30-min event with yuki on Dec 20 at 10 | **C0.** Invented yuki@example.com. | tool_use (planning) |
-| pm:28 | move nia's overdue backlog tasks (none) | **C0.** Bad kwarg `new?` → step 0. | tool_use |
+| pm:28 | move nia's overdue backlog tasks (none) | **C0.** Bad kwarg `new?` ended the run; trace lost (6 model calls before it, from the log). | tool_use |
 | pm:42 | reassign yuki's In Progress tasks to carlos | **C0.** Invented yuki@example.com; found nothing. | tool_use (planning) |
-| pm:64 | give yuki carlos's overdue unstarted tasks (none) | **C0.** Request timed out after retries (880.7 s, 0 steps). | infrastructure |
+| pm:64 | give yuki carlos's overdue unstarted tasks (none) | **C0.** Request timed out after retries (880.7 s); trace lost, 2 model calls preceded it (from the log). | infrastructure |
 | crm:60 | delete Sofia's Won/Services customers | **C0.** Dropped the Sofia filter; deleted 5 other reps' customers. | reasoning |
 | crm:74 | hardware proposals with no reply for 6 weeks → Lost | **C0.** Correct updates, but step 0 called `crm_search_customers`, which the scorer rejects. | tool_use |
 
@@ -90,7 +113,7 @@ C6 prompt (`system_prompt_sent` in the C6 meta, identical to the gemma C6 run): 
 | tool_use subtype | C0 (14) | C6 (16) |
 |---|---|---|
 | invented address (`@example.com`) | 10 | 5 |
-| bad kwarg → run aborted at step 0 | 2 | 5 |
+| bad kwarg → run ended, trace lost | 2 | 5 |
 | invalid tool name rejected by the scorer | 1 | 1 |
 | invented or empty optional fields in `add_customer` | 0 | 3 |
 | plot type (bar for "distribution") | 1 | 1 |
@@ -118,11 +141,11 @@ C6 prompt (`system_prompt_sent` in the C6 meta, identical to the gemma C6 run): 
 
 **Empty answers.** C0 3/90 (crm:42, crm:57, pm:30), C6 2/90 (analytics:105, pm:60). Unlike gemma, empty answers are not C6-specific here.
 
-**Side effects.** 20/42 C6 failures and 14/37 C0 failures leave no side effect (no write, aborted runs, extra plots or asks).
+**Side effects.** 20/42 C6 failures and 14/37 C0 failures leave no side effect: no write, extra plots or asks, or an errored run. An errored run's trace is lost, so it scores no side effect even if one of its 1–7 earlier calls wrote something (C0 5 such rows, C6 8).
 
 ## 3. Language-behaviour scan (all 90 C6 runs)
 
-Method: the same script logic as the gemma C6 scan, run over the C6 trace file. Final answer = `action_input` of the last `Final Answer` step. Tool calls = all non-`Final Answer` trace steps (264, matching the sum of `n_tool_calls` in `per_task_treat.csv`). Bengali script = U+0980–U+09FF; Bengali digits = U+09E6–U+09EF; ASCII digits = `[0-9]`. C0 counts come from the same script on the C0 trace (297 tool calls). The 8 errored C6 rows (3 × 5xx, 5 × bad kwarg) have empty traces, so 82 C6 runs have steps.
+Method: the same script logic as the gemma C6 scan, run over the C6 trace file. Final answer = `action_input` of the last `Final Answer` step. Tool calls = all non-`Final Answer` trace steps (264, matching the sum of `n_tool_calls` in `per_task_treat.csv`). Bengali script = U+0980–U+09FF; Bengali digits = U+09E6–U+09EF; ASCII digits = `[0-9]`. C0 counts come from the same script on the C0 trace (297 tool calls). The 8 errored C6 rows (3 × 5xx, 5 × bad kwarg) lost their traces (each made 1–7 model calls first, from the log), so 82 C6 runs have steps.
 
 **Final-answer language.**
 - 80 of 82 C6 runs with steps produced a non-empty final answer. 2 answers are empty (analytics:105, pm:60). 0 runs hit the iteration limit.
@@ -195,7 +218,7 @@ Failure mix, all labelled failures (share of the column):
 - **The C6 deficit is concentrated in tool_use** (9 of 15 C6-only failures vs 6 of 10 C0-only).
   - Its biggest parts, invented addresses (10 C0 vs 6 C6 failures overall) and corrupted kwargs (3 vs 8 tasks on any attempt), occur in both languages and land on different tasks in each run. This looks like run-to-run variability of gpt-oss.
   - The bad-kwarg excess in C6 (8 vs 3 tasks) is the one pattern worth testing with repeated runs (k ≥ 3).
-- **Side effects are about equal:** 24.4% vs 25.6% (Δ −1.1 pp, CI −11.1 to +8.9). C6 failures more often leave no side effect (20/42 vs 14/37), partly because 5 C6 runs aborted at step 0 on a bad kwarg.
+- **Side effects are about equal:** 24.4% vs 25.6% (Δ −1.1 pp, CI −11.1 to +8.9). C6 failures more often leave no side effect (20/42 vs 14/37), partly because 8 C6 errored runs (5 bad kwargs, 3 × 5xx) lost their traces after 1–7 model calls, so any writes they made are not recorded (C0: 5 such runs).
 - **Forced-Bangla output works at the surface level:**
   - 80/80 non-empty answers are in Bangla, with English only as borrowed names and titles (plus 2 bracketed glosses).
   - No Bangla text or case marker reaches a tool argument.
@@ -205,7 +228,7 @@ Failure mix, all labelled failures (share of the column):
 
 ## Threats to validity
 
-- **Different days.** C0 ran on 2026-10-05. C6 ran 2026-10-05/06 (67 rows) and, after the free-tier monthly limit and a 3-day pause, its last 23 rows ran on 2026-10-07 with a new API key (same model and tier). Provider-side drift between and within runs cannot be excluded. `run_date` in `per_task_treat.csv` shows 2026-10-07 for all 90 rows because it comes from the finishing invocation's `started_at`.
+- **Different days.** C0 ran on 2026-10-05. C6 ran 2026-10-05/06 (67 rows). The last row was saved at about 00:28 on 2026-10-06, and the free-tier monthly limit (HTTP 429) stopped the run at about 03:52 the same day. About one day later, the last 23 rows ran from 05:53 on 2026-10-07 with a new API key (same model and tier). Provider-side drift between and within runs cannot be excluded. `run_date` in `per_task_treat.csv` shows 2026-10-07 for all 90 rows because it comes from the finishing invocation's `started_at`.
 - **Both runs were resumed after interruptions.** A resume re-runs errored rows, so some rows got a second attempt (C0 2, C6 9). S2 brackets this; the first attempts' requests are not in 381/346.
 - **Provider failures:** 6 infrastructure rows (3 per side) plus 71 HTTP 5xx and 54 timeout retries absorbed by the harness. S1 brackets the rows, not any latency effect on the rest.
 - **Single LLM annotator** (`model:claude-opus-5-5`), not yet human-checked. The label boundaries (tool_use vs planning for invented addresses; infrastructure vs model for stalls) are judgement calls, documented above and in `notes`.
