@@ -61,12 +61,12 @@ Paired outcomes: 38 both correct, 27 both wrong, 15 only C0, 10 only C6. Exact M
 - **The sensitivity checks agree.** S1 (no infrastructure pairs): −7.1 pp, CI −17.6 to +4.7, p = 0.3075. S2 (recovered re-runs as failures): −5.6 pp, CI and p unchanged.
 - **Side effects are about equal:** 25.6% vs 24.4% (−1.1 pp, CI −11.1 to +8.9).
 - **No language cause visible in the failures:** 0 of 42 C6 failures are primarily multilingual (single model annotator). The 15 C6-only failures are error types that C0 also shows on other tasks (9 tool_use, 2 reasoning, 2 control_flow, 1 memory, 1 planning); 13 of the 27 both-wrong pairs have the same primary label on both sides. This grouping was made after reading the traces.
-- **Analytics is the lowest domain for C6** (73% vs 47%; 4 tasks only C0 solved, none only C6). With 15 tasks per domain this is descriptive only.
+- **Analytics has the largest drop under C6** (73% vs 47%, −26.7 pp; 4 tasks only C0 solved, none only C6). C6 is lowest in multi-domain (27%), with analytics and CRM both at 47%. With 15 tasks per domain this is descriptive only.
 - **Multi-domain tasks are still the hard part** (27% on both sides).
 - **Compared with gemma4:31b (descriptive only).** The two models ran on different days with different failure types, so the comparison is a description, not a test.
   - Completion C0 / C6: gemma 81.1% / 82.2% (Δ +1.1 pp, p = 1.0); gpt-oss 58.9% / 53.3% (Δ −5.6 pp, p = 0.4244). Both CIs include 0.
   - gemma's failures are mostly reasoning (about two thirds on both sides). gpt-oss splits about evenly between reasoning and tool_use, and tool_use comes mostly from invented addresses and corrupted kwargs, which gemma barely shows (1 run per side with an `@example.com` argument, 0 bad kwargs).
-  - Neither model has a failure labelled primarily multilingual. Both models are lowest in analytics under C6, with 0 only-C6 analytics pairs each, but on different tasks.
+  - Neither model has a failure labelled primarily multilingual. Both models have their largest C0-to-C6 drop in analytics (gemma −20.0 pp, gpt-oss −26.7 pp), with 0 only-C6 analytics pairs each, but on different tasks.
 
 ## Threats to validity
 - **Different days.** C0 ran on 2026-10-05; C6 ran on 2026-10-05/06 (67 rows), was stopped by the monthly limit, and ran its last 23 tasks on 2026-10-07 with a new API key (same model and tier). Provider drift between and within runs cannot be excluded.

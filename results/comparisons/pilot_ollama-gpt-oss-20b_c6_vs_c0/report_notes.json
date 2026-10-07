@@ -9,7 +9,7 @@
   "Harmful side effects are about equal: 25.6% vs 24.4% (−1.1 pp, CI −11.1 to +8.9). A run that ended on an error has a lost trace and scores no side effect, so both rates may be too low (5 English rows, 8 Bangla rows).",
   "No clear language cause: 0 of 42 Bangla failures have <em>multilingual</em> as the primary label (2 carry it as a weak secondary label). The 15 only-Bangla failures are error types that English also shows on other tasks: invented email addresses, corrupted tool arguments, dropped filters. This grouping was made after reading the traces.",
   "Failure mix is similar (English vs Bangla): tool_use 14 vs 16, reasoning 14 vs 15, planning 3 vs 4, control_flow 2 vs 3, infrastructure 3 vs 3. Bad tool arguments on any attempt: 3 English tasks vs 8 Bangla tasks. That excess is the one pattern worth testing with repeated runs.",
-  "Analytics is the lowest domain for Bangla (73% vs 47%; 4 tasks only English solved, none only Bangla). With 15 tasks per domain this is descriptive only. Multi-domain tasks are the hard part on both sides (27%).",
+  "Analytics has the largest drop for Bangla (73% vs 47%, −26.7 pp; 4 tasks only English solved, none only Bangla). Bangla is lowest in multi-domain (27%), with analytics and CRM both at 47%. With 15 tasks per domain this is descriptive only. Multi-domain tasks are the hard part on both sides (27%).",
   "<strong>Compared with gemma4:31b (descriptive only).</strong> gemma scored 81.1% vs 82.2% (+1.1 pp, p = 1.0); gpt-oss scores 58.9% vs 53.3%. Both intervals include 0. gemma fails mostly by reasoning, gpt-oss about half by tool use. Neither model has a failure labelled primarily multilingual."
  ],
  "threats": [
