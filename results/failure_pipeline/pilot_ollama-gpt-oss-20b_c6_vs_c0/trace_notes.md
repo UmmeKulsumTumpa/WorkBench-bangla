@@ -130,6 +130,7 @@ Conventions used throughout:
 - **Evidence:** `search_customers {'product_interest': 'Software', 'last_contact_date_max': '2023-10-19'}`, followed by 5 updates to Lost.
 - **Decision tree:** S1 fail · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 ok.
 - **Adjudicated:** failure type Understanding failure; confound General model weakness; tree S1 ok · S3 fail · S4 fail · S5 na · S7 ok. The transliteration keeps the word's meaning, and the English 'a proposal' admits the same drop (C9, C5(1)). The same model mapped the same 'প্রপোজালে' correctly in crm:74 BN. A status filter missing from the first search also fails C0 crm:42 EN and md:182 EN. The policy deviation remains flagged for the native-speaker review.
+- **Adjudicated (fix round 1):** first failure point Tool-argument construction, failure type Wrong tool argument, tree S1 ok · S3 ok · S4 ok · S5 fail · S7 ok (first fail S5). C1 tie-break: the final answer restates 'প্রপোজালে ৬ সপ্তাহ ধরে সাড়া না দেওয়া', so the reading was right, and the step-0 search left out the status filter. The confound stays General, with the C0 analogue verified as crm:42 EN (step 2 search without status='Lead').
 
 ### workbench:analytics:42 (analytics)
 - **Task goal:** bar charts of total visits and engaged users since 2023-11-10.
@@ -263,3 +264,8 @@ These are the adjudicated label changes on EN-fail/BN-fail and EN-fail/BN-pass r
   - Wrong tool/action, because the gate was evaluated wrongly at a write that should not exist: PM:60 BN (Result verification → Task constraint preservation); PM:28 EN (C10: Tool-argument construction → Task constraint preservation).
   - md:76 BN: first failure point Instruction understanding → Task constraint preservation.
 - **Evidence only (C7):** C6 analogues were added to 15 EN General rows that cited only C0.
+- **Fix round 1 (review amendments C5(3), C1 tie-break, C2 amendment):**
+  - md:120 BN and md:169 BN: Translation → Benchmark/task ambiguity. C5(3): the paired EN run made the identical due_date 2023-12-01 call.
+  - md:200 BN and md:76 BN stay Translation, with a note: there is no English counterfactual (EN crashed at its first call, or never saw the tasks).
+  - crm:60 EN, md:182 EN and PM:57 BN: Task constraint preservation / Understanding failure → Tool-argument construction / Wrong tool argument. C1 tie-break: the words restate the constraint, and the first search leaves the filter out.
+  - No label relied on the old C2 "failed call" wording.

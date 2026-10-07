@@ -209,6 +209,7 @@ Empty model responses (no content and no tool call) occur in **2/90 C6 runs** (c
 The notes above do not state these labels, so they are left as written. Under convention C1 (in `annotation_rules.md`, applied to all 33 rows), the failure type changed on these rows:
 - calendar:79 EN/BN, analytics:69 EN/BN, project_management:64 EN/BN, customer_relationship_manager:46 EN and :57 EN → Understanding failure.
 - customer_relationship_manager:42 EN → Dialogue-state failure (status=Lead was applied at step 2 and dropped at step 3).
+- Adjudicated (fix round 1): customer_relationship_manager:46 EN → Tool-argument construction / Wrong tool argument (C1 tie-break). Its answer restates 'all of Lena Schmidt's leads interested in hardware', and the step-2 search left out status='Lead'. The confound stays Unclear. All other gemma labels were re-checked against C5(3) and the C2 amendment and kept (md:120 BN stays Translation because EN passed with 12-08); see `adjudication.csv`.
 
 No first failure point or confound changed on these rows. Rulings that kept a label:
 - multi_domain:6 EN stays General: the ID shift comes from a real created-then-deleted event, which C6 does not count as a benchmark artefact.
