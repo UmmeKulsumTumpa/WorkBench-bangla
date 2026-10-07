@@ -177,3 +177,30 @@ The following are not Benchmark:
 The §8 tree has no benchmark step: it records the agent-level failure, and §7 sets the confound.
 
 **C7. General on English rows.** "Present in both English and Bangla" applied to an English (C0) failure requires the same mechanism class in a C6 failure; the same task's BN side counts. Cite the C6 uid. BN rows cite a C0 failure. A mechanism shared only between English failures is not General: with no C6 analogue it is Unclear.
+
+### C8+ (gpt-oss)
+
+The gpt-oss:20b adjudicator added these on 2026-10-07. Each covers a situation that the gemma4:31b labels never raised. They refine C1–C7 and do not change them. They were applied to all 79 gpt-oss:20b label rows, together with C1–C7. Decisions are in `pilot_ollama-gpt-oss-20b_c6_vs_c0/adjudication.csv`.
+
+**C8. Fabricated lookup values.** Sometimes a value should come from a lookup or a computation over observations, and the agent invents it instead, or keeps an invented value despite a lookup. Examples: an email address (`<name>@example.com` instead of `company_directory.find_email_address`), a meeting slot (09:00 booked without reading the user's calendar), or "the person with the fewest tasks" (named without counting). If the entity itself was read correctly, this is Tool-argument construction / Wrong tool argument / S5. Entity or slot grounding stays reserved for C1's reading error, where a phrase is resolved to another linguistically available referent (→ Understanding failure, S3). This extends C1's rule that free-slot search and counting are Tool-argument construction to the case where the search or count was skipped.
+
+**C9. Transliterated protected tokens.** Policy §4 keeps DB/tool enum values in Latin script. A Bangla-script rendering of such a token that keeps its meaning (for example "প্রপোজালে" for "proposal") is a policy deviation. It is recorded in the evidence and flagged for the native-speaker review. It fails S1, and makes the confound Translation/localization error, only when C5 holds:
+- the Bangla form changes the meaning; or
+- the observed wrong value is what the script change yields (for example, the Bangla-script form copied into an argument, or mapped to a different enum).
+
+If the agent drops the constraint altogether, and the English wording admits the same drop, C5(1) fails, and the confound follows C4 and the analogue rules.
+
+**C10. One call that is both a questionable tool choice and a malformed argument.** Label the component that, on its own, makes the correct final state unreachable.
+- A read-only call changes nothing, so choosing to read first is not itself a failure. A crash caused by a read call's keyword argument is Tool-argument construction.
+- A state-changing call that should not exist at all is the failure even when its keyword argument also crashes. It is Task constraint preservation when a gate decided the write (C1 sub-rule), and Tool selection otherwise. The malformed argument is a later symptom.
+
+**C11. English admits a reading that the Bangla favours.** The English source may admit two readings (C6(a)), and the Bangla wording may favour the one the agent used (C5(1)). An example is "next Friday" said on a Thursday, which the Bangla renders as "আগামী শুক্রবার" ("the coming Friday"). Then:
+- the English rows are Benchmark/task ambiguity, when the English run took that reading;
+- the Bangla rows are Translation/localization error, because the Bangla wording, not only the English defect, drives the value. This matches gemma4:31b multi_domain:120 BN.
+
+Both stay provisional until the native-speaker review.
+
+**C12. Lost traces.** Errored gpt-oss rows keep 0 steps. Labels and tree steps are judged from the evidence that survives: the CSV error string and `function_calls`, and the per-task call count in the log.
+- Under C3, a step is `na` when that evidence says nothing about it (for example, S3 when only the name of a crashing update tool survives).
+- A step is scored normally when the evidence bears on it (for example, S3 `ok` when the crashing call names the requested metric).
+- S7 is still never `na`. It is `fail` when the required writes are missing from `function_calls`.

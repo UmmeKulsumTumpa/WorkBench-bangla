@@ -10,6 +10,7 @@ Conventions used throughout:
 - S7 is `fail` only when the agent stopped before a required write; it is `ok` when all writes were made (even if wrong) and `na` when the trace is lost.
 - Errored rows: the harness keeps 0 steps on an exception. Call counts come from the logs `c0_2026-10-05_22-53-07`, `c6_2026-10-05_23-57-37` and `c6_2026-10-07_05-53-19`, where per-task HTTP counts match the step counts for every non-errored task. The first c0 log (`c0_2026-10-05_21-50-28`) was buffered and its HTTP lines do not line up with tasks, so no call counts are taken from it.
 - All translation judgments are provisional until the owner's native-speaker review.
+- Adjudicated: the conventions in `annotation_rules.md` (C1–C12) replace three of the A1 conventions above. An invented address is Tool-argument construction (C8). A filter missing from the first search is typed Understanding failure (C1 sub-rule). S7 is never `na`: it is `fail` when a crash leaves required writes missing (C3, C12). The final labels are in `labels_final.csv`, and the reasons in `adjudication.csv`.
 
 ---
 
@@ -26,6 +27,7 @@ Conventions used throughout:
 - **Confound:** General model weakness present in both English and Bangla. The same mechanism fails C0 email:21 and email:75. The name is Latin-script in both tasks, and the translation is faithful.
 - **Evidence:** `email.forward_email {'email_id': '00000206', 'recipient': 'santiago@example.com'}`.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 ok.
+- **Adjudicated:** first failure point Tool-argument construction (C8: the address was fabricated, not misread); the failure type, confound and tree are unchanged.
 
 ### workbench:email:66 (email)
 - **Task goal:** forward my most recent email from leila to fatima.
@@ -38,6 +40,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. Same mechanism in C0 email:41 ("nadia@example.com").
 - **Evidence:** `recipient='fatima@example.com'`.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 ok.
+- **Adjudicated:** first failure point Tool-argument construction (C8: the address was fabricated, not misread); the failure type, confound and tree are unchanged.
 
 ### workbench:email:69 (email)
 - **Task goal:** forward my most recent email from olga to raj.
@@ -50,6 +53,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. Same mechanism in C0 email:75.
 - **Evidence:** `recipient='raj@example.com'`. The final answer names the wrong person ("রজকে").
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 ok.
+- **Adjudicated:** first failure point Tool-argument construction (C8: the address was fabricated, not misread); the failure type, confound and tree are unchanged.
 
 ### workbench:email:74 (email)
 - **Task goal:** forward the last 'Update on Team Building Retreat' email to lena and aisha.
@@ -62,6 +66,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. C0 email:75 is the same two-recipient forward with invented addresses.
 - **Evidence:** `recipient='lena@example.com'`, `recipient='aisha@example.com'`.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 ok.
+- **Adjudicated:** first failure point Tool-argument construction (C8: the address was fabricated, not misread); the failure type, confound and tree are unchanged.
 
 ### workbench:calendar:20 (calendar)
 - **Task goal:** move my first meeting with kofi on December 4 by 1.5 hours (GT: event 00000109 starts 12:00).
@@ -74,6 +79,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. Giving up and asking the user for IDs also fails C0 project_management:60 and multi_domain:6. The Bangla date was resolved correctly.
 - **Evidence:** "দয়া করে ওই মিটিংটির ইভেন্ট আইডি (Event ID) আমাকে জানাবেন কি?"
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 ok · S6 ok · S7 fail.
+- **Adjudicated:** first failure point Tool-argument construction, failure type Wrong tool argument, tree S5 fail and S7 fail (first fail S5). Under C2 the first failure is the uncorrected zero-width window at step 0, which the passing English run widened; Premature termination needs every step before the stop to be correct. Confound General, now citing C0 project_management:60 and :42 (malformed search, then no recovery).
 
 ### workbench:customer_relationship_manager:22 (CRM)
 - **Task goal:** add Jordan Moore as a new lead assigned to Akira.
@@ -110,6 +116,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. C0 project_management:28 has the same `'new?'`. Caveat: this error class is more frequent in C6 (see the report).
 - **Evidence:** the CSV error string, plus the log.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 na (trace lost) · S4 ok · S5 fail · S6 ok · S7 na.
+- **Adjudicated:** tree S7 fail (C3: never `na`; the required writes are missing). S3 stays `na` (C12: the lost trace says nothing about it).
 
 ### workbench:customer_relationship_manager:77 (CRM)
 - **Task goal:** move customers who haven't responded to a software proposal in 6 weeks to lost (GT: no change; there are none).
@@ -122,6 +129,7 @@ Conventions used throughout:
 - **Confound:** Translation/localization error (provisional). The BN template renders the status enum "proposal" in Bangla script ("প্রপোজালে"). Policy §4 says CRM status values stay in Latin script, and this is exactly the constraint that was lost. Counter-evidence: C6 customer_relationship_manager:74 uses the same rendering and was mapped correctly, and C0 customer_relationship_manager:42 drops a status filter in English. Flagged for the native-speaker review.
 - **Evidence:** `search_customers {'product_interest': 'Software', 'last_contact_date_max': '2023-10-19'}`, followed by 5 updates to Lost.
 - **Decision tree:** S1 fail · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 ok.
+- **Adjudicated:** failure type Understanding failure; confound General model weakness; tree S1 ok · S3 fail · S4 fail · S5 na · S7 ok. The transliteration keeps the word's meaning, and the English 'a proposal' admits the same drop (C9, C5(1)). The same model mapped the same 'প্রপোজালে' correctly in crm:74 BN. A status filter missing from the first search also fails C0 crm:42 EN and md:182 EN. The policy deviation remains flagged for the native-speaker review.
 
 ### workbench:analytics:42 (analytics)
 - **Task goal:** bar charts of total visits and engaged users since 2023-11-10.
@@ -134,6 +142,7 @@ Conventions used throughout:
 - **Confound:** Genuine Bangla-related agent failure (provisional). The error is tied to a Bangla range phrase, and no C0 failure collapses "since" to one day. The translation is the standard rendering of "since", but unlike other BN templates it omits "এখন পর্যন্ত" (until now). Weakening evidence: the same bare "<date> থেকে" was read as an open range in C6 analytics:0 and analytics:32 (both passed), so this looks like a one-off misreading of Bangla input rather than a systematic one.
 - **Evidence:** `analytics.create_plot {'time_min': '2023-11-10', 'time_max': '2023-11-10', ...}`.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 fail · S4 ok · S5 fail · S6 ok · S7 ok.
+- **Adjudicated:** first failure point Entity or slot grounding (C1: the date phrase was resolved to a different referent, the single day). Type, confound (Genuine, with the analytics:0/:32 caveat) and tree unchanged.
 
 ### workbench:analytics:43 (analytics)
 - **Task goal:** bar charts of engaged users and average session duration since 2023-09-24.
@@ -146,6 +155,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. C0 multi_domain:200 errored on its first call with `total_visits_count(value_to_plot=...)`.
 - **Evidence:** the CSV error string, plus the log.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 na (trace lost) · S4 ok · S5 fail · S6 ok · S7 na.
+- **Adjudicated:** tree S3 ok (the crashing call names the requested metric, C12) and S7 fail (C3).
 
 ### workbench:analytics:54 (analytics)
 - **Task goal:** if total visits was below 3 at any time in the last week, plot it (GT: no change).
@@ -158,10 +168,11 @@ Conventions used throughout:
 - **Confound:** General model weakness. C0 analytics:98 also plotted and then concluded "no plot is generated".
 - **Evidence:** "কখনও ৩‑এর নিচে ছিল না। ... তবে আপনার অনুরোধ অনুযায়ী লাইন চার্ট তৈরি করেছি".
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 fail · S5 ok · S6 ok · S7 ok.
+- **Adjudicated:** labels kept (Task constraint preservation / Wrong tool/action / General, citing C0 analytics:98 EN); tree S5 na (C3: the only write should not exist). Verification failure was rejected: the agent checked the condition and acted against it.
 
 ### workbench:analytics:105 (analytics)
 - **Task goal:** line plot of the most popular traffic source since November 24 (GT: visits_direct).
-- **English (re-run):** three traffic_source_count calls, then create_plot(visits_direct, line). Pass. The first EN attempt errored with `traffic_source_count() ... 'traffic_source?'`; its call count cannot be recovered from the buffered log.
+- **English (re-run):** three traffic_source_count calls, then a rejected create_plot(value_to_plot="traffic_source", line) ("Value to plot must be one of ..."), then create_plot(visits_direct, line). Pass (the rejection is returned as a message, so the run still executed). The first EN attempt errored with `traffic_source_count() ... 'traffic_source?'`; its call count cannot be recovered from the buffered log.
 - **Bangla:** traffic_source_count for direct and referral, then an empty final answer. Fail.
 - **First divergence:** step 2. Bangla stops where English continues to search engine and create_plot.
 - **Final failed action:** create_plot was never called.
@@ -182,6 +193,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. C0 project_management:30, :42 and :60 use invented "<name>@example.com" assignees.
 - **Evidence:** the obs `["yuki.tanaka@atlas.com"]`, followed by `search_tasks {'assigned_to_email': 'yuki@example.com', ...}`.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 fail.
+- **Adjudicated:** first failure point Tool-argument construction (C8: the fabricated address was kept despite the correct lookup); the type, confound and tree are unchanged.
 
 ### workbench:project_management:72 (project_management)
 - **Task goal:** reassign nia's most urgent task to olga (00000162).
@@ -194,6 +206,7 @@ Conventions used throughout:
 - **Confound:** General model weakness. C0 project_management:30 shows the same loop with "luis@example.com" and a garbled "functions___...We" tool.
 - **Evidence:** 11× `search_tasks {'assigned_to_email': 'nia@example.com'}` → `[]`.
 - **Decision tree:** S1 ok · S2 N/A (no user simulator) · S3 ok · S4 ok · S5 fail · S6 ok · S7 fail.
+- **Adjudicated:** first failure point Tool-argument construction (C8); the type, confound and tree are unchanged.
 
 ---
 
@@ -228,3 +241,25 @@ BN also started with "yuki@example.com" but recovered: it searched the substring
 
 ### workbench:project_management:64
 Not informative. The EN failure is a read timeout (Tool/environment failure). BN passed a "no change" task. This case drops out of the tool/environment sensitivity analysis.
+
+---
+
+## Adjudication: EN-fail rows (no per-row notes above)
+
+These are the adjudicated label changes on EN-fail/BN-fail and EN-fail/BN-pass rows. Reasons are in `adjudication.csv`; final labels are in `labels_final.csv`.
+
+- **Confound changes:**
+  - email:41 BN: General → Genuine. 'গত সপ্তাহে' read as the rolling 11-23..29 window, as in gemma email:41.
+  - calendar:79 EN/BN: General → Benchmark (C6(a), as in gemma calendar:79).
+  - analytics:69 EN: Benchmark → Unclear; analytics:69 BN: Benchmark → General. The condition holds under every reading, so C6(a) does not apply.
+  - multi_domain:120/169/200 BN: Benchmark → Translation (C5, C11, as in gemma md:120 BN). The English rows of md:120 and md:169 stay Benchmark.
+- **First failure point → Tool-argument construction (C8):**
+  - invented addresses: email:21/41/75 EN, calendar:105 EN, CRM:20/46 EN, PM:30/42/60 EN, md:76/149 EN;
+  - an uncounted assignee: md:18 EN;
+  - a 09:00 slot booked without reading the calendar: md:6 BN, md:84 EN, md:102 BN.
+- **Type follows the first failure point (C1):**
+  - Understanding failure: calendar:63 EN/BN (meeting later today counted as held → Task constraint preservation); calendar:79 EN/BN; analytics:20 EN/BN (→ Instruction understanding); md:120/169 EN/BN; md:200 BN.
+  - Understanding failure, because the filter is missing from the first search: calendar:84 BN, CRM:42 EN/BN, CRM:60 EN, PM:57 EN/BN, md:182 EN.
+  - Wrong tool/action, because the gate was evaluated wrongly at a write that should not exist: PM:60 BN (Result verification → Task constraint preservation); PM:28 EN (C10: Tool-argument construction → Task constraint preservation).
+  - md:76 BN: first failure point Instruction understanding → Task constraint preservation.
+- **Evidence only (C7):** C6 analogues were added to 15 EN General rows that cited only C0.
